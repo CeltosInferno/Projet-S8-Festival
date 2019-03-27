@@ -5,9 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:festival"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="361,275,0,0" VerticalAlignment="Top" Width="75"/>
+        Title="MainWindow" Height="661.5" Width="848">
+    <Grid RenderTransformOrigin="0.5,0.5" Margin="-12,0,-0.4,-12" Background="LightGray">
+        <Grid.OpacityMask>
+            <SolidColorBrush Color="#FFC34242"/>
+        </Grid.OpacityMask>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0*"/>
+        </Grid.RowDefinitions>
+        <Grid.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform Angle="-0.127"/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </Grid.RenderTransform>
+        <Button Content="_Valider" HorizontalAlignment="Left" Margin="422,568,0,0" VerticalAlignment="Top" Width="75" Height="19"/>
+        <Label Content="Créer un festival " HorizontalAlignment="Left" Margin="299,20,0,0" VerticalAlignment="Top" Width="277" FontFamily="Calibri Light" Height="53" FontSize="36"/>
+        <Label Content="Nom :" HorizontalAlignment="Left" Margin="118,128,0,0" VerticalAlignment="Top" Height="26" Width="40"/>
+        <Label Content="Lieu :" HorizontalAlignment="Left" Margin="120,159,0,0" VerticalAlignment="Top" Height="26" Width="38"/>
+        <Calendar HorizontalAlignment="Left" Margin="216,236,0,0" VerticalAlignment="Top" Height="173" Width="192"/>
+        <Calendar HorizontalAlignment="Left" Margin="518,236,0,0" VerticalAlignment="Top" Height="173" Width="192"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="202,128,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="202,172,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Date de début :" HorizontalAlignment="Left" Margin="120,239,0,0" VerticalAlignment="Top" Height="26" Width="96"/>
+        <Label Content="Date de fin :" HorizontalAlignment="Left" Margin="435,239,0,0" VerticalAlignment="Top" Height="26" Width="78"/>
+        <ComboBox HorizontalAlignment="Left" Margin="255,440,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged" Cursor="Arrow">
+            <ComboBoxItem Content="1"></ComboBoxItem>
+            <ComboBoxItem Content="2"></ComboBoxItem>
+            <ComboBoxItem Content="3"></ComboBoxItem>
+            <ComboBoxItem Content="4"></ComboBoxItem>
+            <ComboBoxItem Content="5"></ComboBoxItem>
+            <ComboBoxItem Content="6"></ComboBoxItem>
+        </ComboBox>
+
+        <Label Content="Nombre de scènes :" HorizontalAlignment="Left" Margin="120,436,0,0" VerticalAlignment="Top" Height="26" Width="130"/>
 
     </Grid>
 </Window>
