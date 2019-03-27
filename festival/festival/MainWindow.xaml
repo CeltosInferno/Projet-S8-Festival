@@ -22,9 +22,9 @@
                 <TranslateTransform/>
             </TransformGroup>
         </Grid.RenderTransform>
-        <Button Content="_Valider" HorizontalAlignment="Left" Margin="422,568,0,0" VerticalAlignment="Top" Width="75" Height="19"/>
+        <Button Content="_Valider" HorizontalAlignment="Left" Margin="390,568,0,0" VerticalAlignment="Top" Width="75" Height="19"/>
         <Label Content="Créer un festival " HorizontalAlignment="Left" Margin="299,20,0,0" VerticalAlignment="Top" Width="277" FontFamily="Calibri Light" Height="53" FontSize="36"/>
-        <Label Content="Nom :" HorizontalAlignment="Left" Margin="118,128,0,0" VerticalAlignment="Top" Height="26" Width="40"/>
+        <Label Content="Nom :" HorizontalAlignment="Left" Margin="118,128,0,0" VerticalAlignment="Top" Height="26" Width="45"/>
         <Label Content="Lieu :" HorizontalAlignment="Left" Margin="120,159,0,0" VerticalAlignment="Top" Height="26" Width="38"/>
         <Calendar HorizontalAlignment="Left" Margin="216,236,0,0" VerticalAlignment="Top" Height="173" Width="192"/>
         <Calendar HorizontalAlignment="Left" Margin="518,236,0,0" VerticalAlignment="Top" Height="173" Width="192"/>
@@ -33,7 +33,7 @@
         <Label Content="Date de début :" HorizontalAlignment="Left" Margin="120,239,0,0" VerticalAlignment="Top" Height="26" Width="96"/>
         <Label Content="Date de fin :" HorizontalAlignment="Left" Margin="435,239,0,0" VerticalAlignment="Top" Height="26" Width="78"/>
         <ComboBox HorizontalAlignment="Left" Margin="255,440,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged" Cursor="Arrow">
-            <ComboBoxItem Content="1"></ComboBoxItem>
+            <ComboBoxItem Content="1" IsSelected="True"></ComboBoxItem>
             <ComboBoxItem Content="2"></ComboBoxItem>
             <ComboBoxItem Content="3"></ComboBoxItem>
             <ComboBoxItem Content="4"></ComboBoxItem>
