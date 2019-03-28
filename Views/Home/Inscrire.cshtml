@@ -1,0 +1,116 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Inscrire";
+}
+
+
+<div class='row'>
+    <div class='col-lg-2 '>
+    </div>
+
+    <div class='col-lg-8 col-xs-12'>
+        <div class="text-center">
+            <h1>Entrez vos coordonnées</h1>
+        </div>
+        <br />
+
+        <form method="post" action="Inscription">
+
+            <div class="row">
+                <div class='col-lg-6 '>
+                    <label>Nom : </label><br />
+                    <input type="text" class="form-control" name="nom"><br /><br />
+                </div>
+                <div class='col-lg-6 '>
+                    <label>Prenom : </label><br />
+                    <input type="text" class="form-control" name="prenom"><br /><br />
+                </div>
+            </div>
+            <label>Date de naissance : </label><br />
+            <input type="date" class="form-control" name="date"><br /><br />
+            <div class="row">
+                <div class='col-lg-6 '>
+                    <label>e-mail : </label><br />
+                    <input type="email" class="form-control" name="email"><br /><br />
+                </div>
+                <div class='col-lg-6 '>
+                    <label>Entrez de nouveau votre e-mail : </label><br />
+                    <input type="email" class="form-control" name="emailv"><br /><br />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class='col-lg-6 '>
+                    <label>Mot de passe : </label><br />
+                    <input type="password" class="form-control" name="mdp"><br /><br />
+                </div>
+                <div class='col-lg-6 '>
+                    <label>Entrez de nouveau votre mot de passe : </label><br />
+                    <input type="password" class="form-control" name="mdpv"><br /><br />
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='col-lg-2 '>
+                    <label>Homme : </label><br />
+                    <input type="radio" Value="Homme" name="genre"><br /><br />
+                </div>
+                <div class='col-lg-2 '>
+                    <label>Femme : </label><br />
+                    <input type="radio" Value="Femme" name="genre"><br /><br />
+                </div>
+                <div class='col-lg-2 '>
+                    <label>Neutre : </label><br />
+                    <input type="radio" Value="Neutre" name="genre"><br /><br />
+                </div>
+                <div class='col-lg-6 '>
+                </div>
+            </div>
+
+            <label>Téléphone : </label><br />
+            <input type="tel" class="form-control" name="tel"><br /><br />
+
+            <div class="row">
+                <div class='col-lg-6 '>
+                    <label>Code postal : </label><br />
+                    <input type="tel" class="form-control" name="cp"><br /><br />
+                </div>
+                <div class='col-lg-6 '>
+                    <label>Ville : </label><br />
+                    <input type="text" class="form-control" name="ville"><br /><br />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class='col-lg-6 '>
+                    <label>Rue : </label><br />
+                    <input type="text" class="form-control" name="rue"><br /><br />
+                </div>
+                <div class='col-lg-6 '>
+                    <label>Pays : </label><br />
+                    <input type="text" class="form-control" name="pays"><br /><br />
+                </div>
+            </div>
+
+
+            <input class='btn btn-primary' type="submit" value="Submit"><br /><br />
+        </form>
+        <br />
+
+        <div class="alert alert-danger">
+            <strong>Invalid login or password</strong>
+        </div>
+
+        <div class="alert alert-success">
+            <strong>User account successfully create</strong>
+        </div>
+
+        <div class="alert alert-danger">
+            <strong>It was impossible to create your user account</strong>
+        </div>
+
+    </div>
+
+    <div class='col-lg-2 '>
+    </div>
+</div>
