@@ -1,7 +1,14 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\festival",
+    "\\festival\\festival",
+    "\\festival\\festival\\bin",
+    "\\festival\\festival\\obj",
+    "\\festival\\festival\\obj\\Debug",
+    "\\Home",
+    "\\Shared"
   ],
-  "SelectedNode": "\\Festival.cs",
+  "SelectedNode": "\\festival\\festival\\obj\\Debug\\festival_MarkupCompile.i.cache",
   "PreviewInSolutionExplorer": false
 }

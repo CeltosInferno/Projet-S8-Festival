@@ -25,7 +25,6 @@ C:\Users\mpoid\source\repos\CeltosInferno\Projet-S8-Festival\festival\festival\b
 C:\Users\mpoid\source\repos\CeltosInferno\Projet-S8-Festival\festival\festival\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\mpoid\source\repos\CeltosInferno\Projet-S8-Festival\festival\festival\bin\Debug\EntityFramework.xml
 C:\Users\mpoid\source\repos\CeltosInferno\Projet-S8-Festival\festival\festival\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\mpoid\source\repos\CeltosInferno\Projet-S8-Festival\festival\festival\obj\Debug\festival.csprojAssemblyReference.cache
 C:\Users\mpoid\source\repos\CeltosInferno\Projet-S8-Festival\festival\festival\obj\Debug\MainWindow.g.cs
 C:\Users\mpoid\source\repos\CeltosInferno\Projet-S8-Festival\festival\festival\obj\Debug\App.g.cs
 C:\Users\mpoid\source\repos\CeltosInferno\Projet-S8-Festival\festival\festival\obj\Debug\festival_MarkupCompile.cache
@@ -38,3 +37,8 @@ C:\Users\mpoid\source\repos\CeltosInferno\Projet-S8-Festival\festival\festival\o
 C:\Users\mpoid\source\repos\CeltosInferno\Projet-S8-Festival\festival\festival\obj\Debug\festival.csproj.CopyComplete
 C:\Users\mpoid\source\repos\CeltosInferno\Projet-S8-Festival\festival\festival\obj\Debug\festival.exe
 C:\Users\mpoid\source\repos\CeltosInferno\Projet-S8-Festival\festival\festival\obj\Debug\festival.pdb
+C:\Users\mpoid\source\repos\CeltosInferno\Projet-S8-Festival\festival\festival\obj\Debug\festival.csprojAssemblyReference.cache
+C:\Users\mpoid\source\repos\CeltosInferno\Projet-S8-Festival\festival\festival\obj\Debug\Accueil.g.cs
+C:\Users\mpoid\source\repos\CeltosInferno\Projet-S8-Festival\festival\festival\obj\Debug\CreationFestival.g.cs
+C:\Users\mpoid\source\repos\CeltosInferno\Projet-S8-Festival\festival\festival\obj\Debug\Accueil.baml
+C:\Users\mpoid\source\repos\CeltosInferno\Projet-S8-Festival\festival\festival\obj\Debug\CreationFestival.baml
