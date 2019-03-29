@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:festival"
         mc:Ignorable="d"
-        Title="CreationFestival" Height="661.5" Width="848">
+        Title="CreationFestival" Height="557.1" Width="640.4">
     <Grid RenderTransformOrigin="0.5,0.5" Margin="-12,0,-0.4,-12" Background="LightGray">
         <Grid.OpacityMask>
             <SolidColorBrush Color="#FFC34242"/>
@@ -22,17 +22,15 @@
                 <TranslateTransform/>
             </TransformGroup>
         </Grid.RenderTransform>
-        <Button Content="_Valider" HorizontalAlignment="Left" Margin="390,568,0,0" VerticalAlignment="Top" Width="75" Height="19"/>
-        <Label Content="Créer un festival " HorizontalAlignment="Left" Margin="299,20,0,0" VerticalAlignment="Top" Width="277" FontFamily="Calibri Light" Height="53" FontSize="36"/>
+        <Button Content="_Valider" HorizontalAlignment="Left" Margin="268,468,0,0" VerticalAlignment="Top" Width="75" Height="19" Click="Button_Click"/>
+        <Label Content="Créer un festival " HorizontalAlignment="Left" Margin="186,22,0,0" VerticalAlignment="Top" Width="277" FontFamily="Calibri Light" Height="53" FontSize="36"/>
         <Label Content="Nom :" HorizontalAlignment="Left" Margin="118,128,0,0" VerticalAlignment="Top" Height="26" Width="45"/>
         <Label Content="Lieu :" HorizontalAlignment="Left" Margin="120,159,0,0" VerticalAlignment="Top" Height="26" Width="38"/>
-        <Calendar HorizontalAlignment="Left" Margin="216,236,0,0" VerticalAlignment="Top" Height="173" Width="192"/>
-        <Calendar HorizontalAlignment="Left" Margin="518,236,0,0" VerticalAlignment="Top" Height="173" Width="192"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="202,128,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="202,172,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="TextBox1" HorizontalAlignment="Left" Height="23" Margin="202,128,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="TextBox2" HorizontalAlignment="Left" Height="23" Margin="202,172,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
         <Label Content="Date de début :" HorizontalAlignment="Left" Margin="120,239,0,0" VerticalAlignment="Top" Height="26" Width="96"/>
-        <Label Content="Date de fin :" HorizontalAlignment="Left" Margin="435,239,0,0" VerticalAlignment="Top" Height="26" Width="78"/>
-        <ComboBox HorizontalAlignment="Left" Margin="255,440,0,0" VerticalAlignment="Top" Width="120"  Cursor="Arrow">
+        <Label Content="Date de fin :" HorizontalAlignment="Left" Margin="120,282,0,0" VerticalAlignment="Top" Height="26" Width="78"/>
+        <ComboBox x:Name="ComboBox" HorizontalAlignment="Left" Margin="253,350,0,0" VerticalAlignment="Top" Width="120"  Cursor="Arrow">
             <ComboBoxItem Content="1" IsSelected="True"></ComboBoxItem>
             <ComboBoxItem Content="2"></ComboBoxItem>
             <ComboBoxItem Content="3"></ComboBoxItem>
@@ -41,7 +39,9 @@
             <ComboBoxItem Content="6"></ComboBoxItem>
         </ComboBox>
 
-        <Label Content="Nombre de scènes :" HorizontalAlignment="Left" Margin="120,436,0,0" VerticalAlignment="Top" Height="26" Width="130"/>
+        <Label Content="Nombre de scènes :" HorizontalAlignment="Left" Margin="118,346,0,0" VerticalAlignment="Top" Height="26" Width="130"/>
+        <DatePicker x:Name="DatePicker1" HorizontalAlignment="Left" Margin="239,240,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="DatePicker2" HorizontalAlignment="Left" Margin="239,283,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

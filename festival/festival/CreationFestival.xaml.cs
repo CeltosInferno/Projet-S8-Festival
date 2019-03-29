@@ -23,6 +23,23 @@ namespace festival
         {
             InitializeComponent();
         }
-  
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Festival festival = new Festival(TextBox1.Text, TextBox2.Text);
+            using (IDalFestival dal = new DalFestival())
+            {
+                dal.CreateFestival(festival);
+            }
+
+            //MessageBox.Show(festival.ToString(), "validation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+        
     }
 }

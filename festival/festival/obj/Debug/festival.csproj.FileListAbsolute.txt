@@ -42,3 +42,5 @@ C:\Users\mpoid\source\repos\CeltosInferno\Projet-S8-Festival\festival\festival\o
 C:\Users\mpoid\source\repos\CeltosInferno\Projet-S8-Festival\festival\festival\obj\Debug\CreationFestival.g.cs
 C:\Users\mpoid\source\repos\CeltosInferno\Projet-S8-Festival\festival\festival\obj\Debug\Accueil.baml
 C:\Users\mpoid\source\repos\CeltosInferno\Projet-S8-Festival\festival\festival\obj\Debug\CreationFestival.baml
+C:\Users\mpoid\source\repos\CeltosInferno\Projet-S8-Festival\festival\festival\obj\Debug\BDD.g.cs
+C:\Users\mpoid\source\repos\CeltosInferno\Projet-S8-Festival\festival\festival\obj\Debug\BDD.baml
