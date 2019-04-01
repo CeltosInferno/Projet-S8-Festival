@@ -1,0 +1,2 @@
+C:\Users\Marwane\Desktop\FESTIVAL\demoMVC-master\APIFestival\obj\Debug\APIFestival.csprojAssemblyReference.cache
+C:\Users\Marwane\Desktop\FESTIVAL\demoMVC-master\APIFestival\obj\Debug\APIFestival.csproj.CoreCompileInputs.cache
