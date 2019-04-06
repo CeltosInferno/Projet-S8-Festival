@@ -26,14 +26,21 @@ namespace festival
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Festival festival = new Festival(TextBox1.Text, TextBox2.Text);
+            DateTime dt1;
+            DateTime dt2;
+            DateTime.TryParse(DatePicker1.Text, out dt1);
+            DateTime.TryParse(DatePicker2.Text, out dt2);
+
+
+
+            Festival festival = new Festival(TextBox1.Text, TextBox2.Text, DateTime.Parse(dt1), DateTime.Parse(dt2), int.Parse(ComboBox.Text));
             using (IDalFestival dal = new DalFestival())
             {
                 dal.CreateFestival(festival);
             }
 
             //MessageBox.Show(festival.ToString(), "validation", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+            
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)

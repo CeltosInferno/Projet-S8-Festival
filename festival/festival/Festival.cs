@@ -11,8 +11,8 @@ namespace festival
         public int Id { get; set; }
         public string Nom { get; set; }
         public string Lieu { get; set; }
-        public DateTime DateDebut { get; set; }
-        public DateTime DateFin { get; set; }
+        public DateTime? DateDebut { get; set; }
+        public DateTime? DateFin { get; set; }
         public int Scenes { get; set; }
 
 
@@ -25,6 +25,7 @@ namespace festival
             Scenes = scenes;
             Lieu = lieu;
         }
+
 
         public Festival(string nom, string lieu)
         {

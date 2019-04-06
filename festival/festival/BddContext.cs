@@ -8,7 +8,7 @@ using System.Data.Entity;
 
 namespace festival
 {
-    class BddContext : DbContext
+    public class BddContext : DbContext
     {
         public DbSet<Festival> Festivals { get; set; }
     }
