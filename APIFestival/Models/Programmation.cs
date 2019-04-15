@@ -2,24 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 namespace APIFestival.Models
 {
     public class Programmation
     {
-        public Programmation()
-        {
-            this.Artistes = new HashSet<Artiste>();
-            this.Scenes = new HashSet<Scene>();
-        }
+        
         public int ProgrammationId { get; set; }
         public string ProgrammationName { get; set; }
         
-
+        [ForeignKey("Festival")]
         public int FestivalId { get; set; }
-        public Festival Festival { get; set; }
+        
+        [ForeignKey("Scene")]
+        public int SceneId { get; set; }
+        [ForeignKey("Artiste")]
+        public int ArtisteId { get; set; }
 
-        public virtual ICollection<Artiste> Artistes { get; set; }
-        public virtual ICollection<Scene> Scenes { get; set; }
+
+        public virtual Festival Festival { get; set; }
+        public virtual Artiste Artiste { get; set; }
+        public virtual Scene Scene { get; set; }
     }
 }

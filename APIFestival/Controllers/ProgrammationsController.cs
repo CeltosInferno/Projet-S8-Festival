@@ -25,15 +25,26 @@ namespace APIFestival.Controllers
         //}
 
         // GET programmation name
-        public IQueryable<ProgrammationNameDTO> GetProgrammations()
+        public IQueryable<ProgrammationDTO> GetProgrammationNames()
         {
             var names = from n in db.Programmations
-                        select new ProgrammationNameDTO()
+                        select new ProgrammationDTO()
                         {
-                            Id = n.ProgrammationId,
+                            ProgrammationId = n.ProgrammationId,
                             ProgrammationName = n.ProgrammationName
                         };
             return names;
+        }
+
+        public IQueryable<ProgrammationDTO> GetProgrammations() {
+            var programmmations = db.Programmations.Select(a =>
+               new ProgrammationDTO()
+               {
+                   ArtisteId = a.ArtisteId,
+                   ProgrammationId = a.ProgrammationId,
+                   ProgrammationName = a.ProgrammationName,
+               });
+            return programmmations;
         }
 
         // GET: api/Programmations/5
@@ -41,6 +52,21 @@ namespace APIFestival.Controllers
         public async Task<IHttpActionResult> GetProgrammation(int id)
         {
             Programmation programmation = await db.Programmations.FindAsync(id);
+            if (programmation == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(programmation);
+        }
+
+        // GET: api/Programmations/5
+        [ResponseType(typeof(Programmation))]
+        public async Task<IHttpActionResult> GetProgrammationByName(string name)
+        {
+            
+
+            Programmation programmation = await db.Programmations.FindAsync(name);
             if (programmation == null)
             {
                 return NotFound();
@@ -85,7 +111,7 @@ namespace APIFestival.Controllers
         }
 
         // POST: api/Programmations
-        [ResponseType(typeof(Programmation))]
+        [ResponseType(typeof(ProgrammationDTO))]
         public async Task<IHttpActionResult> PostProgrammation(Programmation programmation)
         {
             if (!ModelState.IsValid)
@@ -95,8 +121,16 @@ namespace APIFestival.Controllers
 
             db.Programmations.Add(programmation);
             await db.SaveChangesAsync();
+            var dto = new ProgrammationDTO()
+            {
+                ProgrammationId = programmation.ProgrammationId,
+                FestivalId = programmation.FestivalId,
+                ProgrammationName = programmation.ProgrammationName,
+                ArtisteId = programmation.ArtisteId,
+                ScenceId = programmation.SceneId
+            };
 
-            return CreatedAtRoute("DefaultApi", new { id = programmation.ProgrammationId }, programmation);
+            return CreatedAtRoute("DefaultApi", new { id = programmation.ProgrammationId }, dto);
         }
 
         // DELETE: api/Programmations/5

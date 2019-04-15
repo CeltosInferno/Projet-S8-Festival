@@ -10,12 +10,9 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WpfFestival.Views;
 
-
-namespace WpfFestival
+namespace WpfFestival.Views
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
@@ -25,11 +22,6 @@ namespace WpfFestival
         public MainWindow()
         {
             InitializeComponent();
-        }
-        private void GoToArtisteFormulaire_Click(object sender, RoutedEventArgs e)
-        {
-            new ArtisteFormulaire().Show();
-
         }
     }
 }

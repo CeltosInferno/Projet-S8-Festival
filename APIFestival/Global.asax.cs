@@ -7,7 +7,6 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Data.Entity;
-using APIFestival.Models.DAL;
 using APIFestival.Models;
 
 

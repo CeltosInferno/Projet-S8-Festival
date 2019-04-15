@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using APIFestival.Models;
+using APIFestival.Models.DTO;
 
 namespace APIFestival.Controllers
 {
@@ -18,9 +19,21 @@ namespace APIFestival.Controllers
         private APIFestivalContext db = new APIFestivalContext();
 
         // GET: api/Scenes
-        public IQueryable<Scene> GetScenes()
+        public IQueryable<SceneDTO> GetScenes()
         {
-            return db.Scenes;
+            var scenes = db.Scenes.Select(a => new SceneDTO()
+            {
+                SceneId = a.SceneId,
+                Capacity = a.Capacity,
+                SceneName = a.SceneName,
+                Programmations = a.Programmations.Select(b => new ProgrammationDTO()
+                 {
+                     ArtisteId = b.ArtisteId,
+                     ProgrammationId = b.ProgrammationId,
+                     ProgrammationName = b.ProgrammationName
+                 })
+            });
+            return scenes;
         }
 
         // GET: api/Scenes/5

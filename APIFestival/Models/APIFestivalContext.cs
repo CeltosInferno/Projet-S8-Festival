@@ -25,15 +25,15 @@ namespace APIFestival.Models
 
         public System.Data.Entity.DbSet<APIFestival.Models.Festival> Festivals { get; set; }
 
-        public System.Data.Entity.DbSet<APIFestival.Models.Lieu> Lieux { get; set; }
+        //public System.Data.Entity.DbSet<APIFestival.Models.Lieu> Lieux { get; set; }
 
         public System.Data.Entity.DbSet<APIFestival.Models.Programmation> Programmations { get; set; }
 
         public System.Data.Entity.DbSet<APIFestival.Models.Scene> Scenes { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-        }
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
+        //}
     }
 }

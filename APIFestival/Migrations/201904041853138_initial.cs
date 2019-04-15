@@ -11,19 +11,15 @@ namespace APIFestival.Migrations
                 "dbo.Artistes",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        ArtisteId = c.Int(nullable: false, identity: true),
+                        ArtisteName = c.String(),
                         Photo = c.String(),
                         Style = c.String(),
                         Comment = c.String(),
                         Nationality = c.String(),
                         MusicExtract = c.String(),
-                        ProgrammationId = c.Int(nullable: false),
-                        FirstName = c.String(),
-                        LastName = c.String(),
                     })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Programmations", t => t.ProgrammationId, cascadeDelete: true)
-                .Index(t => t.ProgrammationId);
+                .PrimaryKey(t => t.ArtisteId);
             
             CreateTable(
                 "dbo.Programmations",
@@ -32,10 +28,16 @@ namespace APIFestival.Migrations
                         ProgrammationId = c.Int(nullable: false, identity: true),
                         ProgrammationName = c.String(),
                         FestivalId = c.Int(nullable: false),
+                        SceneId = c.Int(nullable: false),
+                        ArtisteId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ProgrammationId)
+                .ForeignKey("dbo.Artistes", t => t.ArtisteId, cascadeDelete: true)
                 .ForeignKey("dbo.Festivals", t => t.FestivalId, cascadeDelete: true)
-                .Index(t => t.FestivalId);
+                .ForeignKey("dbo.Scenes", t => t.SceneId, cascadeDelete: true)
+                .Index(t => t.FestivalId)
+                .Index(t => t.SceneId)
+                .Index(t => t.ArtisteId);
             
             CreateTable(
                 "dbo.Festivals",
@@ -86,34 +88,18 @@ namespace APIFestival.Migrations
                     })
                 .PrimaryKey(t => t.Id);
             
-            CreateTable(
-                "dbo.SceneProgrammations",
-                c => new
-                    {
-                        Scene_SceneId = c.Int(nullable: false),
-                        Programmation_ProgrammationId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.Scene_SceneId, t.Programmation_ProgrammationId })
-                .ForeignKey("dbo.Scenes", t => t.Scene_SceneId, cascadeDelete: true)
-                .ForeignKey("dbo.Programmations", t => t.Programmation_ProgrammationId, cascadeDelete: true)
-                .Index(t => t.Scene_SceneId)
-                .Index(t => t.Programmation_ProgrammationId);
-            
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.Artistes", "ProgrammationId", "dbo.Programmations");
-            DropForeignKey("dbo.SceneProgrammations", "Programmation_ProgrammationId", "dbo.Programmations");
-            DropForeignKey("dbo.SceneProgrammations", "Scene_SceneId", "dbo.Scenes");
+            DropForeignKey("dbo.Programmations", "SceneId", "dbo.Scenes");
             DropForeignKey("dbo.Programmations", "FestivalId", "dbo.Festivals");
             DropForeignKey("dbo.Lieux", "FestivalId", "dbo.Festivals");
-            DropIndex("dbo.SceneProgrammations", new[] { "Programmation_ProgrammationId" });
-            DropIndex("dbo.SceneProgrammations", new[] { "Scene_SceneId" });
+            DropForeignKey("dbo.Programmations", "ArtisteId", "dbo.Artistes");
             DropIndex("dbo.Lieux", new[] { "FestivalId" });
+            DropIndex("dbo.Programmations", new[] { "ArtisteId" });
+            DropIndex("dbo.Programmations", new[] { "SceneId" });
             DropIndex("dbo.Programmations", new[] { "FestivalId" });
-            DropIndex("dbo.Artistes", new[] { "ProgrammationId" });
-            DropTable("dbo.SceneProgrammations");
             DropTable("dbo.Festivaliers");
             DropTable("dbo.Scenes");
             DropTable("dbo.Lieux");

@@ -11,6 +11,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using APIFestival.Models;
 using APIFestival.Models.DTO;
+using System.Linq.Expressions;
 
 namespace APIFestival.Controllers
 {
@@ -18,24 +19,48 @@ namespace APIFestival.Controllers
     {
         private APIFestivalContext db = new APIFestivalContext();
 
+
+        //private static readonly Expression<Func<Artiste, ArtisteDTO>> AsArtisteDto =
+        //    a => new ArtisteDTO
+        //    {
+        //        Id = a.ArtisteId,
+        //        Comment = a.Comment,
+        //        ArtisteName = a.ArtisteName,
+        //        MusicExtract = a.MusicExtract,
+        //        Nationality = a.Nationality,
+        //        Photo = a.Photo,
+        //        Style = a.Style,
+               
+        //    };
         // GET: api/Artistes
+        /// <summary>
+        /// Afficher tous les artistes
+        /// </summary>
+        /// <returns>artistes</returns>
         public IQueryable<ArtisteDTO> GetArtistes()
         {
 
-            var artistes = from a in db.Artistes
-                           select new ArtisteDTO()
-                           {
-                               Id = a.Id,
-                               Comment = a.Comment,
-                               FirstName=a.FirstName, LastName= a.LastName , MusicExtract=a.MusicExtract,
-                               Nationality= a.Nationality,
-                               Photo= a.Photo,
-                               //Programmations= a.Programmations,
-                               Style= a.Style
+            var artistes = db.Artistes.Select(a =>  new ArtisteDTO()
+                {
+                    ArtisteId = a.ArtisteId,
+                    Comment = a.Comment,
+                    ArtisteName = a.ArtisteName,
+                    MusicExtract = a.MusicExtract,
+                    Nationality = a.Nationality,
+                    Photo = a.Photo,
+                    Style = a.Style,
+                    Programmations = a.Programmations.Select(b => new ProgrammationDTO()
+                        {
+                            ArtisteId = b.ArtisteId,
+                            ProgrammationId = b.ProgrammationId,
+                            ProgrammationName = b.ProgrammationName
+                        })
+                });
 
-                           };
-                           
-            return artistes;
+
+
+            return artistes;              
+           // return db.Artistes.Include(a => a.Programmations).Select(AsArtisteDto);
         }
 
         // GET: api/Artistes/5
@@ -60,7 +85,7 @@ namespace APIFestival.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != artiste.Id)
+            if (id != artiste.ArtisteId)
             {
                 return BadRequest();
             }
@@ -87,7 +112,7 @@ namespace APIFestival.Controllers
         }
 
         // POST: api/Artistes
-        [ResponseType(typeof(Artiste))]
+        [ResponseType(typeof(ArtisteDTO))]
         public async Task<IHttpActionResult> PostArtiste(Artiste artiste)
         {
             if (!ModelState.IsValid)
@@ -98,22 +123,21 @@ namespace APIFestival.Controllers
             db.Artistes.Add(artiste);
             await db.SaveChangesAsync();
 
-            db.Entry(artiste).Reference(x => x.Programmation).Load();
+            db.Entry(artiste).Reference(x => x.Programmations).Load();
 
             var dto = new ArtisteDTO()
             {
-                Id = artiste.Id,
+                ArtisteId = artiste.ArtisteId,
                 Comment = artiste.Comment,
-                FirstName = artiste.FirstName,
-                ProgrammationId = artiste.Programmation.ProgrammationId,
-                LastName = artiste.LastName,
+                ArtisteName = artiste.ArtisteName,
+                //ProgrammationId = artiste.Programmation.ProgrammationId,
                 MusicExtract = artiste.MusicExtract,
                 Nationality = artiste.Nationality,
                 Photo = artiste.Photo,
                 Style = artiste.Style
             };
 
-            return CreatedAtRoute("DefaultApi", new { id = artiste.Id }, dto);
+            return CreatedAtRoute("DefaultApi", new { id = artiste.ArtisteId }, dto);
         }
 
         // DELETE: api/Artistes/5
@@ -143,7 +167,7 @@ namespace APIFestival.Controllers
 
         private bool ArtisteExists(int id)
         {
-            return db.Artistes.Count(e => e.Id == id) > 0;
+            return db.Artistes.Count(e => e.ArtisteId == id) > 0;
         }
     }
 }

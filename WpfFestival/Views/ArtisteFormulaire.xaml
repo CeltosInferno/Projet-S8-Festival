@@ -3,11 +3,11 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:WpfFestival.Views"
+      xmlns:local="clr-namespace:WpfFestival.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ArtisteFormulaire">
-
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -23,15 +23,17 @@
         <Label Content="Nom"></Label>
         <Label Content="Prenom" RenderTransformOrigin="1.013,0.499" Grid.ColumnSpan="2" Margin="1,0.6,0,-26" Grid.Row="1" Grid.RowSpan="2"/>
         <StackPanel>
-            <ComboBox>
+            <ComboBox Margin="0,0,0.2,0" ItemsSource="{Binding ProgrammationsList}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Name}"/>
+                            <TextBlock Text="{Binding ProgrammationName}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
         </StackPanel>
+        <ComboBox Grid.Column="3" ItemsSource="{Binding ProgrammationsList}" HorizontalAlignment="Left" Margin="97.4,26.8,-215.8,-25.4" Grid.Row="2" VerticalAlignment="Top" Width="120"/>
+        <DatePicker DisplayDateEnd="2019/12/01" DisplayDateStart="2019/01/01" Grid.Column="3" HorizontalAlignment="Left" Margin="10.4,24.8,-5.8,0" Grid.Row="2" VerticalAlignment="Top"/>
     </Grid>
 </Window>

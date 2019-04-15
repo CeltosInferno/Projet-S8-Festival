@@ -10,24 +10,77 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using APIFestival.Models;
+using APIFestival.Models.DTO;
 
 namespace APIFestival.Controllers
 {
+    [RoutePrefix("api/festivals")]
     public class FestivalsController : ApiController
     {
         private APIFestivalContext db = new APIFestivalContext();
 
         // GET: api/Festivals
-        public IQueryable<Festival> GetFestivals()
+        [HttpGet]
+        public IQueryable<FestivalDTO> GetFestivals()
         {
-            return db.Festivals;
+            var festivals = db.Festivals.Select(a => new FestivalDTO()
+            {
+                Description = a.Description,
+                Name = a.Name,
+                EndDate = a.EndDate,
+                StartDate = a.StartDate,
+                Id = a.Id,
+                LieuName=a.LieuName,
+                PostalCode= a.PostalCode
+
+            });
+            return festivals;
         }
 
         // GET: api/Festivals/5
-        [ResponseType(typeof(Festival))]
+        [HttpGet]
+        [Route("{id:int}")]
+        [ResponseType(typeof(FestivalDTO))]
         public async Task<IHttpActionResult> GetFestival(int id)
         {
-            Festival festival = await db.Festivals.FindAsync(id);
+            var festival = await (from a in db.Festivals
+                                  where a.Id == id
+                                  select new FestivalDTO()
+                                  {
+                                      Description = a.Description,
+                                      Name = a.Name,
+                                      EndDate = a.EndDate,
+                                      StartDate = a.StartDate,
+                                      Id = a.Id,
+                                      LieuName = a.LieuName,
+                                      PostalCode = a.PostalCode
+                                  }).FirstOrDefaultAsync();
+              
+            if (festival == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(festival);
+        }
+        // GET: api/Festivals/5
+        [HttpGet]
+        [Route("{name}")]
+        [ResponseType(typeof(Festival))]
+        public async Task<IHttpActionResult> GetFestivalByName(string name)
+        {
+            var festival = await (from a in db.Festivals
+                                  where a.Name == name 
+                                  select new FestivalDTO()
+                                  {
+                                      Description = a.Description,
+                                      Name = a.Name,
+                                      EndDate = a.EndDate,
+                                      StartDate = a.StartDate,
+                                      Id = a.Id,
+                                      LieuName = a.LieuName,
+                                      PostalCode = a.PostalCode
+                                  }).FirstOrDefaultAsync();
             if (festival == null)
             {
                 return NotFound();
@@ -72,18 +125,31 @@ namespace APIFestival.Controllers
         }
 
         // POST: api/Festivals
-        [ResponseType(typeof(Festival))]
-        public async Task<IHttpActionResult> PostFestival(Festival festival)
+        [ResponseType(typeof(FestivalDTO))]
+        public async Task<IHttpActionResult> PostFestival([FromBody]Festival festival)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
+            
             db.Festivals.Add(festival);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = festival.Id }, festival);
+            //db.Entry(artiste).Reference(x => x.Programmations).Load();
+
+            var dto = new FestivalDTO()
+            {
+                Id = festival.Id,
+                Description = festival.Description,
+                EndDate = festival.EndDate,
+                Name = festival.Name,
+                StartDate = festival.StartDate,
+                LieuName =festival.LieuName,
+                PostalCode =festival.PostalCode
+            };
+
+            return CreatedAtRoute("DefaultApi", new { id = festival.Id }, dto);
         }
 
         // DELETE: api/Festivals/5

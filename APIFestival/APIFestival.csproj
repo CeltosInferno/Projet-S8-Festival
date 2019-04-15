@@ -174,25 +174,37 @@
     <Compile Include="Controllers\FestivaliersController.cs" />
     <Compile Include="Controllers\FestivalsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LieuxController.cs" />
     <Compile Include="Controllers\ProgrammationsController.cs" />
     <Compile Include="Controllers\ScenesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904031751130_initial.cs" />
-    <Compile Include="Migrations\201904031751130_initial.Designer.cs">
-      <DependentUpon>201904031751130_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201904041853138_initial.cs" />
+    <Compile Include="Migrations\201904041853138_initial.Designer.cs">
+      <DependentUpon>201904041853138_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904101404354_initial1.cs" />
+    <Compile Include="Migrations\201904101404354_initial1.Designer.cs">
+      <DependentUpon>201904101404354_initial1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904111602174_initial2.cs" />
+    <Compile Include="Migrations\201904111602174_initial2.Designer.cs">
+      <DependentUpon>201904111602174_initial2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904111606433_initial3.cs" />
+    <Compile Include="Migrations\201904111606433_initial3.Designer.cs">
+      <DependentUpon>201904111606433_initial3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\APIFestivalContext.cs" />
-    <Compile Include="Models\DAL\APIFestivalContextInitializer.cs" />
     <Compile Include="Models\Artiste.cs" />
     <Compile Include="Models\DTO\ArtisteDTO.cs" />
-    <Compile Include="Models\DTO\ProgrammationNameDTO.cs" />
+    <Compile Include="Models\DTO\FestivalDTO.cs" />
+    <Compile Include="Models\DTO\FestivalIdDTO.cs" />
+    <Compile Include="Models\DTO\ProgrammationDTO.cs" />
+    <Compile Include="Models\DTO\SceneDTO.cs" />
     <Compile Include="Models\Festival.cs" />
     <Compile Include="Models\Festivalier.cs" />
-    <Compile Include="Models\Lieu.cs" />
     <Compile Include="Models\Organisateur.cs" />
     <Compile Include="Models\Personne.cs" />
     <Compile Include="Models\Programmation.cs" />
@@ -235,7 +247,9 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -285,8 +299,17 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201904031751130_initial.resx">
-      <DependentUpon>201904031751130_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904041853138_initial.resx">
+      <DependentUpon>201904041853138_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904101404354_initial1.resx">
+      <DependentUpon>201904101404354_initial1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904111602174_initial2.resx">
+      <DependentUpon>201904111602174_initial2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904111606433_initial3.resx">
+      <DependentUpon>201904111606433_initial3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
