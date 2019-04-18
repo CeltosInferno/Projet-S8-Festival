@@ -91,6 +91,7 @@
     <Compile Include="ViewModels\AssocierSceneViewModel.cs" />
     <Compile Include="ViewModels\FestivalFormulaireViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\ModifierSceneViewModel.cs" />
     <Compile Include="ViewModels\ProgrammationFormulaireViewModel.cs" />
     <Compile Include="Views\ArtisteFormulaire.xaml.cs">
       <DependentUpon>ArtisteFormulaire.xaml</DependentUpon>
@@ -103,6 +104,9 @@
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ModifierScene.xaml.cs">
+      <DependentUpon>ModifierScene.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProgrammationFormulaire.xaml.cs">
       <DependentUpon>ProgrammationFormulaire.xaml</DependentUpon>
@@ -127,6 +131,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ModifierScene.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfFestival.Models
 {
-    class Programmation
+    public class Programmation
     {
         public int ProgrammationId { get; set; }
         public string ProgrammationName { get; set; }

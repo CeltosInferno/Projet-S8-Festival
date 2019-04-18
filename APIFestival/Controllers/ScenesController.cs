@@ -40,7 +40,22 @@ namespace APIFestival.Controllers
         [ResponseType(typeof(Scene))]
         public async Task<IHttpActionResult> GetScene(int id)
         {
-            Scene scene = await db.Scenes.FindAsync(id);
+            //Scene scene = await db.Scenes.FindAsync(id);
+            var scene = await (from a in db.Scenes
+                               where a.SceneId == id
+                               select new SceneDTO()
+                               {
+                                   Capacity = a.Capacity,
+                                   SceneId = a.SceneId,
+                                   SceneName = a.SceneName,
+                                   Programmations = a.Programmations.Select(b => new ProgrammationDTO()
+                                   {
+                                       ArtisteId = b.ArtisteId,
+                                       ProgrammationId = b.ProgrammationId,
+                                       ProgrammationName = b.ProgrammationName
+                                   })
+                               }).FirstOrDefaultAsync();
+
             if (scene == null)
             {
                 return NotFound();

@@ -20,6 +20,7 @@ namespace WpfFestival
         {
             containerRegistry.RegisterForNavigation<FestivalFormulaire>();
             containerRegistry.RegisterForNavigation<ProgrammationFormulaire>();
+            containerRegistry.RegisterForNavigation<ModifierScene>();
         }
 
 

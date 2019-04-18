@@ -21,18 +21,13 @@ namespace WpfFestival.ViewModels
         #region Members
         private string _festivalName = "name";
         private Programmation _programmation;
-        //private Artiste _artiste;
-        //private Scene _scene;
         private List<Artiste> _artistesList;
-        private int _selectedArtiste;
         private List<Scene> _scenesList;
-        private int _selectedScene;
         private bool _isEnabled;
-        private readonly IRegionManager _regionManaager;
+        private readonly IRegionManager _regionManager;
 
         #endregion
-        //public Festival f { get; set; }
-        //public List<string> ProgrammationsList { get; set; }
+        
         #region Properties
         public string FestivalName
         {
@@ -53,22 +48,13 @@ namespace WpfFestival.ViewModels
             set { SetProperty(ref _artistesList, value); }
             
         }
-        public int SelectedArtiste
-        {
-            get { return _selectedArtiste; }
-            set { SetProperty(ref _selectedArtiste, value); }
-        }
+        
         public List<Scene> ScenesList
         {
             get { return _scenesList; }
             set { SetProperty(ref _scenesList, value); }
         }
-        public int SelectedScene
-        {
-            get { return _selectedScene; }
-            set { SetProperty(ref _selectedScene, value); }
-        }
-
+       
         public bool IsEnabled
         {
             get { return _isEnabled; }
@@ -102,25 +88,6 @@ namespace WpfFestival.ViewModels
             PostProgrammation();
             //_regionManaager.RequestNavigate("ContentRegion", uri);
         }
-        //public async Task<Festival> GetFestivalAsync()
-        //{
-
-        //    HttpClient client = new HttpClient();
-        //    client.BaseAddress = new Uri("http://localhost:5575/");
-        //    client.DefaultRequestHeaders.Accept.Add(
-        //        new MediaTypeWithQualityHeaderValue("application/json"));
-
-        //    HttpResponseMessage response = await client.GetAsync("api/Festivals/name");
-
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        var readTask = await response.Content.ReadAsAsync<Festival>();
-
-        //        return readTask;
-        //    }
-        //    else { return null; }
-        //}
-
         public int GetFestival()
         {
             HttpClient client = new HttpClient();

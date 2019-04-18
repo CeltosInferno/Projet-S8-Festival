@@ -16,6 +16,7 @@ namespace WpfFestival.ViewModels
         }
         public DelegateCommand<string> GoToFestivalFormulaire { get; private set; }
         public DelegateCommand<string> GoToProgrammationFormulaire { get; private set; }
+        public DelegateCommand<string> GoToModifierScene { get; private set; }
 
         public MainWindowViewModel(IRegionManager regionManager) {
 
@@ -23,6 +24,7 @@ namespace WpfFestival.ViewModels
 
             GoToFestivalFormulaire = new DelegateCommand<string>(Navigate);
             GoToProgrammationFormulaire = new DelegateCommand<string>(Navigate);
+            GoToModifierScene = new DelegateCommand<string>(Navigate);
         }
 
         public void Navigate(string uri)
