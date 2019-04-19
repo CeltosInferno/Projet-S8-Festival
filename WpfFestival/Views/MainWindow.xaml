@@ -9,13 +9,12 @@
         mc:Ignorable="d"
         Title="{Binding Title}" Height="650.4" Width="1216.4">
     <DockPanel >
-        <ContentControl prism:RegionManager.RegionName="ContentRegion" HorizontalAlignment="Left" Margin="0,10,0,9.8" Width="884">
-            <Label Content="Label" HorizontalAlignment="Left" Margin="72,44,0,0" VerticalAlignment="Top"/>
-        </ContentControl>
+        <ContentControl prism:RegionManager.RegionName="ContentRegion" HorizontalAlignment="Left" Margin="0,10,0,9.8" Width="884"/>
 
-        <Button Content="Creer un festival" Command="{Binding GoToFestivalFormulaire}" CommandParameter="FestivalFormulaire"  Width="148" Margin="0,257,0,311.8"/>
+        <Button Content="Creer un festival" Command="{Binding GoToFestivalFormulaire}" CommandParameter="FestivalFormulaire"  Width="51" Margin="0,257,0,311.8"/>
         <Button Content="Button" Height="52" Command="{Binding GoToProgrammationFormulaire}" CommandParameter="ProgrammationFormulaire" VerticalAlignment="Top" Width="75" Margin="0,257,0,0"/>
         <Button Content="Modifier Scene" Command="{Binding GoToModifierScene}" CommandParameter="ModifierScene" Height="620.8" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Artiste" Command="{Binding GoToModifierArtiste}" CommandParameter="ModifierArtiste" Height="620.8" VerticalAlignment="Top" Width="75"/>
 
 
 

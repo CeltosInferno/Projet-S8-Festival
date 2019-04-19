@@ -44,7 +44,7 @@ namespace WpfFestival.ViewModels
         #region Command
         public DelegateCommand ModifierScene { get; private set; }
 
-        public void Executed()
+        private void Executed()
         {
             if (PutScene($"api/Scenes/{Scene.SceneId}"))
             {
