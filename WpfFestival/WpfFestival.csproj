@@ -84,16 +84,25 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Events\Event.cs" />
+    <Compile Include="Events\PassFestivalEvent.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Models\Artiste.cs" />
     <Compile Include="Models\Programmation.cs" />
     <Compile Include="Models\Scene.cs" />
+    <Compile Include="ViewModels\AcceuilViewModel.cs" />
     <Compile Include="ViewModels\ArtisteViewModel.cs" />
     <Compile Include="ViewModels\AssocierSceneViewModel.cs" />
     <Compile Include="ViewModels\FestivalFormulaireViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ModifierArtisteViewModel.cs" />
+    <Compile Include="ViewModels\ModifierProgrammationViewModel.cs" />
     <Compile Include="ViewModels\ModifierSceneViewModel.cs" />
     <Compile Include="ViewModels\ProgrammationFormulaireViewModel.cs" />
+    <Compile Include="ViewModels\ProgrammationsListViewModel.cs" />
+    <Compile Include="ViewModels\ScenesListViewModel.cs" />
+    <Compile Include="Views\Acceuil.xaml.cs">
+      <DependentUpon>Acceuil.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ArtisteFormulaire.xaml.cs">
       <DependentUpon>ArtisteFormulaire.xaml</DependentUpon>
     </Compile>
@@ -109,11 +118,17 @@
     <Compile Include="Views\ModifierArtiste.xaml.cs">
       <DependentUpon>ModifierArtiste.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ModifierProgrammation.xaml.cs">
+      <DependentUpon>ModifierProgrammation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ModifierScene.xaml.cs">
       <DependentUpon>ModifierScene.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProgrammationFormulaire.xaml.cs">
       <DependentUpon>ProgrammationFormulaire.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProgrammationsList.xaml.cs">
+      <DependentUpon>ProgrammationsList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SceneFormulaire.xaml.cs">
       <DependentUpon>SceneFormulaire.xaml</DependentUpon>
@@ -122,6 +137,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Views\ScenesList.xaml.cs">
+      <DependentUpon>ScenesList.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\Acceuil.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ArtisteFormulaire.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -142,6 +164,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ModifierProgrammation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ModifierScene.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -150,7 +176,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ProgrammationsList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SceneFormulaire.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ScenesList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -174,7 +208,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -185,6 +221,8 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

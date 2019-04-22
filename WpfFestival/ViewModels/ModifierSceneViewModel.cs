@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Prism.Mvvm;
 using Prism.Commands;
 using WpfFestival.Models;
-
+using Prism.Regions;
 
 namespace WpfFestival.ViewModels
 {
@@ -18,11 +18,14 @@ namespace WpfFestival.ViewModels
         private Scene _scene;
         private List<Scene> _scenesList;
         private bool _isEnabled;
-        
+#pragma warning disable CS0169 // 从不使用字段“ModifierSceneViewModel._regionManger”
+        private readonly IRegionManager _regionManger;
+#pragma warning restore CS0169 // 从不使用字段“ModifierSceneViewModel._regionManger”
+
         #endregion
 
         #region Properties
-     
+
         public Scene Scene
         {
             get { return _scene; }
@@ -56,12 +59,15 @@ namespace WpfFestival.ViewModels
 
         public ModifierSceneViewModel()
         {
+            //_regionManger = regionManager;
+            //_regionManger.AddToRegion("ScenesList", ScenesList);
+            //_regionManger.RequestNavigate("ScenesList", "ScenesList");
             Scene = new Scene();
+           
             ModifierScene = new DelegateCommand(Executed).ObservesCanExecute( ()=> IsEnabled);
             this.ScenesList = new List<Scene>();
             this.GetScenesList();
             //GetSceneById();
-            //Scene.SceneId = 1;
             //Scene.SceneName = this.GetSceneById().SceneName;
             //Scene.Capacity = this.GetSceneById().Capacity;
         }

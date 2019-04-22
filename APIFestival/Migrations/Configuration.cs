@@ -72,10 +72,11 @@ namespace APIFestival.Migrations
                     //Artistes = new List<Artiste>(),   
                     //Scenes = new List<Scene>()
                 
-                new Programmation{ ProgrammationName="b", FestivalId=2, ArtisteId=2, SceneId=2 }
+                new Programmation{ ProgrammationName="b", FestivalId=2, ArtisteId=2, SceneId=2 },
                     //Artistes = new List<Artiste>(),
                     //Scenes = new List<Scene>()
-                
+                new Programmation{ ProgrammationName="bbb", FestivalId=2, ArtisteId=1, SceneId=2 }
+
             };
             Programmations.ForEach(p => context.Programmations.AddOrUpdate(p1 => p1.ProgrammationName, p));
             context.SaveChanges();

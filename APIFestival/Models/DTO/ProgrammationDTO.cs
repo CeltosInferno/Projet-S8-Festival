@@ -11,6 +11,6 @@ namespace APIFestival.Models.DTO
         public string ProgrammationName { get; set; }
         public int ArtisteId { get; set; }
         public int FestivalId { get; set; }
-        public int ScenceId { get; set; }
+        public int SceneId { get; set; }
     }
 }

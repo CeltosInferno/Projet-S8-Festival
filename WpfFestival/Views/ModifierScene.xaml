@@ -9,7 +9,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Canvas HorizontalAlignment="Left" Height="232" Margin="169,96,0,0" VerticalAlignment="Top" Width="407">
+        <Canvas HorizontalAlignment="Left" Height="318" Margin="169,96,0,0" VerticalAlignment="Top" Width="452">
             <Button Command="{Binding ModifierScene}" Content="Modifier" Canvas.Left="93" Canvas.Top="173" Width="75"/>
             <Button Content="Terminer" Canvas.Left="253" Canvas.Top="173" Width="75"/>
             <TextBox Height="23" Canvas.Left="208" TextWrapping="Wrap" Text="{Binding Scene.SceneName}" Canvas.Top="50" Width="120"/>
@@ -19,6 +19,9 @@
             <Label Content="Choisir un scène pour modifier" Canvas.Left="30" Canvas.Top="10"/>
             <ComboBox SelectionChanged="ComboBox_SelectionChanged" SelectedIndex="0" SelectedValue="{Binding Scene.SceneId}" SelectedValuePath="SceneId" ItemsSource="{Binding ScenesList}" DisplayMemberPath="SceneName" Canvas.Left="232" Canvas.Top="14" Width="120"/>
             <CheckBox IsChecked="{Binding IsEnabled}" Content="CheckBox" Canvas.Left="45" Canvas.Top="144"/>
+            <ContentControl prism:RegionManager.RegionName="ScenesListRegion"  Height="36" Canvas.Left="136" Canvas.Top="136" Width="139"/>
+
+
         </Canvas>
 
     </Grid>

@@ -8,7 +8,7 @@ namespace WpfFestival.ViewModels
     {
         private readonly IRegionManager _regionManger;
 
-        private string _title = "Prism Unity Application";
+        private string _title = "Festival system";
         public string Title
         {
             get { return _title; }
@@ -18,6 +18,7 @@ namespace WpfFestival.ViewModels
         public DelegateCommand<string> GoToProgrammationFormulaire { get; private set; }
         public DelegateCommand<string> GoToModifierScene { get; private set; }
         public DelegateCommand<string> GoToModifierArtiste { get; private set; }
+        public DelegateCommand<string> GoToModifierProgrammation { get; private set; }
 
         public MainWindowViewModel(IRegionManager regionManager) {
 
@@ -27,6 +28,8 @@ namespace WpfFestival.ViewModels
             GoToProgrammationFormulaire = new DelegateCommand<string>(Navigate);
             GoToModifierScene = new DelegateCommand<string>(Navigate);
             GoToModifierArtiste = new DelegateCommand<string>(Navigate);
+            GoToModifierProgrammation = new DelegateCommand<string>(Navigate);
+
         }
 
         public void Navigate(string uri)

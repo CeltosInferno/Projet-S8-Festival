@@ -3,6 +3,7 @@ using WpfFestival.Views;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Unity;
+using Prism.Regions;
 
 namespace WpfFestival
 {
@@ -15,16 +16,25 @@ namespace WpfFestival
         {
             return Container.Resolve<MainWindow>();
         }
-        
+
+        //protected void OnInitialized(IContainerProvider containerProvider)
+        //{
+        //    var regionManager = containerProvider.Resolve<IRegionManager>();
+
+        //    regionManager.RegisterViewWithRegion("ScenesListRegion", typeof(ScenesList));
+        //}
+
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<FestivalFormulaire>();
             containerRegistry.RegisterForNavigation<ProgrammationFormulaire>();
             containerRegistry.RegisterForNavigation<ModifierScene>();
             containerRegistry.RegisterForNavigation<ModifierArtiste>();
+            containerRegistry.RegisterForNavigation<ModifierProgrammation>();
+            containerRegistry.RegisterForNavigation<Acceuil>();
+
         }
-
-
         
+
     }
 }

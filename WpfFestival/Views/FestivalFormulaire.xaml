@@ -11,7 +11,8 @@
     <Grid>
 
 
-        <DatePicker Name="DateDebut" SelectedDate="{Binding Festival.StartDate}" DisplayDateStart="2018/01/01"  DisplayDateEnd="2020/01/01" HorizontalAlignment="Left" Margin="295,112,0,0" VerticalAlignment="Top"/>
+        <DatePicker Name="DateDebut" SelectedDate="{Binding Festival.StartDate, StringFormat='dd-MM-yyyy'}" DisplayDateStart="2018/01/01"  DisplayDateEnd="2020/01/01" 
+                    HorizontalAlignment="Left" Margin="295,112,0,0" VerticalAlignment="Top"/>
 
         <DatePicker Name="DateFin" SelectedDate="{Binding Festival.EndDate}" HorizontalAlignment="Left" Margin="297,151,0,0" VerticalAlignment="Top"/>
         <Label Content="Date Début:" HorizontalAlignment="Left" Margin="170,112,0,0" VerticalAlignment="Top" Width="111"/>

@@ -24,17 +24,7 @@ namespace APIFestival.Controllers
         //    return db.Programmations;
         //}
 
-        // GET programmation name
-        public IQueryable<ProgrammationDTO> GetProgrammationNames()
-        {
-            var names = from n in db.Programmations
-                        select new ProgrammationDTO()
-                        {
-                            ProgrammationId = n.ProgrammationId,
-                            ProgrammationName = n.ProgrammationName
-                        };
-            return names;
-        }
+       
 
         public IQueryable<ProgrammationDTO> GetProgrammations() {
             var programmmations = db.Programmations.Select(a =>
@@ -43,6 +33,8 @@ namespace APIFestival.Controllers
                    ArtisteId = a.ArtisteId,
                    ProgrammationId = a.ProgrammationId,
                    ProgrammationName = a.ProgrammationName,
+                   FestivalId = a.FestivalId,
+                   SceneId = a.SceneId
                });
             return programmmations;
         }
@@ -127,7 +119,7 @@ namespace APIFestival.Controllers
                 FestivalId = programmation.FestivalId,
                 ProgrammationName = programmation.ProgrammationName,
                 ArtisteId = programmation.ArtisteId,
-                ScenceId = programmation.SceneId
+                SceneId = programmation.SceneId
             };
 
             return CreatedAtRoute("DefaultApi", new { id = programmation.ProgrammationId }, dto);

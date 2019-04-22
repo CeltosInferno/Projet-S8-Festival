@@ -24,7 +24,9 @@ namespace WpfFestival.ViewModels
         private List<Artiste> _artistesList;
         private List<Scene> _scenesList;
         private bool _isEnabled;
+#pragma warning disable CS0169 // 从不使用字段“ProgrammationFormulaireViewModel._regionManager”
         private readonly IRegionManager _regionManager;
+#pragma warning restore CS0169 // 从不使用字段“ProgrammationFormulaireViewModel._regionManager”
 
         #endregion
         
