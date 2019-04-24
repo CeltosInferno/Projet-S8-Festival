@@ -31,6 +31,7 @@ namespace WpfFestival
             containerRegistry.RegisterForNavigation<ModifierScene>();
             containerRegistry.RegisterForNavigation<ModifierArtiste>();
             containerRegistry.RegisterForNavigation<ModifierProgrammation>();
+            containerRegistry.RegisterForNavigation<ModifierFestival>();
             containerRegistry.RegisterForNavigation<Acceuil>();
 
         }

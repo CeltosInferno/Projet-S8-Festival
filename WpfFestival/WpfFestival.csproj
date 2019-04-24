@@ -84,7 +84,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Events\Event.cs" />
-    <Compile Include="Events\PassFestivalEvent.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Models\Artiste.cs" />
     <Compile Include="Models\Programmation.cs" />
@@ -95,6 +94,7 @@
     <Compile Include="ViewModels\FestivalFormulaireViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ModifierArtisteViewModel.cs" />
+    <Compile Include="ViewModels\ModifierFestivalViewModel.cs" />
     <Compile Include="ViewModels\ModifierProgrammationViewModel.cs" />
     <Compile Include="ViewModels\ModifierSceneViewModel.cs" />
     <Compile Include="ViewModels\ProgrammationFormulaireViewModel.cs" />
@@ -117,6 +117,9 @@
     </Compile>
     <Compile Include="Views\ModifierArtiste.xaml.cs">
       <DependentUpon>ModifierArtiste.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ModifierFestival.xaml.cs">
+      <DependentUpon>ModifierFestival.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ModifierProgrammation.xaml.cs">
       <DependentUpon>ModifierProgrammation.xaml</DependentUpon>
@@ -161,6 +164,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ModifierArtiste.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ModifierFestival.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="WpfFestival.Views.ModifierFestival"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WpfFestival.Views"
+             xmlns:prism ="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text=" Nouveau Nom:" Grid.Column="0" Grid.Row="0"/>
+        <TextBox Text="{Binding Festival.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0"/>
+        <TextBlock Text=" Date Début:" Grid.Column="0" Grid.Row="1"/>
+        <DatePicker SelectedDate="{Binding Festival.StartDate, Mode=TwoWay}" Grid.Column="1" Grid.Row="1"/>
+        <TextBlock Text=" Date Fin:" Grid.Column="0" Grid.Row="2"/>
+        <DatePicker SelectedDate="{Binding Festival.EndDate, Mode=TwoWay}" Grid.Column="1" Grid.Row="2"/>
+        <TextBlock Text=" Lieu:" Grid.Column="0" Grid.Row="3"/>
+        <TextBox Text="{Binding Festival.LieuName, Mode=TwoWay}" Grid.Column="1" Grid.Row="3"/>
+        <Button Content="Modifier" Command="{Binding ModifierFestival}" Grid.Column="0" Grid.Row="4"/>
+        <CheckBox Content="checkbox" IsChecked="{Binding IsEnabled}" Grid.Column="1" Grid.Row="4"/>
+    </Grid>
+</UserControl>

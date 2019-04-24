@@ -30,10 +30,9 @@
             </Label>
 
             <DatePicker HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="147" Canvas.Top="120"/>
-            <ComboBox SelectedValue="{Binding Programmation.ProgrammationId}" SelectedValuePath="ProgrammationId" DisplayMemberPath="ProgrammationName" ItemsSource="{Binding ProgrammationsList}" Canvas.Left="167" Canvas.Top="39" Width="120"/>
+            <!--<ComboBox SelectedValue="{Binding Programmation.ProgrammationId}" SelectedValuePath="ProgrammationId" DisplayMemberPath="ProgrammationName" ItemsSource="{Binding ProgrammationsList}" Canvas.Left="167" Canvas.Top="39" Width="120"/>-->
             <ContentControl  Canvas.Left="200" Canvas.Top="0">
-
-                <local:ProgrammationsList Width="124"  />
+                <local:ProgrammationsList   Width="124"  />
             </ContentControl>
             <Label Content="Nouveau Nom:" Canvas.Top="81"/>
             <TextBox Height="23" TextWrapping="Wrap" Text="{Binding Programmation.ProgrammationName}" Width="120" Canvas.Left="131" Canvas.Top="81"/>

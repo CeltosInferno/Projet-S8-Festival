@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace WpfFestival.Views
 {
     /// <summary>
-    /// ModifierScene.xaml 的交互逻辑
+    /// ModifierFestival.xaml 的交互逻辑
     /// </summary>
-    public partial class ModifierScene : UserControl
+    public partial class ModifierFestival : UserControl
     {
-        public ModifierScene()
+        public ModifierFestival()
         {
             InitializeComponent();
         }
-
-        //private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-
-        //}
     }
 }
