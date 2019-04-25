@@ -199,6 +199,10 @@
     <Compile Include="Migrations\201904221201464_initial4.Designer.cs">
       <DependentUpon>201904221201464_initial4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904251145252_initial5.cs" />
+    <Compile Include="Migrations\201904251145252_initial5.Designer.cs">
+      <DependentUpon>201904251145252_initial5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\APIFestivalContext.cs" />
     <Compile Include="Models\Artiste.cs" />
@@ -317,6 +321,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904221201464_initial4.resx">
       <DependentUpon>201904221201464_initial4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904251145252_initial5.resx">
+      <DependentUpon>201904251145252_initial5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

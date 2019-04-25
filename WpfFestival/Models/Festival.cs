@@ -51,5 +51,19 @@ namespace WpfFestival.Models
             get { return _postalCode; }
             set { SetProperty(ref _postalCode, value); }
         }
+
+        private bool _isPublication;
+        public bool IsPublication
+        {
+            get { return _isPublication; }
+            set { SetProperty(ref _isPublication, value); }
+        }
+
+        private bool _isInscription;
+        public bool IsInscription
+        {
+            get { return _isInscription; }
+            set { SetProperty(ref _isInscription, value); }
+        }
     }
 }

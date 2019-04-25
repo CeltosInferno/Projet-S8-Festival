@@ -27,12 +27,12 @@ namespace APIFestival.Migrations
 
             var Festivals = new List<Festival>
             {
-                new Festival{ Name="armada", Description="boat festival", StartDate=DateTime.Parse("2019-06-06"), EndDate=DateTime.Parse("2019-06-16"), LieuName= "Rouen", PostalCode=76100},
+                new Festival{ Name="armada", Description="boat festival", StartDate=DateTime.Parse("2019-06-06"), EndDate=DateTime.Parse("2019-06-16"), LieuName= "Rouen", PostalCode=76100  , IsInscription=true, IsPublication= false}, 
                 new Festival{ Name="spring", Description="SPRING, festival des nouvelles formes de cirque en Normandie est " +
                 "coordonné par la Plateforme 2 Pôles Cirque en Normandie / La Brèche à Cherbourg – Cirque-Théâtre d’Elbeuf " +
                 "avec 60 partenaires sur tout le territoire normand.",
-                    StartDate =DateTime.Parse("2019-03-01"), EndDate=DateTime.Parse("2019-04-05"), LieuName= "Rouen", PostalCode=76100 },
-                new Festival{ Name="musee", Description="UNE ANNEE AU MUSEE", StartDate=DateTime.Parse("2019-04-10"), EndDate=DateTime.Parse("2019-04-17"), LieuName= "Rouen", PostalCode=76100}
+                    StartDate =DateTime.Parse("2019-03-01"), EndDate=DateTime.Parse("2019-04-05"), LieuName= "Rouen", PostalCode=76100, IsInscription = true , IsPublication= true },
+                new Festival{ Name="musee", Description="UNE ANNEE AU MUSEE", StartDate=DateTime.Parse("2019-04-10"), EndDate=DateTime.Parse("2019-04-17"), LieuName= "Rouen", PostalCode=76100, IsInscription=false, IsPublication= false}
             };
 
             Festivals.ForEach(f => context.Festivals.AddOrUpdate(f1 => f1.Id, f));

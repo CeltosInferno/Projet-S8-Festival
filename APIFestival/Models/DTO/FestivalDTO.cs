@@ -20,5 +20,8 @@ namespace APIFestival.Models.DTO
 
         public string LieuName { get; set; }
         public int PostalCode { get; set; }
+
+        public bool IsInscription { get; set; }
+        public bool IsPublication { get; set; }
     }
 }

@@ -30,8 +30,10 @@ namespace APIFestival.Controllers
                 EndDate = a.EndDate,
                 StartDate = a.StartDate,
                 Id = a.Id,
-                LieuName=a.LieuName,
-                PostalCode= a.PostalCode
+                LieuName = a.LieuName,
+                PostalCode = a.PostalCode,
+                IsInscription = a.IsInscription,
+                IsPublication = a.IsPublication
 
             });
             return festivals;
@@ -53,7 +55,9 @@ namespace APIFestival.Controllers
                                       StartDate = a.StartDate,
                                       Id = a.Id,
                                       LieuName = a.LieuName,
-                                      PostalCode = a.PostalCode
+                                      PostalCode = a.PostalCode,
+                                      IsInscription = a.IsInscription,
+                                      IsPublication = a.IsPublication
                                   }).FirstOrDefaultAsync();
               
             if (festival == null)
@@ -70,7 +74,7 @@ namespace APIFestival.Controllers
         public async Task<IHttpActionResult> GetFestivalByName(string name)
         {
             var festival = await (from a in db.Festivals
-                                  where a.Name == name 
+                                  where a.Name == name
                                   select new FestivalDTO()
                                   {
                                       Description = a.Description,
@@ -79,7 +83,9 @@ namespace APIFestival.Controllers
                                       StartDate = a.StartDate,
                                       Id = a.Id,
                                       LieuName = a.LieuName,
-                                      PostalCode = a.PostalCode
+                                      PostalCode = a.PostalCode,
+                                      IsInscription = a.IsInscription,
+                                      IsPublication = a.IsPublication
                                   }).FirstOrDefaultAsync();
             if (festival == null)
             {
@@ -90,6 +96,8 @@ namespace APIFestival.Controllers
         }
 
         // PUT: api/Festivals/5
+        [HttpPut]
+        [Route("{id:int}")]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutFestival(int id, Festival festival)
         {
@@ -145,8 +153,10 @@ namespace APIFestival.Controllers
                 EndDate = festival.EndDate,
                 Name = festival.Name,
                 StartDate = festival.StartDate,
-                LieuName =festival.LieuName,
-                PostalCode =festival.PostalCode
+                LieuName = festival.LieuName,
+                PostalCode = festival.PostalCode,
+                IsInscription = festival.IsInscription,
+                IsPublication = festival.IsPublication
             };
 
             return CreatedAtRoute("DefaultApi", new { id = festival.Id }, dto);

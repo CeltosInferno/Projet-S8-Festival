@@ -19,8 +19,12 @@ namespace APIFestival.Models
         public DateTime? EndDate { get; set; }
         public string LieuName { get; set; }
         public int PostalCode { get; set; }
-       
-       
+
+        // ajouter 2 fonctions  clôturer les inscriptions et clôturer la publication 
+        public bool IsInscription { get; set; }
+        public bool IsPublication { get; set; }
+
+
         public virtual ICollection<Programmation> Programmations { get; set; }
     }
 }
