@@ -1,6 +1,7 @@
 ﻿using Prism.Mvvm;
 using System;
-
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace WpfFestival.Models
 {
@@ -64,6 +65,13 @@ namespace WpfFestival.Models
         {
             get { return _isInscription; }
             set { SetProperty(ref _isInscription, value); }
+        }
+
+        private List<Programmation> _programmationsList;
+        public List<Programmation> ProgrammationsList
+        {
+            get { return _programmationsList; }
+            set { SetProperty(ref _programmationsList, value); }
         }
     }
 }

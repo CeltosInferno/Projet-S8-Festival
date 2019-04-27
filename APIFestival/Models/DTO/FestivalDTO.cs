@@ -23,5 +23,7 @@ namespace APIFestival.Models.DTO
 
         public bool IsInscription { get; set; }
         public bool IsPublication { get; set; }
+
+        public IEnumerable<ProgrammationDTO> ProgrammationsList { get; set; }
     }
 }

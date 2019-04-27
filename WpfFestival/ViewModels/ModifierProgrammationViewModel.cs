@@ -18,24 +18,24 @@ namespace WpfFestival.ViewModels
     public class ModifierProgrammationViewModel : BindableBase
     {
         #region Members
-        private string _festivalName="name";
+       // private string _festivalName="name";
         private Festival _festival;
         private Programmation _programmation;
-        private List<Programmation> _programmationsList;
+        //private List<Programmation> _programmationsList;
         private List<Artiste> _artistesList;
         private List<Scene> _scenesList;
         private bool _isEnabled;
-       // private readonly IRegionManager _regionManager;
+        private readonly IRegionManager _regionManager;
         private readonly IEventAggregator _eventAggregator;
 
         #endregion
 
         #region Properties
-        public string FestivalName
-        {
-            get { return _festivalName; }
-            set { SetProperty(ref _festivalName, value); }
-        }
+        //public string FestivalName
+        //{
+        //    get { return _festivalName; }
+        //    set { SetProperty(ref _festivalName, value); }
+        //}
         public Festival Festival
         {
             get { return _festival; }
@@ -46,11 +46,11 @@ namespace WpfFestival.ViewModels
             get { return _programmation; }
             set { SetProperty(ref _programmation, value); }
         }
-        public List<Programmation> ProgrammationsList
-        {
-            get { return _programmationsList; }
-            set { SetProperty(ref _programmationsList, value); }
-        }
+        //public List<Programmation> ProgrammationsList
+        //{
+        //    get { return _programmationsList; }
+        //    set { SetProperty(ref _programmationsList, value); }
+        //}
 
         public List<Artiste> ArtistesList
         {
@@ -81,53 +81,55 @@ namespace WpfFestival.ViewModels
             //_regionManaager.RequestNavigate("ContentRegion", uri);
         }
         #endregion
-        public ModifierProgrammationViewModel(IEventAggregator eventAggregator)
+        public ModifierProgrammationViewModel(IEventAggregator eventAggregator, IRegionManager regionManager)
         {
             _eventAggregator = eventAggregator;
+            _regionManager = regionManager;
             Programmation = new Programmation();
             Festival = new Festival();
             
             ModifierProgrammation = new DelegateCommand(Executed).ObservesCanExecute(() => IsEnabled);
             this.ArtistesList = new List<Artiste>();
             this.ScenesList = new List<Scene>();
-            this.ProgrammationsList = new List<Programmation>();
+            //this.ProgrammationsList = new List<Programmation>();
             this.GetArtistesList();
             this.GetScenesList();
-            this.GetProgrammationsList();
-            _eventAggregator.GetEvent<PassFestivalEvent>().Subscribe(PassFestival);
-        }
-
-        private void PassFestival(Festival obj)
-        {
-            Festival = obj;
-            FestivalName = obj.Name;
-            Programmation.FestivalId = obj.Id;
-            //Programmation.FestivalId = GetFestival();
+            //this.GetProgrammationsList();
+            //_eventAggregator.GetEvent<PassFestivalEvent>().Subscribe(PassFestival);
+            _eventAggregator.GetEvent<PassProgrammationEvent>().Subscribe(PassProgrammation);
             
         }
 
        
-        //public int GetFestival()
-        //{
-        //    HttpClient client = new HttpClient();
-        //    client.BaseAddress = new Uri("http://localhost:5575/");
-        //    client.DefaultRequestHeaders.Accept.Add(
-        //        new MediaTypeWithQualityHeaderValue("application/json"));
-
-        //    HttpResponseMessage response = client.GetAsync($"api/Festivals/{FestivalName}").Result;
-
-        //    if (response.IsSuccessStatusCode)
-        //    {
-
-        //        var readTask = response.Content.ReadAsAsync<Festival>();
-        //        readTask.Wait();
-        //        return readTask.Result.Id;
-
-        //    }
-        //    else return 0;
+        private void PassProgrammation (Programmation obj)
+        {
+            Programmation = obj;
+            this.GetFestivalName($"api/Festivals/{Programmation.FestivalId}");
+        }
 
 
-        //}
+        public void GetFestivalName(string uri)
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:5575/");
+            client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
+
+            HttpResponseMessage response = client.GetAsync(uri).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+
+                var readTask = response.Content.ReadAsAsync<Festival>();
+                readTask.Wait();
+                
+                Festival = readTask.Result;
+
+            }
+            
+
+
+        }
 
         public bool PutProgrammation(string uri)
         {
@@ -143,7 +145,6 @@ namespace WpfFestival.ViewModels
 
                 HttpResponseMessage result1 = putProgrammationTask.Result;
 
-                //HttpResponseMessage result = client.PostAsJsonAsync("/api/festivals", obj).Result;
 
                 if (result1.IsSuccessStatusCode)
                 {
@@ -197,26 +198,26 @@ namespace WpfFestival.ViewModels
             }
         }
 
-        public void GetProgrammationsList()
-        {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:5575/");
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
+        //public void GetProgrammationsList()
+        //{
+        //    HttpClient client = new HttpClient();
+        //    client.BaseAddress = new Uri("http://localhost:5575/");
+        //    client.DefaultRequestHeaders.Accept.Add(
+        //        new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage response = client.GetAsync("api/Programmations").Result;
+        //    HttpResponseMessage response = client.GetAsync("api/Programmations").Result;
 
-            if (response.IsSuccessStatusCode)
-            {
+        //    if (response.IsSuccessStatusCode)
+        //    {
 
-                var readTask = response.Content.ReadAsAsync<List<Programmation>>();
-                readTask.Wait();
-                foreach (Programmation p in readTask.Result)
-                {
-                    this.ProgrammationsList.Add(p);
-                }
-            }
-        }
+        //        var readTask = response.Content.ReadAsAsync<List<Programmation>>();
+        //        readTask.Wait();
+        //        foreach (Programmation p in readTask.Result)
+        //        {
+        //            this.ProgrammationsList.Add(p);
+        //        }
+        //    }
+        //}
 
     }
 }

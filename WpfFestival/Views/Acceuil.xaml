@@ -13,7 +13,6 @@
         <prism:InteractionRequestTrigger SourceObject="{Binding NotificationRequest}">
             <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True" />
         </prism:InteractionRequestTrigger>
-       
     </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
@@ -28,7 +27,7 @@
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
 
-        <DataGrid SelectedItem="{Binding Festival}" ItemsSource="{Binding FestivalsList}" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="1" >
+        <DataGrid SelectedItem="{Binding Festival}" ItemsSource="{Binding FestivalsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="1" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Festival" Binding="{Binding Name}" IsReadOnly="True"/>
                 <DataGridTextColumn Header=" Date Début" Binding="{Binding StartDate ,StringFormat=d}" IsReadOnly="True"/>
@@ -39,7 +38,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button Grid.Row="1" Content="Modifier" Command="{Binding GoToModifierFestival}" CommandParameter="ModifierFestival" />
-        <CheckBox IsChecked="{Binding IsEnabled}" Content="CheckBox"  Grid.Column="1" Grid.Row="1" />
+        <Button Content="Supprimer" Command="{Binding SupprimerFestival}"  Grid.Column="1" Grid.Row="1" />
         <TextBlock Grid.Row="2" Text="Pulication et Inscription pour"/>
         <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Festival.Name}"/>
         <CheckBox Grid.Row="3" IsChecked="{Binding Festival.IsPublication, Mode=TwoWay}" Content="Publication"/>

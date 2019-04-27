@@ -33,7 +33,15 @@ namespace APIFestival.Controllers
                 LieuName = a.LieuName,
                 PostalCode = a.PostalCode,
                 IsInscription = a.IsInscription,
-                IsPublication = a.IsPublication
+                IsPublication = a.IsPublication,
+                ProgrammationsList = a.Programmations.Select(b => new ProgrammationDTO()
+                {
+                    ArtisteId = b.ArtisteId,
+                    ProgrammationId = b.ProgrammationId,
+                    ProgrammationName = b.ProgrammationName,
+                    FestivalId = b.FestivalId,
+                    SceneId = b.SceneId
+                })
 
             });
             return festivals;
@@ -163,6 +171,8 @@ namespace APIFestival.Controllers
         }
 
         // DELETE: api/Festivals/5
+        [HttpDelete]
+        [Route("{id:int}")]
         [ResponseType(typeof(Festival))]
         public async Task<IHttpActionResult> DeleteFestival(int id)
         {

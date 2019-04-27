@@ -92,6 +92,7 @@
     <Compile Include="ViewModels\ArtisteViewModel.cs" />
     <Compile Include="ViewModels\AssocierSceneViewModel.cs" />
     <Compile Include="ViewModels\FestivalFormulaireViewModel.cs" />
+    <Compile Include="ViewModels\Fonctions\Fonctions.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ModifierArtisteViewModel.cs" />
     <Compile Include="ViewModels\ModifierFestivalViewModel.cs" />

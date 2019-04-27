@@ -20,13 +20,13 @@ namespace WpfFestival.ViewModels
     public class AcceuilViewModel :BindableBase
     {
         private readonly IEventAggregator _eventAggregator;
-        private readonly IRegionManager _regionManaager;
+        private readonly IRegionManager _regionManager;
         public InteractionRequest<INotification> NotificationRequest { get; set; }
         
         #region Members
         private ObservableCollection<Festival> _festivalsList;
         private Festival _festival;
-        private bool _isEnabled;
+        
         #endregion
         #region Properties
         public ObservableCollection<Festival> FestivalsList
@@ -37,7 +37,7 @@ namespace WpfFestival.ViewModels
         public Festival Festival
         {
             get { return _festival; }
-            set { SetProperty(ref _festival, value, onChanged);
+            set { SetProperty(ref _festival, value);
             }
         }
 
@@ -49,23 +49,15 @@ namespace WpfFestival.ViewModels
                 RaisePropertyChanged();
             }
         }
-        private void onChanged()
-        { PutFestival($"/api/{Festival.Id}"); }
-        private  void RaisePropertyChanged()
-        {
-            PutFestival($"/api/{Festival.Id}");
-        }
-        public bool IsEnabled
-        {
-            get { return _isEnabled; }
-            set { SetProperty(ref _isEnabled, value); }
-        }
+       
+        
         #endregion
         #region Command
         public DelegateCommand<string> GoToModifierFestival { get; private set; }
         public DelegateCommand ModifierFestival { get; private set; }
+        public DelegateCommand SupprimerFestival { get; private set; }
 
-        private void Executed(string uri)
+        private void ExecutedA(string uri) //GoToModifierFestival
         {
             if(Festival==null)
             {
@@ -73,11 +65,11 @@ namespace WpfFestival.ViewModels
             }
             else
             {
-                _regionManaager.RequestNavigate("ContentRegion", uri);
+                _regionManager.RequestNavigate("ContentRegion", uri);
                 _eventAggregator.GetEvent<PassFestivalEvent>().Publish(Festival);
             }
         }
-        private void ExecutedB()
+        private void ExecutedB() //ModifierFestival inscription ou/et publication
         {   
             try
             {
@@ -85,28 +77,42 @@ namespace WpfFestival.ViewModels
                 {
                     NotificationRequest.Raise(new Notification { Content = "Modifié !!!", Title = "Notification" });
                 }
-                else
-                {
-                    NotificationRequest.Raise(new Notification { Content = "Notification Message", Title = "Notification" });
-                }
             }
             catch (NullReferenceException) { NotificationRequest.Raise(new Notification { Content = "Choisir un festival", Title = "Notification" }); }
             
             
         }
+        private void ExecutedC()
+        {
+            try
+            {
+                if (Fonctions.Fonctions.DeleteFestival($"/api/Festivals/{Festival.Id}"))
+                {
+                    NotificationRequest.Raise(new Notification { Content = "Suprimé !!!", Title = "Notification" });
+                    FestivalsList.Remove(Festival);    
+                }
+            }
+            catch (NullReferenceException) { NotificationRequest.Raise(new Notification { Content = "Choisir un festival", Title = "Notification" }); }
+
+        }
+
+        
 
         #endregion
         public AcceuilViewModel(IRegionManager regionManager, IEventAggregator eventAggregator)
         {
-            _regionManaager = regionManager;
+            _regionManager = regionManager;
             _eventAggregator = eventAggregator;
-            GoToModifierFestival = new DelegateCommand<string>(Executed);
+            GoToModifierFestival = new DelegateCommand<string>(ExecutedA);
             ModifierFestival = new DelegateCommand(ExecutedB);
+            SupprimerFestival = new DelegateCommand(ExecutedC);
             NotificationRequest = new InteractionRequest<INotification>();
             
             FestivalsList = new ObservableCollection<Festival>();
             this.GetFestivalsList();
         }
+
+        #region Methods
         private void RaiseNotification()
         {
             NotificationRequest.Raise(new Notification { Content = "Notification Message", Title = "Notification" });
@@ -134,6 +140,7 @@ namespace WpfFestival.ViewModels
 
             }
         }
+        
         public void GetFestivalsList()
         {
                 HttpClient client = new HttpClient();
@@ -155,6 +162,25 @@ namespace WpfFestival.ViewModels
                 }
             
         }
-        
+
+        //private bool DeleteFestival(string uri)
+        //{
+        //    using (var client = new HttpClient())
+        //    {
+        //        client.BaseAddress = new Uri("http://localhost:5575");
+        //        client.DefaultRequestHeaders.Accept.Add(
+        //                new MediaTypeWithQualityHeaderValue("application/json"));
+
+        //        HttpResponseMessage responseMessage = client.DeleteAsync(uri).Result;
+        //        if (responseMessage.IsSuccessStatusCode)
+        //        {
+        //            return true;
+        //        }
+        //        return false;
+
+        //    }
+        //}
+        #endregion
+
     }
 }

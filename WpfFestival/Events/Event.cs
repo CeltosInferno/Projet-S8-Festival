@@ -15,6 +15,9 @@ namespace WpfFestival.Events
     public class PassFestivalEvent : PubSubEvent<Festival>
     {
     }
+    public class PassProgrammationEvent : PubSubEvent<Programmation>
+    {
+    }
     //public class PassSceneIdEvent : PubSubEvent<int>
     //{
     //}
