@@ -15,6 +15,12 @@ namespace APIFestival
             // Web API 路由
             config.MapHttpAttributeRoutes();
 
+            //config.Routes.MapHttpRoute(
+            //     name: "RootApi",
+            //     routeTemplate: "api/{controller}/festivals/{id}",
+            //     defaults: new { controller = "Programmations" , id = RouteParameter.Optional }
+            //);
+
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",

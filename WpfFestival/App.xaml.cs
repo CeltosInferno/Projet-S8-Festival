@@ -28,14 +28,18 @@ namespace WpfFestival
         {
             containerRegistry.RegisterForNavigation<FestivalFormulaire>();
             containerRegistry.RegisterForNavigation<ProgrammationFormulaire>();
+            containerRegistry.RegisterForNavigation<SceneFormulaire>();
             containerRegistry.RegisterForNavigation<ModifierScene>();
             containerRegistry.RegisterForNavigation<ModifierArtiste>();
             containerRegistry.RegisterForNavigation<ModifierProgrammation>();
             containerRegistry.RegisterForNavigation<ModifierFestival>();
             containerRegistry.RegisterForNavigation<Acceuil>();
+            containerRegistry.RegisterForNavigation<GestionScene>();
+
+
 
         }
-        
+
 
     }
 }

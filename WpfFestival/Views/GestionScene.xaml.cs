@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace WpfFestival.Views
 {
     /// <summary>
-    /// SceneFormulaire.xaml 的交互逻辑
+    /// GestionScene.xaml 的交互逻辑
     /// </summary>
-    public partial class SceneFormulaire : UserControl
+    public partial class GestionScene : UserControl
     {
-        public SceneFormulaire()
+        public GestionScene()
         {
             InitializeComponent();
         }

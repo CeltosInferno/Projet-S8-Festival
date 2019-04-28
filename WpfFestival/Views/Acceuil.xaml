@@ -44,6 +44,7 @@
         <CheckBox Grid.Row="3" IsChecked="{Binding Festival.IsPublication, Mode=TwoWay}" Content="Publication"/>
         <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{Binding Festival.IsInscription, Mode=TwoWay}" Content="Inscription"/>
         <Button Grid.Row="4" Content=" confirmer" Command="{Binding ModifierFestival}"/>
+        <Button Grid.Row="4" Grid.Column="1" Content="Rafraîchir la liste" Command="{Binding RefreshList}"/>
 
     </Grid>
 </UserControl>

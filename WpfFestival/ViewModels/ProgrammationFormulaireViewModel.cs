@@ -19,24 +19,30 @@ namespace WpfFestival.ViewModels
     {
         
         #region Members
-        private string _festivalName = "name";
+        private string _festivalName ;
+        private Festival _festival;
         private Programmation _programmation;
         private List<Artiste> _artistesList;
         private List<Scene> _scenesList;
         private bool _isEnabled;
 #pragma warning disable CS0169 // 从不使用字段“ProgrammationFormulaireViewModel._regionManager”
         private readonly IRegionManager _regionManager;
+        private readonly IEventAggregator _eventAggregator;
 #pragma warning restore CS0169 // 从不使用字段“ProgrammationFormulaireViewModel._regionManager”
 
         #endregion
-        
+
         #region Properties
         public string FestivalName
         {
             get { return _festivalName; }
             set { SetProperty(ref _festivalName, value); }
         }
-       
+        public Festival Festival
+        {
+            get { return _festival; }
+            set { SetProperty(ref _festival, value); }
+        }
         public Programmation Programmation
         {
             get { return _programmation; }
@@ -68,9 +74,10 @@ namespace WpfFestival.ViewModels
 
         public ProgrammationFormulaireViewModel(IEventAggregator eventAggregator)
         {
+            _eventAggregator = eventAggregator;
             Programmation = new Programmation();
             
-            eventAggregator.GetEvent<PassFestivalNameEvent>().Subscribe(Updated);
+            _eventAggregator.GetEvent<PassFestivalEvent>().Subscribe(PassFestival);
             AddProgrammation = new DelegateCommand(Executed).ObservesCanExecute(() => IsEnabled);
             this.ArtistesList = new List<Artiste>();
             this.ScenesList = new List<Scene>();
@@ -79,10 +86,11 @@ namespace WpfFestival.ViewModels
             this.GetScenesList();
         }
 
-        private void Updated(string obj)
+        private void PassFestival(Festival obj)
         {
-            FestivalName = obj;
-            Programmation.FestivalId = GetFestival();
+            Festival = obj;
+            //Programmation.FestivalId = GetFestivalId();
+            Programmation.FestivalId = Festival.Id;
         }
 
         private void Executed() {
@@ -90,7 +98,7 @@ namespace WpfFestival.ViewModels
             PostProgrammation();
             //_regionManaager.RequestNavigate("ContentRegion", uri);
         }
-        public int GetFestival()
+        public int GetFestivalId()
         {
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:5575/");

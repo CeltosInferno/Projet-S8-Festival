@@ -21,41 +21,33 @@ namespace WpfFestival.ViewModels
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IRegionManager _regionManager;
-        public InteractionRequest<INotification> NotificationRequest { get; set; }
         
         #region Members
         private ObservableCollection<Festival> _festivalsList;
         private Festival _festival;
-        
+
         #endregion
         #region Properties
+        public InteractionRequest<INotification> NotificationRequest { get; set; }
+
         public ObservableCollection<Festival> FestivalsList
         {
             get { return _festivalsList; }
             set { SetProperty(ref _festivalsList, value); }
         }
-        public Festival Festival
+        public Festival Festival //SelectedFestival
         {
             get { return _festival; }
             set { SetProperty(ref _festival, value);
             }
         }
 
-        public bool IsPublication
-        {
-            get { return Festival.IsPublication; }
-            set
-            { Festival.IsPublication = value;
-                RaisePropertyChanged();
-            }
-        }
-       
-        
         #endregion
         #region Command
         public DelegateCommand<string> GoToModifierFestival { get; private set; }
         public DelegateCommand ModifierFestival { get; private set; }
         public DelegateCommand SupprimerFestival { get; private set; }
+        public DelegateCommand RefreshList { get; private set; }
 
         private void ExecutedA(string uri) //GoToModifierFestival
         {
@@ -88,15 +80,19 @@ namespace WpfFestival.ViewModels
             {
                 if (Fonctions.Fonctions.DeleteFestival($"/api/Festivals/{Festival.Id}"))
                 {
-                    NotificationRequest.Raise(new Notification { Content = "Suprimé !!!", Title = "Notification" });
+                    NotificationRequest.Raise(new Notification { Content = "Supprimé !!!", Title = "Notification" });
                     FestivalsList.Remove(Festival);    
                 }
             }
             catch (NullReferenceException) { NotificationRequest.Raise(new Notification { Content = "Choisir un festival", Title = "Notification" }); }
 
         }
+        private void ExecutedD()
+        {
+            FestivalsList = GetFestivalsList();
+        }
 
-        
+
 
         #endregion
         public AcceuilViewModel(IRegionManager regionManager, IEventAggregator eventAggregator)
@@ -106,10 +102,12 @@ namespace WpfFestival.ViewModels
             GoToModifierFestival = new DelegateCommand<string>(ExecutedA);
             ModifierFestival = new DelegateCommand(ExecutedB);
             SupprimerFestival = new DelegateCommand(ExecutedC);
+            RefreshList = new DelegateCommand(ExecutedD);
             NotificationRequest = new InteractionRequest<INotification>();
             
             FestivalsList = new ObservableCollection<Festival>();
-            this.GetFestivalsList();
+            //this.GetFestivalsList();
+            FestivalsList = GetFestivalsList();
         }
 
         #region Methods
@@ -141,7 +139,7 @@ namespace WpfFestival.ViewModels
             }
         }
         
-        public void GetFestivalsList()
+        public ObservableCollection<Festival> GetFestivalsList()
         {
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri("http://localhost:5575/");
@@ -155,11 +153,10 @@ namespace WpfFestival.ViewModels
 
                     var readTask = response.Content.ReadAsAsync<ObservableCollection<Festival>>();
                     readTask.Wait();
-                    foreach (Festival f in readTask.Result)
-                    {
-                        this.FestivalsList.Add(f);
-                    }
+                return readTask.Result;
+                    
                 }
+            return null;
             
         }
 

@@ -9,6 +9,9 @@ using Prism.Mvvm;
 using Prism.Commands;
 using WpfFestival.Models;
 using Prism.Regions;
+using Prism.Events;
+using WpfFestival.Events;
+using Prism.Interactivity.InteractionRequest;
 
 namespace WpfFestival.ViewModels
 {
@@ -16,26 +19,19 @@ namespace WpfFestival.ViewModels
     {
         #region Members
         private Scene _scene;
-        private List<Scene> _scenesList;
         private bool _isEnabled;
-#pragma warning disable CS0169 // 从不使用字段“ModifierSceneViewModel._regionManger”
-        private readonly IRegionManager _regionManger;
-#pragma warning restore CS0169 // 从不使用字段“ModifierSceneViewModel._regionManger”
+        private readonly IRegionManager _regionManager;
 
         #endregion
 
         #region Properties
-
+        public InteractionRequest<INotification> NotificationRequest { get; set; }
         public Scene Scene
         {
             get { return _scene; }
             set { SetProperty(ref _scene, value); }
         }
-        public List<Scene> ScenesList
-        {
-            get { return _scenesList; }
-            set { SetProperty(ref _scenesList, value); }
-        }
+        
         public bool IsEnabled
         {
             get { return _isEnabled; }
@@ -45,74 +41,38 @@ namespace WpfFestival.ViewModels
 
         #endregion
         #region Command
-        public DelegateCommand ModifierScene { get; private set; }
+        public DelegateCommand<string> ModifierScene { get; private set; }
 
-        private void Executed()
+        private void Executed(string uri)
         {
             if (PutScene($"api/Scenes/{Scene.SceneId}"))
             {
-
+                NotificationRequest.Raise(new Notification { Content = "Modifié", Title = "Notification" });
+                _regionManager.RequestNavigate("ContentRegion", uri);
             }
         }
-       
+
+        #endregion
+        #region Event
+        private readonly IEventAggregator _eventAggregator;
+
+        private void PassScene(Scene obj)
+        {
+            Scene = obj;
+        }
         #endregion
 
-        public ModifierSceneViewModel()
+        public ModifierSceneViewModel(IRegionManager regionManager,IEventAggregator eventAggregator)
         {
-            //_regionManger = regionManager;
-            //_regionManger.AddToRegion("ScenesList", ScenesList);
-            //_regionManger.RequestNavigate("ScenesList", "ScenesList");
+            _regionManager = regionManager;
+            _eventAggregator = eventAggregator;
+            _eventAggregator.GetEvent<PassSceneEvent>().Subscribe(PassScene);
             Scene = new Scene();
            
-            ModifierScene = new DelegateCommand(Executed).ObservesCanExecute( ()=> IsEnabled);
-            this.ScenesList = new List<Scene>();
-            this.GetScenesList();
-            //GetSceneById();
-            //Scene.SceneName = this.GetSceneById().SceneName;
-            //Scene.Capacity = this.GetSceneById().Capacity;
+            ModifierScene = new DelegateCommand<string>(Executed).ObservesCanExecute( ()=> IsEnabled);
         }
 
         #region Methods
-        public void GetScenesList()
-        {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:5575/");
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-
-            HttpResponseMessage response = client.GetAsync("api/Scenes").Result;
-
-            if (response.IsSuccessStatusCode)
-            {
-
-                var readTask = response.Content.ReadAsAsync<List<Scene>>();
-                readTask.Wait();
-                foreach (Scene s in readTask.Result)
-                {
-                    this.ScenesList.Add(s);
-                }
-            }
-        }
-
-        public Scene GetSceneById()
-        {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:5575/");
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-
-            HttpResponseMessage response = client.GetAsync($"api/Scenes/{Scene.SceneId}").Result;
-
-            if (response.IsSuccessStatusCode)
-            {
-
-                var readTask = response.Content.ReadAsAsync<Scene>();
-                readTask.Wait();
-                return readTask.Result;
-               
-            }
-            return null;
-        }
 
         public bool PutScene(string uri)
         {

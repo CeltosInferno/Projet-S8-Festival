@@ -14,7 +14,7 @@ using APIFestival.Models.DTO;
 
 namespace APIFestival.Controllers
 {
-    [RoutePrefix("api/festivals")]
+    [RoutePrefix("api/Festivals")]
     public class FestivalsController : ApiController
     {
         private APIFestivalContext db = new APIFestivalContext();

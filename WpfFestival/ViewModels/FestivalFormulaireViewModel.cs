@@ -59,7 +59,7 @@ namespace WpfFestival.ViewModels
             PostFestival();
             
             _regionManaager.RequestNavigate("ContentRegion", uri);
-            _eventAggregator.GetEvent<PassFestivalNameEvent>().Publish(Festival.Name.ToString());
+            _eventAggregator.GetEvent<PassFestivalEvent>().Publish(Festival);
 
         }
 

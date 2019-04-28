@@ -14,6 +14,7 @@ using APIFestival.Models.DTO;
 
 namespace APIFestival.Controllers
 {
+    [RoutePrefix("api/Programmations")]
     public class ProgrammationsController : ApiController
     {
         private APIFestivalContext db = new APIFestivalContext();
@@ -25,7 +26,7 @@ namespace APIFestival.Controllers
         //}
 
        
-
+        [HttpGet]
         public IQueryable<ProgrammationDTO> GetProgrammations() {
             var programmmations = db.Programmations.Select(a =>
                new ProgrammationDTO()
@@ -39,35 +40,45 @@ namespace APIFestival.Controllers
             return programmmations;
         }
 
-        // GET: api/Programmations/5
-        [ResponseType(typeof(Programmation))]
-        public async Task<IHttpActionResult> GetProgrammation(int id)
-        {
-            Programmation programmation = await db.Programmations.FindAsync(id);
-            if (programmation == null)
-            {
-                return NotFound();
-            }
+        //// GET: api/Programmations/5
+        //[HttpGet]
+        //[Route("{id:int}")]
+        //[ResponseType(typeof(Programmation))]
+        //public async Task<IHttpActionResult> GetProgrammation(int id)
+        //{
+        //    Programmation programmation = await db.Programmations.FindAsync(id);
+        //    if (programmation == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(programmation);
-        }
+        //    return Ok(programmation);
+        //}
 
         // GET: api/Programmations/5
-        [ResponseType(typeof(Programmation))]
-        public async Task<IHttpActionResult> GetProgrammationByName(string name)
+        [HttpGet]
+        [Route("{festivalId:int}")]
+        
+        public IQueryable<ProgrammationDTO> GetProgrammationByFestival(int festivalId)
         {
+
             
-
-            Programmation programmation = await db.Programmations.FindAsync(name);
-            if (programmation == null)
+            var programmations =  db.Programmations.Where(a => a.FestivalId == festivalId).Select(a => new ProgrammationDTO()
             {
-                return NotFound();
-            }
+                ArtisteId = a.ArtisteId,
+                FestivalId = a.FestivalId,
+                ProgrammationId = a.ProgrammationId,
+                ProgrammationName = a.ProgrammationName,
+                SceneId = a.SceneId
+            });
+           
+            return programmations;
 
-            return Ok(programmation);
+
         }
 
         // PUT: api/Programmations/5
+        [HttpPut]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutProgrammation(int id, Programmation programmation)
         {
@@ -103,6 +114,7 @@ namespace APIFestival.Controllers
         }
 
         // POST: api/Programmations
+        [HttpPost]
         [ResponseType(typeof(ProgrammationDTO))]
         public async Task<IHttpActionResult> PostProgrammation(Programmation programmation)
         {
@@ -126,6 +138,8 @@ namespace APIFestival.Controllers
         }
 
         // DELETE: api/Programmations/5
+        [HttpDelete]
+        [Route("{id:int}")]
         [ResponseType(typeof(Programmation))]
         public async Task<IHttpActionResult> DeleteProgrammation(int id)
         {

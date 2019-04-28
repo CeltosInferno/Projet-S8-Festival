@@ -11,6 +11,6 @@ namespace APIFestival.Models.DTO
         public string SceneName { get; set; }
         public int Capacity { get; set; }
 
-        public IEnumerable<ProgrammationDTO> Programmations { get; set; }
+        //public IEnumerable<ProgrammationDTO> Programmations { get; set; }
     }
 }

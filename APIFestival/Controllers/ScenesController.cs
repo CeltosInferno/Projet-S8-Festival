@@ -26,12 +26,12 @@ namespace APIFestival.Controllers
                 SceneId = a.SceneId,
                 Capacity = a.Capacity,
                 SceneName = a.SceneName,
-                Programmations = a.Programmations.Select(b => new ProgrammationDTO()
-                 {
-                     ArtisteId = b.ArtisteId,
-                     ProgrammationId = b.ProgrammationId,
-                     ProgrammationName = b.ProgrammationName
-                 })
+                //Programmations = a.Programmations.Select(b => new ProgrammationDTO()
+                // {
+                //     ArtisteId = b.ArtisteId,
+                //     ProgrammationId = b.ProgrammationId,
+                //     ProgrammationName = b.ProgrammationName
+                // })
             });
             return scenes;
         }
@@ -48,12 +48,12 @@ namespace APIFestival.Controllers
                                    Capacity = a.Capacity,
                                    SceneId = a.SceneId,
                                    SceneName = a.SceneName,
-                                   Programmations = a.Programmations.Select(b => new ProgrammationDTO()
-                                   {
-                                       ArtisteId = b.ArtisteId,
-                                       ProgrammationId = b.ProgrammationId,
-                                       ProgrammationName = b.ProgrammationName
-                                   })
+                                   //Programmations = a.Programmations.Select(b => new ProgrammationDTO()
+                                   //{
+                                   //    ArtisteId = b.ArtisteId,
+                                   //    ProgrammationId = b.ProgrammationId,
+                                   //    ProgrammationName = b.ProgrammationName
+                                   //})
                                }).FirstOrDefaultAsync();
 
             if (scene == null)
@@ -100,7 +100,7 @@ namespace APIFestival.Controllers
         }
 
         // POST: api/Scenes
-        [ResponseType(typeof(Scene))]
+        [ResponseType(typeof(SceneDTO))]
         public async Task<IHttpActionResult> PostScene(Scene scene)
         {
             if (!ModelState.IsValid)
@@ -110,8 +110,12 @@ namespace APIFestival.Controllers
 
             db.Scenes.Add(scene);
             await db.SaveChangesAsync();
-
-            return CreatedAtRoute("DefaultApi", new { id = scene.SceneId }, scene);
+            var dto = new SceneDTO()
+            {
+                Capacity = scene.Capacity,
+                SceneName = scene.SceneName
+            };
+            return CreatedAtRoute("DefaultApi", new { id = scene.SceneId }, dto);
         }
 
         // DELETE: api/Scenes/5

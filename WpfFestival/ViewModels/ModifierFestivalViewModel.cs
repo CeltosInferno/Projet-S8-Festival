@@ -24,6 +24,7 @@ namespace WpfFestival.ViewModels
         #region Members
         private Festival _festival;
         private Programmation _programmation;
+        private ObservableCollection<Programmation> _programmationsList;
         
         private bool _isEnabled;
         #endregion
@@ -39,7 +40,11 @@ namespace WpfFestival.ViewModels
             get { return _programmation; }
             set { SetProperty(ref _programmation, value); }
         }
-       
+        public ObservableCollection<Programmation> ProgrammationsList
+        {
+            get { return _programmationsList; }
+            set { SetProperty(ref _programmationsList, value); }
+        }
         public bool IsEnabled
         {
             get { return _isEnabled; }
@@ -51,8 +56,10 @@ namespace WpfFestival.ViewModels
         public DelegateCommand ModifierFestival { get; private set; }
         public DelegateCommand<string> GoToModifierProgrammation { get; private set; }
         public DelegateCommand SupprimerProgrammation { get; private set; }
+        public DelegateCommand<string> GoToProgrammationFormulaire { get; private set; }
+        public DelegateCommand RefreshList { get; private set; }
 
-        private void ExecutedA()
+        private void ExecutedA() // ModifierFestival
         {
             if(PutFestival($"/api/Festivals/{Festival.Id}"))
             {
@@ -63,7 +70,7 @@ namespace WpfFestival.ViewModels
                 NotificationRequest.Raise(new Notification { Content = "Modifié§§§", Title = "Notification" });
             }
         }
-        private void ExecutedB(string uri)
+        private void ExecutedB(string uri) // GoToModifierProgrammation
         {
             if (Programmation == null)
             {
@@ -75,7 +82,7 @@ namespace WpfFestival.ViewModels
                 _eventAggregator.GetEvent<PassProgrammationEvent>().Publish(Programmation);
             }
         }
-        private void ExecutedC()
+        private void ExecutedC() // SupprimerProgrammation
         {
 
             try
@@ -83,11 +90,25 @@ namespace WpfFestival.ViewModels
                 if (Fonctions.Fonctions.DeleteProgrammation($"/api/Programmations/{Programmation.ProgrammationId}"))
                 {
                     NotificationRequest.Raise(new Notification { Content = "Supprimé !!!", Title = "Notification" });
-                    Festival.ProgrammationsList.Remove(Programmation);
+                    ProgrammationsList.Remove(Programmation);
                 }
             }
             catch (NullReferenceException) { NotificationRequest.Raise(new Notification { Content = "Choisir un programme", Title = "Notification" }); }
 
+        }
+        private void ExecutedD(string uri) // GoToProgrammationFormulaire pour créer un programme
+        {
+            if(uri != null)
+            {   
+                
+                _eventAggregator.GetEvent<PassFestivalEvent>().Publish(Festival);
+                _regionManager.RequestNavigate("ContentRegion", uri);
+            }
+              
+        }
+        private void ExecutedE() //refresh list
+        {
+            ProgrammationsList = GetProgrammationsList($"api/Programmations/{Festival.Id}");
         }
 
         #endregion
@@ -100,15 +121,20 @@ namespace WpfFestival.ViewModels
             ModifierFestival = new DelegateCommand(ExecutedA).ObservesCanExecute(()=>IsEnabled);
             GoToModifierProgrammation = new DelegateCommand<string>(ExecutedB);
             SupprimerProgrammation = new DelegateCommand(ExecutedC);
+            GoToProgrammationFormulaire = new DelegateCommand<string>(ExecutedD);
+            RefreshList = new DelegateCommand(ExecutedE);
             _eventAggregator.GetEvent<PassFestivalEvent>().Subscribe(PassFestival);
             NotificationRequest = new InteractionRequest<INotification>();
-            //Festival.ProgrammationsList = new ObservableCollection<Programmation>();
-            //this.GetProgrammationsList();
-        }
 
+            
+            ProgrammationsList = new ObservableCollection<Programmation>();
+            //ProgrammationsList = GetProgrammationsList($"api/Programmations/{Festival.Id}");
+        }
+        
         private void PassFestival(Festival obj)
         {
             Festival = obj;
+            
         }
         private void RaiseNotification()
         {
@@ -138,25 +164,23 @@ namespace WpfFestival.ViewModels
             }
         }
 
-        private void GetProgrammationsList()
+        private ObservableCollection<Programmation> GetProgrammationsList(string uri)
         {
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:5575/");
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage response = client.GetAsync("api/Programmations").Result;
+            HttpResponseMessage response = client.GetAsync(uri).Result;
 
             if (response.IsSuccessStatusCode)
             {
 
-                var readTask = response.Content.ReadAsAsync<List<Programmation>>();
+                var readTask = response.Content.ReadAsAsync<ObservableCollection<Programmation>>();
                 readTask.Wait();
-                foreach (Programmation p in readTask.Result)
-                {
-                    this.Festival.ProgrammationsList.Add(p);
-                }
+                return readTask.Result;
             }
+            return null;
         }
        
     }
