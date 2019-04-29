@@ -4,11 +4,11 @@
 winexe
 C#
 .cs
-C:\Users\mpoid\Source\Repos\CeltosInferno\Projet-S8-Festival\festival\festival\obj\Release\
+C:\Users\mpoid\Source\Repos\CeltosInferno\Projet-S8-Festival\festival\festival\obj\Debug\
 festival
 none
 false
-TRACE
+DEBUG;TRACE
 C:\Users\mpoid\Source\Repos\CeltosInferno\Projet-S8-Festival\festival\festival\App.xaml
 41744253879
 
