@@ -26,7 +26,7 @@ namespace WpfFestival.Models
         public int Capacity
         {
             get { return _capacity; }
-            set { SetProperty(ref _capacity, value); }
+            set { SetProperty(ref _capacity, value); }//jj
         }
     }
 }
