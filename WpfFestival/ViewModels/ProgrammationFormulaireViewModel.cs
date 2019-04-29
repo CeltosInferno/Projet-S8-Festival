@@ -76,8 +76,9 @@ namespace WpfFestival.ViewModels
         {
             _eventAggregator = eventAggregator;
             Programmation = new Programmation();
-            
+            Festival = new Festival();
             _eventAggregator.GetEvent<PassFestivalEvent>().Subscribe(PassFestival);
+            
             AddProgrammation = new DelegateCommand(Executed).ObservesCanExecute(() => IsEnabled);
             this.ArtistesList = new List<Artiste>();
             this.ScenesList = new List<Scene>();
@@ -91,6 +92,8 @@ namespace WpfFestival.ViewModels
             Festival = obj;
             //Programmation.FestivalId = GetFestivalId();
             Programmation.FestivalId = Festival.Id;
+            Console.WriteLine(Programmation.FestivalId);
+            Console.WriteLine(Festival.Id);
         }
 
         private void Executed() {

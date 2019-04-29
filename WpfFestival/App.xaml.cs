@@ -36,8 +36,6 @@ namespace WpfFestival
             containerRegistry.RegisterForNavigation<Acceuil>();
             containerRegistry.RegisterForNavigation<GestionScene>();
 
-
-
         }
 
 
