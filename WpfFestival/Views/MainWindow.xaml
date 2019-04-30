@@ -12,12 +12,13 @@
         <ContentControl prism:RegionManager.RegionName="ContentRegion" HorizontalAlignment="Left" Margin="0,10,0,9.8" Width="884" />
 
         <Button Content="Creer un festival" Command="{Binding GoToFestivalFormulaire}" CommandParameter="FestivalFormulaire" Margin="889,115,0.2,453.8"/>
-        <Button Content="Créer un artiste" Command="{Binding GoToModifierArtiste}" CommandParameter="ModifierArtiste" Height="41" VerticalAlignment="Top" Margin="889,275,0.2,0"/>
+        <Button Content="Gestion Artiste" Command="{Binding GoToGestionArtiste}" CommandParameter="GestionArtiste" Margin="889,281,10.2,286.8" />
+        <Button Content="Créer un artiste" Command="{Binding GoToModifierArtiste}" CommandParameter="ModifierArtiste" Height="41" VerticalAlignment="Top" Margin="889,338,0.2,0"/>
         <Button Content="Acceuil" Command="{Binding GoToAcceuil}" CommandParameter="Acceuil" VerticalAlignment="Top" Margin="889,67,0.2,0" Height="43" />
-        <Button Content="Gestion Scène" Command="{Binding GoToGestionScene}" CommandParameter="GestionScene" Height="50" VerticalAlignment="Top" Margin="889,373,0.2,0"/>
+        <Button Content="Gestion Scène" Command="{Binding GoToGestionScene}" CommandParameter="GestionScene" Height="50" VerticalAlignment="Top" Margin="889,441,0.2,0"/>
         <TextBlock HorizontalAlignment="Left" Margin="889,10,0,0" TextWrapping="Wrap" Text="Festival" VerticalAlignment="Top" Height="52" Width="394" FontSize="24" FontWeight="Bold" TextAlignment="Center"/>
         <TextBlock HorizontalAlignment="Left" Margin="889,224,0,0" TextWrapping="Wrap" Text="Artiste" VerticalAlignment="Top" Height="52" Width="394" FontSize="24" FontWeight="Bold" TextAlignment="Center"/>
-        <TextBlock HorizontalAlignment="Left" Margin="889,321,0,0" TextWrapping="Wrap" Text="Scène" VerticalAlignment="Top" Height="52" Width="394" FontSize="24" FontWeight="Bold" TextAlignment="Center"/>
+        <TextBlock HorizontalAlignment="Left" Margin="889,384,0,0" TextWrapping="Wrap" Text="Scène" VerticalAlignment="Top" Height="52" Width="394" FontSize="24" FontWeight="Bold" TextAlignment="Center"/>
 
 
 

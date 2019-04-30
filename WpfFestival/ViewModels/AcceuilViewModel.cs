@@ -59,6 +59,7 @@ namespace WpfFestival.ViewModels
             {
                 _regionManager.RequestNavigate("ContentRegion", uri);
                 _eventAggregator.GetEvent<PassFestivalEvent>().Publish(Festival);
+                _eventAggregator.GetEvent<RefreshEvent>().Publish(true);
             }
         }
         private void ExecutedB() //ModifierFestival inscription ou/et publication

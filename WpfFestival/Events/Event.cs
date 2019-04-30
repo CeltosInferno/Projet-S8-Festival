@@ -21,6 +21,8 @@ namespace WpfFestival.Events
     public class PassSceneEvent : PubSubEvent<Scene>
     { 
     }
+    public class PassArtisteEvent : PubSubEvent<Artiste> { }
+    public class RefreshEvent : PubSubEvent<bool> { }
     //public class PassSceneIdEvent : PubSubEvent<int>
     //{
     //}

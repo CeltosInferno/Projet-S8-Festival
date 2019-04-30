@@ -101,8 +101,9 @@ namespace WpfFestival.ViewModels
             if(uri != null)
             {   
                 
-                _eventAggregator.GetEvent<PassFestivalEvent>().Publish(Festival);
+                
                 _regionManager.RequestNavigate("ContentRegion", uri);
+                _eventAggregator.GetEvent<PassFestivalEvent>().Publish(Festival);
             }
               
         }
@@ -124,17 +125,25 @@ namespace WpfFestival.ViewModels
             GoToProgrammationFormulaire = new DelegateCommand<string>(ExecutedD);
             RefreshList = new DelegateCommand(ExecutedE);
             _eventAggregator.GetEvent<PassFestivalEvent>().Subscribe(PassFestival);
+            _eventAggregator.GetEvent<RefreshEvent>().Subscribe(Update);
             NotificationRequest = new InteractionRequest<INotification>();
 
             
             ProgrammationsList = new ObservableCollection<Programmation>();
-            //ProgrammationsList = GetProgrammationsList($"api/Programmations/{Festival.Id}");
         }
         
         private void PassFestival(Festival obj)
         {
             Festival = obj;
             
+        }
+        private void Update(bool obj)
+        {
+            if(obj)
+            {
+                ProgrammationsList = GetProgrammationsList($"api/Programmations/{Festival.Id}");
+                obj = false;
+            }
         }
         private void RaiseNotification()
         {

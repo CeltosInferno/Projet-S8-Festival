@@ -76,7 +76,7 @@ namespace WpfFestival.ViewModels
         {
             _eventAggregator = eventAggregator;
             Programmation = new Programmation();
-            Festival = new Festival();
+            //Festival = new Festival();
             _eventAggregator.GetEvent<PassFestivalEvent>().Subscribe(PassFestival);
             
             AddProgrammation = new DelegateCommand(Executed).ObservesCanExecute(() => IsEnabled);
