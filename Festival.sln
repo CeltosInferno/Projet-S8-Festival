@@ -9,6 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIFestival", "APIFestival\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCFestival", "MVCFestival\MVCFestival.csproj", "{5F741E89-49D4-494F-87B5-1415863D3879}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Main", "Main\Main.csproj", "{ABCDC0FC-0A76-43B3-BD4B-17AEEEECDBE5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F89CBE0D-49CC-454C-A0E3-CED0BC777626} = {F89CBE0D-49CC-454C-A0E3-CED0BC777626}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +32,10 @@ Global
 		{5F741E89-49D4-494F-87B5-1415863D3879}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F741E89-49D4-494F-87B5-1415863D3879}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F741E89-49D4-494F-87B5-1415863D3879}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABCDC0FC-0A76-43B3-BD4B-17AEEEECDBE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABCDC0FC-0A76-43B3-BD4B-17AEEEECDBE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABCDC0FC-0A76-43B3-BD4B-17AEEEECDBE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABCDC0FC-0A76-43B3-BD4B-17AEEEECDBE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

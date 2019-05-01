@@ -1,184 +1,67 @@
-﻿using Prism.Events;
+﻿using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
-using Prism.Interactivity.InteractionRequest;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using WpfFestival.Models;
-using Prism.Commands;
+using Prism.Events;
 using WpfFestival.Events;
 
 namespace WpfFestival.ViewModels
 {
-    public class AcceuilViewModel :BindableBase
+    public class AcceuilViewModel : BindableBase
     {
+        private readonly IRegionManager _regionManger;
         private readonly IEventAggregator _eventAggregator;
-        private readonly IRegionManager _regionManager;
-        
-        #region Members
-        private ObservableCollection<Festival> _festivalsList;
-        private Festival _festival;
 
-        #endregion
-        #region Properties
-        public InteractionRequest<INotification> NotificationRequest { get; set; }
+        public int  OrganisateurId {get;set;}
+        public DelegateCommand<string> GoToFestivalFormulaire { get; private set; }
+        public DelegateCommand<string> GoToProgrammationFormulaire { get; private set; }
+        public DelegateCommand<string> GoToModifierScene { get; private set; }
+        public DelegateCommand<string> GoToModifierArtiste { get; private set; }
+        public DelegateCommand<string> GoToGestionFestival { get; private set; }
+        public DelegateCommand<string> GoToGestionScene { get; private set; }
+        public DelegateCommand<string> GoToGestionArtiste { get; private set; }
 
-        public ObservableCollection<Festival> FestivalsList
-        {
-            get { return _festivalsList; }
-            set { SetProperty(ref _festivalsList, value); }
-        }
-        public Festival Festival //SelectedFestival
-        {
-            get { return _festival; }
-            set { SetProperty(ref _festival, value);
-            }
-        }
+        public AcceuilViewModel(IRegionManager regionManager, IEventAggregator eventAggregator) {
 
-        #endregion
-        #region Command
-        public DelegateCommand<string> GoToModifierFestival { get; private set; }
-        public DelegateCommand ModifierFestival { get; private set; }
-        public DelegateCommand SupprimerFestival { get; private set; }
-        public DelegateCommand RefreshList { get; private set; }
-
-        private void ExecutedA(string uri) //GoToModifierFestival
-        {
-            if(Festival==null)
-            {
-                NotificationRequest.Raise(new Notification { Content = "Choisir un festival", Title = "Notification" });
-            }
-            else
-            {
-                _regionManager.RequestNavigate("ContentRegion", uri);
-                _eventAggregator.GetEvent<PassFestivalEvent>().Publish(Festival);
-                _eventAggregator.GetEvent<RefreshEvent>().Publish(true);
-            }
-        }
-        private void ExecutedB() //ModifierFestival inscription ou/et publication
-        {   
-            try
-            {
-                if (PutFestival($"/api/Festivals/{Festival.Id}"))
-                {
-                    NotificationRequest.Raise(new Notification { Content = "Modifié !!!", Title = "Notification" });
-                }
-            }
-            catch (NullReferenceException) { NotificationRequest.Raise(new Notification { Content = "Choisir un festival", Title = "Notification" }); }
-            
-            
-        }
-        private void ExecutedC()
-        {
-            try
-            {
-                if (Fonctions.Fonctions.DeleteFestival($"/api/Festivals/{Festival.Id}"))
-                {
-                    NotificationRequest.Raise(new Notification { Content = "Supprimé !!!", Title = "Notification" });
-                    FestivalsList.Remove(Festival);    
-                }
-            }
-            catch (NullReferenceException) { NotificationRequest.Raise(new Notification { Content = "Choisir un festival", Title = "Notification" }); }
-
-        }
-        private void ExecutedD()
-        {
-            FestivalsList = GetFestivalsList();
-        }
-
-
-
-        #endregion
-        public AcceuilViewModel(IRegionManager regionManager, IEventAggregator eventAggregator)
-        {
-            _regionManager = regionManager;
+            _regionManger = regionManager;
             _eventAggregator = eventAggregator;
-            GoToModifierFestival = new DelegateCommand<string>(ExecutedA);
-            ModifierFestival = new DelegateCommand(ExecutedB);
-            SupprimerFestival = new DelegateCommand(ExecutedC);
-            RefreshList = new DelegateCommand(ExecutedD);
-            NotificationRequest = new InteractionRequest<INotification>();
-            
-            FestivalsList = new ObservableCollection<Festival>();
-            //this.GetFestivalsList();
-            FestivalsList = GetFestivalsList();
+            GoToFestivalFormulaire = new DelegateCommand<string>(Navigate);
+            GoToProgrammationFormulaire = new DelegateCommand<string>(Navigate);
+            GoToModifierScene = new DelegateCommand<string>(Navigate);
+            GoToModifierArtiste = new DelegateCommand<string>(Navigate);
+            GoToGestionFestival = new DelegateCommand<string>(NavigateAndRefreshAndPassId);
+            GoToGestionScene = new DelegateCommand<string>(NavigateAndRefresh);
+            GoToGestionArtiste = new DelegateCommand<string>(NavigateAndRefresh);
+            _eventAggregator.GetEvent<PassOrganisateurIdEvent>().Subscribe(GetOrganisateurId);
+
         }
 
-        #region Methods
-        private void RaiseNotification()
-        {
-            NotificationRequest.Raise(new Notification { Content = "Notification Message", Title = "Notification" });
-        }
-
-        private bool PutFestival(string uri)
-        {
-            using (var client = new HttpClient())
+        private void Navigate(string uri)
+        {   if(uri != null)
             {
-                client.BaseAddress = new Uri("http://localhost:5575");
-                client.DefaultRequestHeaders.Accept.Add(
-                        new MediaTypeWithQualityHeaderValue("application/json"));
-
-                Task<HttpResponseMessage> putFestivalTask = client.PutAsJsonAsync<Festival>(uri, Festival);
-
-                putFestivalTask.Wait();
-
-                HttpResponseMessage result1 = putFestivalTask.Result;
-
-                if (result1.IsSuccessStatusCode)
-                {
-                    return true;
-                }
-                return false;
-
+                _regionManger.RequestNavigate("ContentRegion", uri);
             }
+                
         }
-        
-        public ObservableCollection<Festival> GetFestivalsList()
+        private void NavigateAndRefresh(string uri)
         {
-                HttpClient client = new HttpClient();
-                client.BaseAddress = new Uri("http://localhost:5575/");
-                client.DefaultRequestHeaders.Accept.Add(
-                    new MediaTypeWithQualityHeaderValue("application/json"));
+            if (uri != null)
+            {
+                _regionManger.RequestNavigate("ContentRegion", uri);
+                _eventAggregator.GetEvent<RefreshEvent>().Publish(true); //Rafrachir la liste
+            }
 
-                HttpResponseMessage response = client.GetAsync("api/Festivals").Result;
+        }
+        private void NavigateAndRefreshAndPassId(string uri)
+        {
+            if (uri != null)
+            {
+                _regionManger.RequestNavigate("ContentRegion", uri);
+                _eventAggregator.GetEvent<RefreshEvent>().Publish(true); //Rafrachir la liste
+                _eventAggregator.GetEvent<PassOrganisateurIdEvent>().Publish(OrganisateurId);
+            }
 
-                if (response.IsSuccessStatusCode)
-                {
-
-                    var readTask = response.Content.ReadAsAsync<ObservableCollection<Festival>>();
-                    readTask.Wait();
-                return readTask.Result;
-                    
-                }
-            return null;
-            
         }
 
-        //private bool DeleteFestival(string uri)
-        //{
-        //    using (var client = new HttpClient())
-        //    {
-        //        client.BaseAddress = new Uri("http://localhost:5575");
-        //        client.DefaultRequestHeaders.Accept.Add(
-        //                new MediaTypeWithQualityHeaderValue("application/json"));
-
-        //        HttpResponseMessage responseMessage = client.DeleteAsync(uri).Result;
-        //        if (responseMessage.IsSuccessStatusCode)
-        //        {
-        //            return true;
-        //        }
-        //        return false;
-
-        //    }
-        //}
-        #endregion
-
+        private void GetOrganisateurId(int obj) { OrganisateurId = obj; }
     }
 }

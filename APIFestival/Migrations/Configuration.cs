@@ -23,16 +23,23 @@ namespace APIFestival.Migrations
 
 
             //base.Seed(context);
+            var Organisateurs = new List<Organisateur>
+            {
+                new Organisateur{ Email="111@111.com" , Password="111"},
+                new Organisateur{ Email = "222@222.com", Password="222"}
+            };
 
+            Organisateurs.ForEach(o => context.Organisateurs.AddOrUpdate(o1 => o1.Email, o));
+            context.SaveChanges();
 
             var Festivals = new List<Festival>
             {
-                new Festival{ Name="armada", Description="boat festival", StartDate=DateTime.Parse("2019-06-06"), EndDate=DateTime.Parse("2019-06-16"), LieuName= "Rouen", PostalCode=76100  , IsInscription=true, IsPublication= false}, 
+                new Festival{ Name="armada", Description="boat festival", StartDate=DateTime.Parse("2019-06-06"), EndDate=DateTime.Parse("2019-06-16"), LieuName= "Rouen", PostalCode=76100  , IsInscription=true, IsPublication= false, OrganisateurId=1},
                 new Festival{ Name="spring", Description="SPRING, festival des nouvelles formes de cirque en Normandie est " +
                 "coordonné par la Plateforme 2 Pôles Cirque en Normandie / La Brèche à Cherbourg – Cirque-Théâtre d’Elbeuf " +
                 "avec 60 partenaires sur tout le territoire normand.",
-                    StartDate =DateTime.Parse("2019-03-01"), EndDate=DateTime.Parse("2019-04-05"), LieuName= "Rouen", PostalCode=76100, IsInscription = true , IsPublication= true },
-                new Festival{ Name="musee", Description="UNE ANNEE AU MUSEE", StartDate=DateTime.Parse("2019-04-10"), EndDate=DateTime.Parse("2019-04-17"), LieuName= "Rouen", PostalCode=76100, IsInscription=false, IsPublication= false}
+                    StartDate =DateTime.Parse("2019-03-01"), EndDate=DateTime.Parse("2019-04-05"), LieuName= "Rouen", PostalCode=76100, IsInscription = true , IsPublication= true , OrganisateurId=1, },
+                new Festival{ Name="musee", Description="UNE ANNEE AU MUSEE", StartDate=DateTime.Parse("2019-04-10"), EndDate=DateTime.Parse("2019-04-17"), LieuName= "Rouen", PostalCode=76100, IsInscription=false, IsPublication= false, OrganisateurId=1}
             };
 
             Festivals.ForEach(f => context.Festivals.AddOrUpdate(f1 => f1.Id, f));

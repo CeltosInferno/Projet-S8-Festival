@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace APIFestival.Models
 {
@@ -23,8 +24,12 @@ namespace APIFestival.Models
         // ajouter 2 fonctions  clôturer les inscriptions et clôturer la publication 
         public bool IsInscription { get; set; }
         public bool IsPublication { get; set; }
+        // relier avec l'organisateur
+        [ForeignKey("Organisateur")]
+        public int OrganisateurId { get; set; }
 
 
         public virtual ICollection<Programmation> Programmations { get; set; }
+        public virtual Organisateur Organisateur { get; set; }
     }
 }

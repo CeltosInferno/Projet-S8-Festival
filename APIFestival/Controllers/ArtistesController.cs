@@ -123,7 +123,7 @@ namespace APIFestival.Controllers
             db.Artistes.Add(artiste);
             await db.SaveChangesAsync();
 
-            db.Entry(artiste).Reference(x => x.Programmations).Load();
+            //db.Entry(artiste).Reference(x => x.Programmations).Load();
 
             var dto = new ArtisteDTO()
             {

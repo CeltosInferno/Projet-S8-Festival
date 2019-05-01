@@ -10,20 +10,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace WpfFestival.Views
 {
     /// <summary>
-    /// ArtisteFormulaire.xaml 的交互逻辑
+    /// Identification.xaml 的交互逻辑
     /// </summary>
-    public partial class ArtisteFormulaire : UserControl
+    public partial class Identification : UserControl
     {
-        public ArtisteFormulaire()
+        public Identification()
         {
             InitializeComponent();
-           // CommandBindings.Add(new CommandBinding(Commands.NavigateHelp, NavigateHelpExecute));
         }
+
+        
     }
 }

@@ -53,7 +53,6 @@
         <TextBox Text="{Binding Festival.Description, Mode=TwoWay}" Grid.Column="1" Grid.Row="6" Grid.RowSpan="3"/>
         <Button Content="Update Festival" Command="{Binding ModifierFestival}" Grid.Column="0" Grid.Row="9"/>
         <CheckBox Content="checkbox" IsChecked="{Binding IsEnabled}" Grid.Column="1" Grid.Row="9"/>
-        <Button Content="refresh" Command="{Binding RefreshList}" Grid.Column="2" Grid.Row="9"/>
         <DataGrid SelectedItem="{Binding Programmation}" ItemsSource="{Binding ProgrammationsList}" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False" Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="3">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id du programme" Binding="{Binding ProgrammationId}" Width="224"/>
@@ -62,7 +61,7 @@
         </DataGrid>
         <Button Content="Modifier Programme" Grid.Row="12" Command="{Binding GoToModifierProgrammation}" CommandParameter="ModifierProgrammation" />
         <Button Content="Supprimer Programme" Grid.Row="12" Grid.Column="1" Command="{Binding SupprimerProgrammation}" />
-        <Button Content="Créer Programme" Grid.Row="12" Grid.Column="2" Command="{Binding GoToProgrammationFormulaire}" CommandParameter="ProgrammationFormulaire"/>
+        <Button Content="Ajouter Programme" Grid.Row="12" Grid.Column="2" Command="{Binding GoToProgrammationFormulaire}" CommandParameter="ProgrammationFormulaire"/>
 
 
     </Grid>

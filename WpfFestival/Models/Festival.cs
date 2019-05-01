@@ -73,5 +73,12 @@ namespace WpfFestival.Models
             get { return _programmationsList; }
             set { SetProperty(ref _programmationsList, value); }
         }
+
+        private int _organisateurId;
+        public int OrganisateurId
+        {
+            get { return _organisateurId; }
+            set { SetProperty(ref _organisateurId, value); }
+        }
     }
 }

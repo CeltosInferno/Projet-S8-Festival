@@ -1,45 +1,33 @@
-﻿using System.Windows;
-using WpfFestival.Views;
+﻿using WpfFestival.Views;
 using Prism.Ioc;
 using Prism.Modularity;
-using Prism.Unity;
 using Prism.Regions;
 
 namespace WpfFestival
 {
-    /// <summary>
-    /// App.xaml 的交互逻辑
-    /// </summary>
-    public partial class App : PrismApplication
+    public class WpfFestivalModule : IModule
     {
-        protected override Window CreateShell()
+        public void OnInitialized(IContainerProvider containerProvider)
         {
-            return Container.Resolve<MainWindow>();
+            var regionManager = containerProvider.Resolve<IRegionManager>();
+            regionManager.RegisterViewWithRegion("MainContentRegion", typeof(Identification));
         }
 
-        //protected void OnInitialized(IContainerProvider containerProvider)
-        //{
-        //    var regionManager = containerProvider.Resolve<IRegionManager>();
-
-        //    regionManager.RegisterViewWithRegion("ScenesListRegion", typeof(ScenesList));
-        //}
-
-        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+        public void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterForNavigation<Acceuil>();
+
             containerRegistry.RegisterForNavigation<FestivalFormulaire>();
+            containerRegistry.RegisterForNavigation<ArtisteFormulaire>();
             containerRegistry.RegisterForNavigation<ProgrammationFormulaire>();
             containerRegistry.RegisterForNavigation<SceneFormulaire>();
             containerRegistry.RegisterForNavigation<ModifierScene>();
             containerRegistry.RegisterForNavigation<ModifierArtiste>();
             containerRegistry.RegisterForNavigation<ModifierProgrammation>();
             containerRegistry.RegisterForNavigation<ModifierFestival>();
-            containerRegistry.RegisterForNavigation<Acceuil>();
+            containerRegistry.RegisterForNavigation<GestionFestival>();
             containerRegistry.RegisterForNavigation<GestionScene>();
             containerRegistry.RegisterForNavigation<GestionArtiste>();
-
-
         }
-
-
     }
 }

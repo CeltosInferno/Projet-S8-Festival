@@ -10,9 +10,10 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WpfFestival.Views
+namespace Main
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑

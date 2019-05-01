@@ -31,6 +31,8 @@ namespace APIFestival.Models
 
         public System.Data.Entity.DbSet<APIFestival.Models.Scene> Scenes { get; set; }
 
+        public System.Data.Entity.DbSet<APIFestival.Models.Organisateur> Organisateurs { get; set; }
+
         //protected override void OnModelCreating(DbModelBuilder modelBuilder)
         //{
         //    base.OnModelCreating(modelBuilder);

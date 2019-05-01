@@ -79,21 +79,33 @@ namespace WpfFestival.ViewModels
         {
             _eventAggregator = eventAggregator;
             _regionManager = regionManager;
+
             CreerScene = new DelegateCommand<string>(ExecutedA);
             ModifierScene = new DelegateCommand<string>(ExecutedB);
             SupprimerScene = new DelegateCommand(ExecutedC);
             NotificationRequest = new InteractionRequest<INotification>();
             ScenesList = new ObservableCollection<Scene>();
-            this.GetScenesList("/api/Scenes");
-        }
 
+            _eventAggregator.GetEvent<RefreshEvent>().Subscribe(Update);
+            //this.GetScenesList("/api/Scenes");
+        }
+        #region Events
+        private void Update(bool obj)
+        {
+            if(obj)
+            {
+                ScenesList = GetScenesList("/api/Scenes");
+                obj = false;
+            }
+        }
+        #endregion
         #region Methods
         private void RaiseNotification()
         {
             NotificationRequest.Raise(new Notification { Content = "Notification Message", Title = "Notification" });
         }
 
-        public void GetScenesList(string uri)
+        public ObservableCollection<Scene> GetScenesList(string uri)
         {
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:5575");
@@ -106,11 +118,9 @@ namespace WpfFestival.ViewModels
             {
                 var readTask = response.Content.ReadAsAsync<ObservableCollection<Scene>>();
                 readTask.Wait();
-                foreach (Scene s in readTask.Result)
-                {
-                    this.ScenesList.Add(s);
-                }
+                return readTask.Result;
             }
+            return null;
         }
         #endregion
     }

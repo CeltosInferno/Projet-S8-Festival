@@ -1,39 +1,108 @@
-﻿<Window x:Class="WpfFestival.Views.ArtisteFormulaire"
+﻿<UserControl x:Class="WpfFestival.Views.ArtisteFormulaire"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:local="clr-namespace:WpfFestival.ViewModels"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="ArtisteFormulaire">
-    
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True" >
+    <i:Interaction.Triggers>
+        <prism:InteractionRequestTrigger SourceObject="{Binding NotificationRequest}">
+            <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True" />
+        </prism:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
-        <Label Content="Nom"></Label>
-        <Label Content="Prenom" RenderTransformOrigin="1.013,0.499" Grid.ColumnSpan="2" Margin="1,0.6,0,-26" Grid.Row="1" Grid.RowSpan="2"/>
-        <StackPanel>
-            <ComboBox Margin="0,0,0.2,0" ItemsSource="{Binding ProgrammationsList}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding ProgrammationName}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-        </StackPanel>
-        <ComboBox Grid.Column="3" ItemsSource="{Binding ProgrammationsList}" HorizontalAlignment="Left" Margin="97.4,26.8,-215.8,-25.4" Grid.Row="2" VerticalAlignment="Top" Width="120"/>
-        <DatePicker DisplayDateEnd="2019/12/01" DisplayDateStart="2019/01/01" Grid.Column="3" HorizontalAlignment="Left" Margin="10.4,24.8,-5.8,0" Grid.Row="2" VerticalAlignment="Top"/>
+        <Label Content="Nom de l'artiste:" HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="184,101,0,0" TextWrapping="Wrap" Text="{Binding Artiste.ArtisteName}" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Style:" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top"/>
+        <!--<ComboBox SelectedValue="{Binding Artiste.Style}" ItemsSource="{Binding StylesList}" />-->
+        <ComboBox Text="{Binding Artiste.Style}" HorizontalAlignment="Left" Margin="184,137,0,0" VerticalAlignment="Top" Width="120">
+            <ComboBoxItem>Blues</ComboBoxItem>
+            <ComboBoxItem>Country</ComboBoxItem>
+            <ComboBoxItem>Disco</ComboBoxItem>
+            <ComboBoxItem>Folk</ComboBoxItem>
+            <ComboBoxItem>Funk</ComboBoxItem>
+            <ComboBoxItem>Jazz</ComboBoxItem>
+            <ComboBoxItem>Rai</ComboBoxItem>
+            <ComboBoxItem>Rap</ComboBoxItem>
+            <ComboBoxItem>Reggae</ComboBoxItem>
+            <ComboBoxItem>Rock</ComboBoxItem>
+            <ComboBoxItem>Salsa</ComboBoxItem>
+            <ComboBoxItem>Soul</ComboBoxItem>
+            <ComboBoxItem>Techno</ComboBoxItem>
+        </ComboBox>
+        <Label Content="Nationalité:" HorizontalAlignment="Left" Margin="10,163,0,0" VerticalAlignment="Top"/>
+        <!--<ComboBox SelectedValue="{Binding Artiste.Nationality}" ItemsSource="{Binding NationalitiesList}" HorizontalAlignment="Left" Margin="184,173,0,0" VerticalAlignment="Top" Width="120"/>-->
+        <ComboBox Text="{Binding Artiste.Nationality}" HorizontalAlignment="Left" Margin="184,173,0,0" VerticalAlignment="Top" Width="120">
+            <ComboBoxItem>Afghanistan</ComboBoxItem>
+            <ComboBoxItem>Albania</ComboBoxItem>
+            <ComboBoxItem>Algeria</ComboBoxItem>
+            <ComboBoxItem>Andorra</ComboBoxItem>
+            <ComboBoxItem>Angola</ComboBoxItem>
+            <ComboBoxItem>Argentina</ComboBoxItem>
+            <ComboBoxItem>Armenia</ComboBoxItem>
+            <ComboBoxItem>Australia</ComboBoxItem>
+            <ComboBoxItem>Austria</ComboBoxItem>
+            <ComboBoxItem>Bahrain</ComboBoxItem>
+            <ComboBoxItem>Bangladesh</ComboBoxItem>
+            <ComboBoxItem>Belgium</ComboBoxItem>
+            <ComboBoxItem>Bolivia</ComboBoxItem>
+            <ComboBoxItem>Brazil</ComboBoxItem>
+            <ComboBoxItem>Cambodia</ComboBoxItem>
+            <ComboBoxItem>Canada</ComboBoxItem>
+            <ComboBoxItem>Chad</ComboBoxItem>
+            <ComboBoxItem>China</ComboBoxItem>
+            <ComboBoxItem>Costa Rica</ComboBoxItem>
+            <ComboBoxItem>Croatia</ComboBoxItem>
+            <ComboBoxItem>Denmark</ComboBoxItem>
+            <ComboBoxItem>Djibouti</ComboBoxItem>
+            <ComboBoxItem>Egypt</ComboBoxItem>
+            <ComboBoxItem>Estonia</ComboBoxItem>
+            <ComboBoxItem>Finland</ComboBoxItem>
+            <ComboBoxItem>France</ComboBoxItem>
+            <ComboBoxItem>Greece</ComboBoxItem>
+            <ComboBoxItem>Haiti</ComboBoxItem>
+            <ComboBoxItem>Hungary</ComboBoxItem>
+            <ComboBoxItem>India</ComboBoxItem>
+            <ComboBoxItem>Indonesia</ComboBoxItem>
+            <ComboBoxItem>Italy</ComboBoxItem>
+            <ComboBoxItem>Japan</ComboBoxItem>
+            <ComboBoxItem>Kenya</ComboBoxItem>
+            <ComboBoxItem>Lebanon</ComboBoxItem>
+            <ComboBoxItem>Liechtenstein</ComboBoxItem>
+            <ComboBoxItem>Luxembourg</ComboBoxItem>
+            <ComboBoxItem>Morocco</ComboBoxItem>
+            <ComboBoxItem>Myanmar</ComboBoxItem>
+            <ComboBoxItem>Netherlands</ComboBoxItem>
+            <ComboBoxItem>New Zealand</ComboBoxItem>
+            <ComboBoxItem>Niger</ComboBoxItem>
+            <ComboBoxItem>Palestinian Territory, Occupied</ComboBoxItem>
+            <ComboBoxItem>Panama</ComboBoxItem>
+            <ComboBoxItem>Peru</ComboBoxItem>
+            <ComboBoxItem>Poland</ComboBoxItem>
+            <ComboBoxItem>Portugal</ComboBoxItem>
+            <ComboBoxItem>Qatar</ComboBoxItem>
+            <ComboBoxItem>Russian Federation</ComboBoxItem>
+            <ComboBoxItem>Saudi Arabia</ComboBoxItem>
+            <ComboBoxItem>Senegal</ComboBoxItem>
+            <ComboBoxItem>South Africa</ComboBoxItem>
+            <ComboBoxItem>Spain</ComboBoxItem>
+            <ComboBoxItem>Switzerland</ComboBoxItem>
+            <ComboBoxItem>Turkey</ComboBoxItem>
+            <ComboBoxItem>Ukraine</ComboBoxItem>
+            <ComboBoxItem>United Kingdom</ComboBoxItem>
+            <ComboBoxItem>United States</ComboBoxItem>
+            <ComboBoxItem>Venezuela</ComboBoxItem>
+            <ComboBoxItem>Zambia</ComboBoxItem>
+            <ComboBoxItem>Zimbabwe</ComboBoxItem>
+        </ComboBox>
+        <Label Content="Comment:" HorizontalAlignment="Left" Margin="10,194,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="80" Margin="184,206,0,0" TextWrapping="Wrap" Text="{Binding Artiste.Comment}" VerticalAlignment="Top" Width="120"/>
+        <Button Command="{Binding CreerArtiste}" Content="Créer" HorizontalAlignment="Left" Margin="93,333,0,0" VerticalAlignment="Top" Width="74"/>
+        <Button Content="Terminer" HorizontalAlignment="Left" Margin="253,333,0,0" VerticalAlignment="Top" Width="75"/>
+        <CheckBox IsChecked="{Binding IsEnabled}" Content="CheckBox" HorizontalAlignment="Left" Margin="365,107,0,0" VerticalAlignment="Top"/>
+
     </Grid>
-</Window>
+
+</UserControl>

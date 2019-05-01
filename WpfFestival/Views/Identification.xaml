@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="WpfFestival.Views.Identification"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfFestival.Views"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        mc:Ignorable="d"
+        Height="450" Width="800">
+    <i:Interaction.Triggers>
+        <prism:InteractionRequestTrigger SourceObject="{Binding NotificationRequest}">
+            <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True" />
+        </prism:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
+    <Grid Background="LightGray">
+        <Image Source="C:\Users\zlj\Desktop\watermark.png" Height="450"  Width="800" />
+        <Button Command="{Binding Verifier}" CommandParameter="Acceuil" Content="Login" HorizontalAlignment="Left" Margin="610,332,0,0" VerticalAlignment="Top" Width="75" />
+        <TextBox Text="{Binding Organisateur.Password}" HorizontalAlignment="Left" Margin="343,238,0,0" VerticalAlignment="Top" Height="26" Width="200"/>
+
+        <TextBox x:Name="TextBox1" Text="{Binding Organisateur.Email}" HorizontalAlignment="Left" Height="23" Margin="343,189,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="200"/>
+        <Label Content="Identifiant :" HorizontalAlignment="Left" Margin="236,189,0,0" VerticalAlignment="Top"/>
+        <Label Content="Mot de passe :" HorizontalAlignment="Left" Margin="236,238,0,0" VerticalAlignment="Top"/>
+        <TextBlock Margin="343,269,328.6,134">
+            <Hyperlink NavigateUri="https://www.microsoft.com">
+                Mot de passe oublié?
+            </Hyperlink>
+        </TextBlock>
+    </Grid>
+</UserControl>

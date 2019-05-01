@@ -32,8 +32,8 @@
                 <DataGridTextColumn Header="Nationalité" Binding="{Binding Nationality}" Width="120"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Grid.Column="0" Grid.Row="1" Content="Créer" Command="{Binding CreerArtiste}" CommandParameter="SceneFormulaire" />
-        <Button Grid.Column="1" Grid.Row="1" Content="Modifier" Command="{Binding ModifierArtiste}" CommandParameter="ModifierScene" />
+        <Button Grid.Column="0" Grid.Row="1" Content="Créer" Command="{Binding CreerArtiste}" CommandParameter="ArtisteFormulaire" />
+        <Button Grid.Column="1" Grid.Row="1" Content="Modifier" Command="{Binding ModifierArtiste}" CommandParameter="ModifierArtiste" />
         <Button Grid.Column="2" Grid.Row="1" Content="Supprimer" Command="{Binding SupprimerArtiste}"  />
     </Grid>
 </UserControl>

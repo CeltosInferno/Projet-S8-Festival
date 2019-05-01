@@ -16,14 +16,13 @@ using System.Windows.Shapes;
 namespace WpfFestival.Views
 {
     /// <summary>
-    /// ArtisteFormulaire.xaml 的交互逻辑
+    /// Acceuil.xaml 的交互逻辑
     /// </summary>
-    public partial class ArtisteFormulaire : UserControl
+    public partial class GestionFestival : UserControl
     {
-        public ArtisteFormulaire()
+        public GestionFestival()
         {
             InitializeComponent();
-           // CommandBindings.Add(new CommandBinding(Commands.NavigateHelp, NavigateHelpExecute));
         }
     }
 }

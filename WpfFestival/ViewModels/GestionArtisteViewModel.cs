@@ -84,9 +84,22 @@ namespace WpfFestival.ViewModels
             SupprimerArtiste = new DelegateCommand(ExecutedC);
             NotificationRequest = new InteractionRequest<INotification>();
             ArtistesList = new ObservableCollection<Artiste>();
-            ArtistesList = GetArtistesList("/api/Artistes");
-        }
 
+            _eventAggregator.GetEvent<RefreshEvent>().Subscribe(Update);
+            //ArtistesList = GetArtistesList("/api/Artistes");
+
+
+        }
+        #region Events
+        private void Update(bool obj)
+        {
+            if(obj)
+            {
+                ArtistesList = GetArtistesList("/api/Artistes");
+                obj = false;
+            }
+        }
+        #endregion
         #region Methods
         private void RaiseNotification()
         {

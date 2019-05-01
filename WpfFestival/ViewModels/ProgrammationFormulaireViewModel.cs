@@ -12,6 +12,7 @@ using Prism.Events;
 using Prism.Commands;
 using Prism.Regions;
 using WpfFestival.Events;
+using Prism.Interactivity.InteractionRequest;
 
 namespace WpfFestival.ViewModels
 {
@@ -19,25 +20,20 @@ namespace WpfFestival.ViewModels
     {
         
         #region Members
-        private string _festivalName ;
         private Festival _festival;
         private Programmation _programmation;
         private List<Artiste> _artistesList;
         private List<Scene> _scenesList;
         private bool _isEnabled;
-#pragma warning disable CS0169 // 从不使用字段“ProgrammationFormulaireViewModel._regionManager”
         private readonly IRegionManager _regionManager;
         private readonly IEventAggregator _eventAggregator;
-#pragma warning restore CS0169 // 从不使用字段“ProgrammationFormulaireViewModel._regionManager”
 
         #endregion
 
         #region Properties
-        public string FestivalName
-        {
-            get { return _festivalName; }
-            set { SetProperty(ref _festivalName, value); }
-        }
+        public InteractionRequest<INotification> NotificationRequest { get; set; }
+        public InteractionRequest<IConfirmation> ConfirmationRequest { get; set; }
+        public string AddNewProgramme { get; set; }
         public Festival Festival
         {
             get { return _festival; }
@@ -68,62 +64,88 @@ namespace WpfFestival.ViewModels
             get { return _isEnabled; }
             set { SetProperty(ref _isEnabled, value); }
         }
+        
 
         #endregion
+        #region Commands
         public DelegateCommand AddProgrammation { get; private set; }
+        public DelegateCommand<string> GoToAcceuil { get; private set; }
 
-        public ProgrammationFormulaireViewModel(IEventAggregator eventAggregator)
+        private void ExecutedA() // ajouter un programme
+        {
+
+            if(PostProgrammation("/api/Programmations"))
+            {
+
+                ConfirmationRequest.Raise(new Confirmation { Title = "Confirmation", Content = "Veuillez créer un autre programme?" }, r => AddNewProgramme = r.Confirmed ?  "ProgrammationFormulaire" : "Acceuil" );
+               
+
+                if (AddNewProgramme.Equals("ProgrammationFormulaire"))
+                {
+                    //_regionManager.RequestNavigate("ContentRegion", Confirmed);
+                    //_programmation.ProgrammationName = "1";
+                    //IsEnabled = false;
+                    //Programmation.ArtisteId = 0;
+                    _regionManager.RequestNavigate("ContentRegion", AddNewProgramme);
+
+                }
+                else if (AddNewProgramme.Equals("Acceuil"))
+                {
+                    _regionManager.RequestNavigate("ContentRegion", AddNewProgramme);
+                    _eventAggregator.GetEvent<RefreshEvent>().Publish(true); //Rafrachir la liste
+                }
+
+            }
+            else
+            {
+                NotificationRequest.Raise(new Notification { Content = "Erreur", Title = "Notification" });
+
+            }
+
+
+        }
+
+        private void ExecutedB(string uri) // Retour à l'acceuil
+        {
+            if (uri != null)
+                _regionManager.RequestNavigate("ContentRegion", uri);
+        }
+        #endregion
+
+
+        public ProgrammationFormulaireViewModel(IRegionManager regionManager, IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
+            _regionManager = regionManager;
             Programmation = new Programmation();
             //Festival = new Festival();
             _eventAggregator.GetEvent<PassFestivalEvent>().Subscribe(PassFestival);
             
-            AddProgrammation = new DelegateCommand(Executed).ObservesCanExecute(() => IsEnabled);
+
+            AddProgrammation = new DelegateCommand(ExecutedA).ObservesCanExecute(() => IsEnabled);
+            GoToAcceuil = new DelegateCommand<string>(ExecutedB);
             this.ArtistesList = new List<Artiste>();
             this.ScenesList = new List<Scene>();
-            
-            this.GetArtistesList();
-            this.GetScenesList();
-        }
 
+            ConfirmationRequest = new InteractionRequest<IConfirmation>();
+            NotificationRequest = new InteractionRequest<INotification>();
+            ArtistesList = GetArtistesList("api/Artistes");
+            ScenesList = GetScenesList("api/Scenes");
+
+        }
+       
+        #region Events
         private void PassFestival(Festival obj)
         {
             Festival = obj;
-            //Programmation.FestivalId = GetFestivalId();
             Programmation.FestivalId = Festival.Id;
-            Console.WriteLine(Programmation.FestivalId);
-            Console.WriteLine(Festival.Id);
+           
         }
+        #endregion
 
-        private void Executed() {
-            
-            PostProgrammation();
-            //_regionManaager.RequestNavigate("ContentRegion", uri);
-        }
-        public int GetFestivalId()
-        {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:5575/");
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-
-            HttpResponseMessage response = client.GetAsync($"api/Festivals/{FestivalName}").Result;
-
-            if (response.IsSuccessStatusCode)
-            {
-
-                var readTask = response.Content.ReadAsAsync<Festival>();
-                readTask.Wait();
-                return readTask.Result.Id;
-
-            }
-            else return 0;
-            
-            
-        }
-
-        public void PostProgrammation()
+        #region Methods
+        
+        public bool PostProgrammation(string uri)
         {
             using (var client = new HttpClient())
             {
@@ -131,7 +153,7 @@ namespace WpfFestival.ViewModels
                 client.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json"));
 
-                Task<HttpResponseMessage> postProgrammationTask = client.PostAsJsonAsync<Programmation>("/api/Programmations", Programmation);
+                Task<HttpResponseMessage> postProgrammationTask = client.PostAsJsonAsync<Programmation>(uri, Programmation);
 
                 postProgrammationTask.Wait();
 
@@ -142,52 +164,50 @@ namespace WpfFestival.ViewModels
                 if (result1.IsSuccessStatusCode)
                 {
                     var readTask = result1.Content.ReadAsAsync<Programmation>().Result;
-
+                    return true;
                 }
+                return false;
 
             }
         }
 
-        public void GetArtistesList()
+        public List<Artiste> GetArtistesList(string uri)
         {
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:5575/");
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage response = client.GetAsync("api/Artistes").Result;
+            HttpResponseMessage response = client.GetAsync(uri).Result;
 
             if (response.IsSuccessStatusCode)
             {
 
                 var readTask = response.Content.ReadAsAsync<List<Artiste>>();
                 readTask.Wait();
-                foreach (Artiste a in readTask.Result)
-                {
-                    this.ArtistesList.Add(a);
-                }
+                return readTask.Result;
             }
+            return null;
         }
 
-        public void GetScenesList()
+        public List<Scene> GetScenesList(string uri)
         {
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:5575/");
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage response = client.GetAsync("api/Scenes").Result;
+            HttpResponseMessage response = client.GetAsync(uri).Result;
 
             if (response.IsSuccessStatusCode)
             {
 
                 var readTask = response.Content.ReadAsAsync<List<Scene>>();
                 readTask.Wait();
-                foreach (Scene s in readTask.Result)
-                {
-                    this.ScenesList.Add(s);
-                }
+                return readTask.Result;
             }
+            return null;
         }
+        #endregion
     }
 }

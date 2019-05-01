@@ -34,6 +34,37 @@ namespace APIFestival.Controllers
                 PostalCode = a.PostalCode,
                 IsInscription = a.IsInscription,
                 IsPublication = a.IsPublication,
+                OrganisateurId = a.OrganisateurId,
+                ProgrammationsList = a.Programmations.Select(b => new ProgrammationDTO()
+                {
+                    ArtisteId = b.ArtisteId,
+                    ProgrammationId = b.ProgrammationId,
+                    ProgrammationName = b.ProgrammationName,
+                    FestivalId = b.FestivalId,
+                    SceneId = b.SceneId
+                })
+
+            });
+            return festivals;
+        }
+
+        // GET: api/Festivals/org/5
+        [HttpGet]
+        [Route("org/{organisateurId:int}")]
+        public IQueryable<FestivalDTO> GetFestivalsByOrganizer(int organisateurId)
+        {
+            var festivals = db.Festivals.Where( a => a.OrganisateurId == organisateurId).Select(a => new FestivalDTO()
+            {
+                Description = a.Description,
+                Name = a.Name,
+                EndDate = a.EndDate,
+                StartDate = a.StartDate,
+                Id = a.Id,
+                LieuName = a.LieuName,
+                PostalCode = a.PostalCode,
+                IsInscription = a.IsInscription,
+                IsPublication = a.IsPublication,
+                OrganisateurId = a.OrganisateurId,
                 ProgrammationsList = a.Programmations.Select(b => new ProgrammationDTO()
                 {
                     ArtisteId = b.ArtisteId,
@@ -78,7 +109,7 @@ namespace APIFestival.Controllers
         // GET: api/Festivals/5
         [HttpGet]
         [Route("{name}")]
-        [ResponseType(typeof(Festival))]
+        [ResponseType(typeof(FestivalDTO))]
         public async Task<IHttpActionResult> GetFestivalByName(string name)
         {
             var festival = await (from a in db.Festivals

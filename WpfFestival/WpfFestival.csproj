@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{F89CBE0D-49CC-454C-A0E3-CED0BC777626}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>WpfFestival</RootNamespace>
     <AssemblyName>WpfFestival</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -33,6 +33,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
@@ -79,23 +82,21 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
     <Compile Include="Events\Event.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Models\Artiste.cs" />
+    <Compile Include="Models\Organisateur.cs" />
     <Compile Include="Models\Programmation.cs" />
     <Compile Include="Models\Scene.cs" />
-    <Compile Include="ViewModels\AcceuilViewModel.cs" />
-    <Compile Include="ViewModels\ArtisteViewModel.cs" />
+    <Compile Include="ViewModels\Fonctions\Styles.cs" />
+    <Compile Include="ViewModels\GestionFestivalViewModel.cs" />
+    <Compile Include="ViewModels\ArtisteFormulaireViewModel.cs" />
     <Compile Include="ViewModels\AssocierSceneViewModel.cs" />
     <Compile Include="ViewModels\FestivalFormulaireViewModel.cs" />
     <Compile Include="ViewModels\Fonctions\Fonctions.cs" />
     <Compile Include="ViewModels\GestionArtisteViewModel.cs" />
     <Compile Include="ViewModels\GestionSceneViewModel.cs" />
-    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\IdentificationViewModel.cs" />
+    <Compile Include="ViewModels\AcceuilViewModel.cs" />
     <Compile Include="ViewModels\ModifierArtisteViewModel.cs" />
     <Compile Include="ViewModels\ModifierFestivalViewModel.cs" />
     <Compile Include="ViewModels\ModifierProgrammationViewModel.cs" />
@@ -104,8 +105,8 @@
     <Compile Include="ViewModels\ProgrammationsListViewModel.cs" />
     <Compile Include="ViewModels\SceneFormulaireViewModel.cs" />
     <Compile Include="ViewModels\ScenesListViewModel.cs" />
-    <Compile Include="Views\Acceuil.xaml.cs">
-      <DependentUpon>Acceuil.xaml</DependentUpon>
+    <Compile Include="Views\GestionFestival.xaml.cs">
+      <DependentUpon>GestionFestival.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ArtisteFormulaire.xaml.cs">
       <DependentUpon>ArtisteFormulaire.xaml</DependentUpon>
@@ -122,8 +123,11 @@
     <Compile Include="Views\GestionScene.xaml.cs">
       <DependentUpon>GestionScene.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Views\Identification.xaml.cs">
+      <DependentUpon>Identification.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Acceuil.xaml.cs">
+      <DependentUpon>Acceuil.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ModifierArtiste.xaml.cs">
       <DependentUpon>ModifierArtiste.xaml</DependentUpon>
@@ -146,14 +150,11 @@
     <Compile Include="Views\SceneFormulaire.xaml.cs">
       <DependentUpon>SceneFormulaire.xaml</DependentUpon>
     </Compile>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Views\ScenesList.xaml.cs">
       <DependentUpon>ScenesList.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\Acceuil.xaml">
+    <Compile Include="WpfFestivalModule.cs" />
+    <Page Include="Views\GestionFestival.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -177,7 +178,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MainWindow.xaml">
+    <Page Include="Views\Identification.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Acceuil.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -239,11 +244,6 @@
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
