@@ -2,22 +2,41 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.Entity;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-namespace API.Models
+namespace FestivalApi.Models
 {
-    public class Festivalier : Personne
+    public class Festivalier
     {
-        // déclaration des attributs
-        public String Genre { get; set; }
-        public DateTime? DateNaissance { get; set; }
-        public int Telephone { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set;}
+        [Required]
+        public string Nom { get; set; }
+        [Required]
+        public string Prenom { get; set; }
+        [Required]
+        public DateTime Naissance { get; set; }
+        [Required]
+        public string Email { get; set; }
+        [Required]
+        public string Mdp { get; set; }
+        [Required]
+        public string Genre { get; set; }
+        [Required]
+        public string Telephone { get; set; }
+        [Required]
+        public string CodePostal { get; set; }
+        [Required]
+        public string Ville { get; set; }
+        [Required]
+        public string Rue { get; set; }
+        [Required]
+        public string Pays { get; set; }
 
-        // déclaration du constructeur
-        public Festivalier(String genre, DateTime? dateNaissance, int telephone)
-        {
-            Genre = genre;
-            DateNaissance = dateNaissance;
-            Telephone = telephone;
-        }
+        [ForeignKey("Festival")]
+        public int FestivalId { get; set; }
+        public virtual Festival Festival { get; set; }
     }
 }

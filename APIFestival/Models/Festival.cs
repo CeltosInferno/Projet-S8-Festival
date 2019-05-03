@@ -1,29 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace API.Models
+namespace FestivalApi.Models
 {
-    public class Festival 
+    public class Festival
     {
-        // déclaration des attributs
-        public String Nom { get; set; }
-        public String Description { get; set; }
-        public String Debut { get; set; }
-        public String Fin { get; set; }
-        public String Ville { get; set; }
-        public int CodePostal { get; set; }
+        public int Id { get; set; }
+        public string Nom { get; set; }
+        public string CodePostal { get; set; }
+        public string Lieu { get; set; }
+        public string Description { get; set; } 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime DateDebut { get; set; } 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime DateFin { get; set; }
+        public double Prix { get; set; } 
+        
 
-        // déclaration du constructeur de la classe
-        public Festival(String nom, String description, String debut, String fin, String ville, int codePostal)
-        {
-            Nom = nom;
-            Description = description;
-            Debut = debut;
-            Fin = fin;
-            CodePostal = codePostal;
-            Ville = ville;
-        }
+
+        //public virtual Lieu Lieu { get; set; }
+        //public virtual ICollection<Programmation> Programmations { get; set; }
     }
 }

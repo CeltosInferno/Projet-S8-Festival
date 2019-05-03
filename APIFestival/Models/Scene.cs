@@ -3,21 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace API.Models
+namespace FestivalApi.Models
 {
     public class Scene
     {
-        // déclaration des attributs
-        public String Nom { get; set; }
-        public String Capacite { get; set; }
-        public String Accessibilite { get; set; }
+        public int Id { get; set; }
+        public string Nom { get; set; }
+        public int Capacite { get; set; }
+        public string Accessibilite { get; set; }
 
-        // déclaration du constructeur
-        public Scene(String nom, String capacite, String accessibilte)
-        {
-            Nom = nom;
-            Capacite = capacite;
-            Accessibilite = accessibilite;
-        }
+        //public virtual ICollection<Programmation> Programmations { get; set; }
     }
 }
