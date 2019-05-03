@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // Les informations générales relatives à un assembly dépendent de 
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 // associées à un assembly.
-[assembly: AssemblyTitle("APIFestival")]
+[assembly: AssemblyTitle("FestivalApi")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Hewlett-Packard")]
-[assembly: AssemblyProduct("APIFestival")]
-[assembly: AssemblyCopyright("Copyright © Hewlett-Packard 2019")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("FestivalApi")]
+[assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Le GUID suivant est pour l'ID de la typelib si ce projet est exposé à COM
-[assembly: Guid("d725ff05-ba46-4bad-b676-24db3014e85c")]
+[assembly: Guid("4f3a127f-d4d7-497c-9463-63466916713a")]
 
 // Les informations de version pour un assembly se composent des quatre valeurs suivantes :
 //
