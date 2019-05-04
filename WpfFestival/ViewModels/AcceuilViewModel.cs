@@ -13,9 +13,6 @@ namespace WpfFestival.ViewModels
 
         public int  OrganisateurId {get;set;}
         public DelegateCommand<string> GoToFestivalFormulaire { get; private set; }
-        public DelegateCommand<string> GoToProgrammationFormulaire { get; private set; }
-        public DelegateCommand<string> GoToModifierScene { get; private set; }
-        public DelegateCommand<string> GoToModifierArtiste { get; private set; }
         public DelegateCommand<string> GoToGestionFestival { get; private set; }
         public DelegateCommand<string> GoToGestionScene { get; private set; }
         public DelegateCommand<string> GoToGestionArtiste { get; private set; }
@@ -24,10 +21,7 @@ namespace WpfFestival.ViewModels
 
             _regionManger = regionManager;
             _eventAggregator = eventAggregator;
-            GoToFestivalFormulaire = new DelegateCommand<string>(Navigate);
-            GoToProgrammationFormulaire = new DelegateCommand<string>(Navigate);
-            GoToModifierScene = new DelegateCommand<string>(Navigate);
-            GoToModifierArtiste = new DelegateCommand<string>(Navigate);
+            GoToFestivalFormulaire = new DelegateCommand<string>(NavigateAndPassId);
             GoToGestionFestival = new DelegateCommand<string>(NavigateAndRefreshAndPassId);
             GoToGestionScene = new DelegateCommand<string>(NavigateAndRefresh);
             GoToGestionArtiste = new DelegateCommand<string>(NavigateAndRefresh);
@@ -35,12 +29,14 @@ namespace WpfFestival.ViewModels
 
         }
 
+        #region Events
         private void Navigate(string uri)
-        {   if(uri != null)
+        {
+            if (uri != null)
             {
                 _regionManger.RequestNavigate("ContentRegion", uri);
             }
-                
+
         }
         private void NavigateAndRefresh(string uri)
         {
@@ -51,6 +47,14 @@ namespace WpfFestival.ViewModels
             }
 
         }
+        private void NavigateAndPassId(string uri)
+        {
+            if (uri != null)
+            {
+                _regionManger.RequestNavigate("ContentRegion", uri);
+                _eventAggregator.GetEvent<PassOrganisateurIdEvent>().Publish(OrganisateurId);
+            }
+        }
         private void NavigateAndRefreshAndPassId(string uri)
         {
             if (uri != null)
@@ -59,9 +63,10 @@ namespace WpfFestival.ViewModels
                 _eventAggregator.GetEvent<RefreshEvent>().Publish(true); //Rafrachir la liste
                 _eventAggregator.GetEvent<PassOrganisateurIdEvent>().Publish(OrganisateurId);
             }
-
         }
 
         private void GetOrganisateurId(int obj) { OrganisateurId = obj; }
+        #endregion
+
     }
 }

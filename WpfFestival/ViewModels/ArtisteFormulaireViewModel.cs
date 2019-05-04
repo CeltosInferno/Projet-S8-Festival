@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using WpfFestival.Models;
 using WpfFestival.ViewModels.Fonctions;
 using System.Net.Http;
+using Prism.Regions;
 using System.Net.Http.Headers;
 using Prism.Interactivity.InteractionRequest;
 
@@ -18,7 +19,7 @@ namespace WpfFestival.ViewModels
     {
         #region Members
         private Artiste _artiste;
-        private bool _isEnabled;
+        private readonly IRegionManager _regionManager;
         #endregion
 
 
@@ -29,31 +30,38 @@ namespace WpfFestival.ViewModels
             get { return _artiste; }
             set { SetProperty(ref _artiste, value); }
         }
-        public bool IsEnabled
-        {
-            get { return _isEnabled; }
-            set { SetProperty(ref _isEnabled, value); }
-        }
+       
         #endregion
 
         #region Commands
-        public DelegateCommand CreerArtiste { get; private set; }
-        private void Executed()
+        public DelegateCommand<string> CreerArtiste { get; private set; }
+        public DelegateCommand<string> GoToGestionArtiste { get; private set; }
+        private void ExecutedA(string uri)
         {
             if(PostArtiste("/api/Artistes"))
             {
                 NotificationRequest.Raise(new Notification { Content = "Réussi !!!", Title = "Notification" });
+                if (uri != null)
+                    _regionManager.RequestNavigate("ContentRegion", uri);
+                    
             }
             else
             {
                 NotificationRequest.Raise(new Notification { Content = "Réussi ???", Title = "Notification" });
             }
         }
-        #endregion
-        public ArtisteFormulaireViewModel()
+        private void ExecutedB(string uri)
         {
+            if (uri != null)
+                _regionManager.RequestNavigate("ContentRegion", uri);
+        }
+        #endregion
+        public ArtisteFormulaireViewModel(IRegionManager regionManager)
+        {
+            _regionManager = regionManager;
             Artiste = new Artiste();
-            CreerArtiste = new DelegateCommand(Executed).ObservesCanExecute(() => IsEnabled);
+            CreerArtiste = new DelegateCommand<string>(ExecutedA);
+            GoToGestionArtiste = new DelegateCommand<string>(ExecutedB);
             NotificationRequest = new InteractionRequest<INotification>();
             
         }

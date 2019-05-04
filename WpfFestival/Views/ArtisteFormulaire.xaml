@@ -99,9 +99,8 @@
         </ComboBox>
         <Label Content="Comment:" HorizontalAlignment="Left" Margin="10,194,0,0" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Left" Height="80" Margin="184,206,0,0" TextWrapping="Wrap" Text="{Binding Artiste.Comment}" VerticalAlignment="Top" Width="120"/>
-        <Button Command="{Binding CreerArtiste}" Content="Créer" HorizontalAlignment="Left" Margin="93,333,0,0" VerticalAlignment="Top" Width="74"/>
-        <Button Content="Terminer" HorizontalAlignment="Left" Margin="253,333,0,0" VerticalAlignment="Top" Width="75"/>
-        <CheckBox IsChecked="{Binding IsEnabled}" Content="CheckBox" HorizontalAlignment="Left" Margin="365,107,0,0" VerticalAlignment="Top"/>
+        <Button Command="{Binding CreerArtiste}" CommandParameter="GestionArtiste" Content="Créer" HorizontalAlignment="Left" Margin="93,333,0,0" VerticalAlignment="Top" Width="74"/>
+        <Button Content="Terminer" Command="{Binding GoToGestionArtiste}" CommandParameter="GestionArtiste" HorizontalAlignment="Left" Margin="253,333,0,0" VerticalAlignment="Top" Width="75"/>
 
     </Grid>
 

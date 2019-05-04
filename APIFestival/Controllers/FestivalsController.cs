@@ -35,6 +35,8 @@ namespace APIFestival.Controllers
                 IsInscription = a.IsInscription,
                 IsPublication = a.IsPublication,
                 OrganisateurId = a.OrganisateurId,
+                NbSeats = a.NbSeats,
+                Price = a.Price,
                 ProgrammationsList = a.Programmations.Select(b => new ProgrammationDTO()
                 {
                     ArtisteId = b.ArtisteId,
@@ -65,6 +67,8 @@ namespace APIFestival.Controllers
                 IsInscription = a.IsInscription,
                 IsPublication = a.IsPublication,
                 OrganisateurId = a.OrganisateurId,
+                NbSeats = a.NbSeats,
+                Price = a.Price,
                 ProgrammationsList = a.Programmations.Select(b => new ProgrammationDTO()
                 {
                     ArtisteId = b.ArtisteId,
@@ -95,6 +99,8 @@ namespace APIFestival.Controllers
                                       Id = a.Id,
                                       LieuName = a.LieuName,
                                       PostalCode = a.PostalCode,
+                                      NbSeats = a.NbSeats,
+                                      Price = a.Price,
                                       IsInscription = a.IsInscription,
                                       IsPublication = a.IsPublication
                                   }).FirstOrDefaultAsync();
@@ -123,6 +129,8 @@ namespace APIFestival.Controllers
                                       Id = a.Id,
                                       LieuName = a.LieuName,
                                       PostalCode = a.PostalCode,
+                                      NbSeats = a.NbSeats,
+                                      Price = a.Price,
                                       IsInscription = a.IsInscription,
                                       IsPublication = a.IsPublication
                                   }).FirstOrDefaultAsync();
@@ -194,11 +202,56 @@ namespace APIFestival.Controllers
                 StartDate = festival.StartDate,
                 LieuName = festival.LieuName,
                 PostalCode = festival.PostalCode,
+                NbSeats = festival.NbSeats,
+                Price = festival.Price,
                 IsInscription = festival.IsInscription,
                 IsPublication = festival.IsPublication
             };
 
             return CreatedAtRoute("DefaultApi", new { id = festival.Id }, dto);
+        }
+
+        [HttpPost]
+        // POST: api/Festivals/CheckName?name=XXX
+        [Route("CheckName")]
+        [ResponseType(typeof(int))]
+        public async Task<int> PostCheckFestivalName(string name)
+        {
+
+            var org = await (from a in db.Festivals
+                             where a.Name == name
+                             select new FestivalDTO()
+                             {
+                                  Name=a.Name
+                             }).FirstOrDefaultAsync();
+            if (org == null)
+            {
+                return 1; // nom n'existe pas, on peut créer festival
+            }
+            return 0;  //0 check no ok
+        }
+
+        [HttpPost]
+        // POST: api/Festivals/FestivalId?name=XXX
+        [Route("FestivalId")]
+        [ResponseType(typeof(int))]
+        public async Task<int> GetFestivalId(string name)
+        {
+
+            var org = await (from a in db.Festivals
+                             where a.Name == name
+                             select new FestivalDTO()
+                             {
+                                 Name = a.Name,
+                                 OrganisateurId=a.OrganisateurId,
+                                 Id=a.Id
+                                 
+                             }).FirstOrDefaultAsync();
+            if (org == null)
+            {
+                return 0; // ne trouve pas
+            }
+            return org.Id;  //get festivalId by festival name
         }
 
         // DELETE: api/Festivals/5

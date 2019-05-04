@@ -133,10 +133,6 @@ namespace APIFestival.Controllers
                 return 1; //1  check ok
             }
             else { return -1; } //-1 check no ok
-
-            
-
-            
         }
 
         [HttpDelete]

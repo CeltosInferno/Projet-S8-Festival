@@ -30,6 +30,8 @@ namespace WpfFestival.ViewModels
         #endregion
         
         #region Properties
+        public int ResultCheck { get; set; }
+        public string OriginalName { get; set; }
         public Festival Festival
         {
             get { return _festival; }
@@ -60,14 +62,40 @@ namespace WpfFestival.ViewModels
         public DelegateCommand RefreshList { get; private set; }
 
         private void ExecutedA() // ModifierFestival
-        {
-            if(PutFestival($"/api/Festivals/{Festival.Id}"))
+        {   
+            if(Festival.Name.Equals(OriginalName))
             {
-                NotificationRequest.Raise(new Notification { Content = "Modifié", Title = "Notification" });
+                ResultCheck = 1;
             }
             else
             {
-                NotificationRequest.Raise(new Notification { Content = "Modifié§§§", Title = "Notification" });
+                ResultCheck = CheckFestivalName($"/api/Festivals/CheckName?name={Festival.Name}");
+            }
+            if(ResultCheck==1) // vérifier nom
+            {
+                if(Festival.EndDate.CompareTo(Festival.StartDate)<0) //vérifier date
+                {
+                    NotificationRequest.Raise(new Notification { Content = "Check date !!", Title = "Notification" });
+                }
+                else
+                {
+                    if (PutFestival($"/api/Festivals/{Festival.Id}"))
+                    {
+                        NotificationRequest.Raise(new Notification { Content = "Modifié", Title = "Notification" });
+                    }
+                    else
+                    {
+                        NotificationRequest.Raise(new Notification { Content = "Erreur de motification", Title = "Notification" });
+                    }
+                }
+            }
+            else if(ResultCheck==0)
+            {
+                NotificationRequest.Raise(new Notification { Content = "Nom déjà existe, essayer l'autre nom svp", Title = "Notification" });
+            }
+            else
+            {
+                NotificationRequest.Raise(new Notification { Content = "Erreur de serveur", Title = "Notification" });
             }
         }
         private void ExecutedB(string uri) // GoToModifierProgrammation
@@ -103,7 +131,7 @@ namespace WpfFestival.ViewModels
                 
                 
                 _regionManager.RequestNavigate("ContentRegion", uri);
-                _eventAggregator.GetEvent<PassFestivalEvent>().Publish(Festival);
+                _eventAggregator.GetEvent<PassFestivalNameEvent>().Publish(Festival.Name);
             }
               
         }
@@ -131,10 +159,11 @@ namespace WpfFestival.ViewModels
             
             ProgrammationsList = new ObservableCollection<Programmation>();
         }
-        
+        #region Events
         private void PassFestival(Festival obj)
         {
             Festival = obj;
+            OriginalName = obj.Name;
             
         }
         private void Update(bool obj)
@@ -145,11 +174,9 @@ namespace WpfFestival.ViewModels
                 obj = false;
             }
         }
-        private void RaiseNotification()
-        {
-            NotificationRequest.Raise(new Notification { Content = "Notification Message", Title = "Notification" });
-        }
 
+        #endregion
+        #region Methods
         private bool PutFestival(string uri)
         {
             using (var client = new HttpClient())
@@ -191,6 +218,36 @@ namespace WpfFestival.ViewModels
             }
             return null;
         }
-       
+
+        /* 
+       * Vérifier le nom du festival 
+       * return -2 erreur de serveur
+       * return  0 nom déjà existe
+       * return  1 ok!!
+       */
+        public int CheckFestivalName(string uri)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:5575");
+                client.DefaultRequestHeaders.Accept.Add(
+                        new MediaTypeWithQualityHeaderValue("application/json"));
+
+                Task<HttpResponseMessage> postTask = client.PostAsJsonAsync<string>(uri, Festival.Name);
+
+                postTask.Wait();
+
+                HttpResponseMessage result1 = postTask.Result;
+
+                if (result1.IsSuccessStatusCode)
+                {
+                    var readTask = result1.Content.ReadAsAsync<int>().Result;
+                    return readTask;
+                }
+                return -2;
+
+            }
+        }
+        #endregion
     }
 }

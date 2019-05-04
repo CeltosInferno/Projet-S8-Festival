@@ -13,7 +13,6 @@
 
         <Button Content="Creer un festival" Command="{Binding GoToFestivalFormulaire}" CommandParameter="FestivalFormulaire" Margin="889,115,0.2,453.8"/>
         <Button Content="Gestion Artiste" Command="{Binding GoToGestionArtiste}" CommandParameter="GestionArtiste" Margin="889,281,-0.4,305.4" />
-        <Button Content="Créer un artiste" Command="{Binding GoToModifierArtiste}" CommandParameter="ModifierArtiste" Height="41" VerticalAlignment="Top" Margin="889,338,0.2,0"/>
         <Button Content="Gestion Festival" Command="{Binding GoToGestionFestival}" CommandParameter="GestionFestival" VerticalAlignment="Top" Margin="889,67,0.2,0" Height="43" />
         <Button Content="Gestion Scène" Command="{Binding GoToGestionScene}" CommandParameter="GestionScene" Height="50" VerticalAlignment="Top" Margin="889,441,0.2,0"/>
         <TextBlock HorizontalAlignment="Left" Margin="889,10,0,0" TextWrapping="Wrap" Text="Festival" VerticalAlignment="Top" Height="52" Width="394" FontSize="24" FontWeight="Bold" TextAlignment="Center"/>

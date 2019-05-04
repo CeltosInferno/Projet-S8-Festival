@@ -44,27 +44,10 @@ namespace WpfFestival.ViewModels
         }
 
         #endregion
-        
-        public GestionFestivalViewModel(IRegionManager regionManager, IEventAggregator eventAggregator)
-        {
-            _regionManager = regionManager;
-            _eventAggregator = eventAggregator;
-            Festival = new Festival();
-            GoToModifierFestival = new DelegateCommand<string>(ExecutedA);
-            ModifierFestival = new DelegateCommand(ExecutedB);
-            SupprimerFestival = new DelegateCommand(ExecutedC);
-
-            NotificationRequest = new InteractionRequest<INotification>();
-            _eventAggregator.GetEvent<PassOrganisateurIdEvent>().Subscribe(GetOrganisateurId);
-
-            //_eventAggregator.GetEvent<RefreshEvent>().Subscribe(Update);
-
-            FestivalsList = new ObservableCollection<Festival>();
-            
-        }
         #region Commands
         public DelegateCommand<string> GoToModifierFestival { get; private set; }
-        public DelegateCommand ModifierFestival { get; private set; }
+        public DelegateCommand<string> GoToFestivalFormulaire { get; private set; }
+        public DelegateCommand ModifierFestival { get; private set; } // modifier pulication et inscription
         public DelegateCommand SupprimerFestival { get; private set; }
 
         private void ExecutedA(string uri) //GoToModifierFestival
@@ -106,7 +89,32 @@ namespace WpfFestival.ViewModels
             catch (NullReferenceException) { NotificationRequest.Raise(new Notification { Content = "Choisir un festival", Title = "Notification" }); }
 
         }
+        private void ExecutedD(string uri) //GoTo Création page
+        {
+            if (uri != null)
+            {
+                _regionManager.RequestNavigate("ContentRegion", uri);
+                _eventAggregator.GetEvent<PassOrganisateurIdEvent>().Publish(Festival.OrganisateurId);
+            }
+
+        }
         #endregion
+        public GestionFestivalViewModel(IRegionManager regionManager, IEventAggregator eventAggregator)
+        {
+            _regionManager = regionManager;
+            _eventAggregator = eventAggregator;
+            Festival = new Festival();
+            GoToModifierFestival = new DelegateCommand<string>(ExecutedA);
+            ModifierFestival = new DelegateCommand(ExecutedB);
+            SupprimerFestival = new DelegateCommand(ExecutedC);
+            GoToFestivalFormulaire = new DelegateCommand<string>(ExecutedD);
+            NotificationRequest = new InteractionRequest<INotification>();
+            _eventAggregator.GetEvent<PassOrganisateurIdEvent>().Subscribe(GetOrganisateurId);
+
+            FestivalsList = new ObservableCollection<Festival>();
+            
+        }
+        
         #region Events
         private void GetOrganisateurId(int obj)
         {
@@ -170,24 +178,7 @@ namespace WpfFestival.ViewModels
             return null;
             
         }
-
-        //private bool DeleteFestival(string uri)
-        //{
-        //    using (var client = new HttpClient())
-        //    {
-        //        client.BaseAddress = new Uri("http://localhost:5575");
-        //        client.DefaultRequestHeaders.Accept.Add(
-        //                new MediaTypeWithQualityHeaderValue("application/json"));
-
-        //        HttpResponseMessage responseMessage = client.DeleteAsync(uri).Result;
-        //        if (responseMessage.IsSuccessStatusCode)
-        //        {
-        //            return true;
-        //        }
-        //        return false;
-
-        //    }
-        //}
+        
         #endregion
 
     }

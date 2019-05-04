@@ -19,7 +19,10 @@ namespace APIFestival.Models
         public int SceneId { get; set; }
         [ForeignKey("Artiste")]
         public int ArtisteId { get; set; }
-
+        public DateTime Date { get; set; }
+        //public int Hour { get; set; }
+        //public int Minute { get; set; }
+        public int Duration { get; set; }
 
         public virtual Festival Festival { get; set; }
         public virtual Artiste Artiste { get; set; }

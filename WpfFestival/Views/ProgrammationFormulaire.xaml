@@ -6,7 +6,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfFestival.Views"
       xmlns:prism="http://prismlibrary.com/"
-      prism:ViewModelLocator.AutoWireViewModel="True"       
+      xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+      
+      prism:ViewModelLocator.AutoWireViewModel="True"  
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800" >
     <i:Interaction.Triggers>
@@ -20,13 +22,13 @@
     <Grid>
         <Canvas HorizontalAlignment="Left" Height="248" Margin="96,16,0,0" VerticalAlignment="Top" Width="501">
             <Label Content="Créer un programme pour" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label Content="Nom du programme:" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="76"/>
-            <TextBox Text="{Binding Programmation.ProgrammationName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Canvas.Left="151" Canvas.Top="76"/>
+            <Label Content="Nom du programme:" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="41"/>
+            <TextBox Text="{Binding Programmation.ProgrammationName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Canvas.Left="151" Canvas.Top="43"/>
             <Label Content="Horaire:" Canvas.Top="115"/>
             <Button Command="{Binding AddProgrammation}"  Content="Suivant" Canvas.Left="66" Canvas.Top="165" Width="75"/>
-            <Button Command="{Binding GoToAcceuil}" CommandParameter="Acceuil" Content="Terminer" Canvas.Left="219" Canvas.Top="165" Width="75"/>
-            <TextBlock Text="{Binding Festival.Name, UpdateSourceTrigger=PropertyChanged}" Canvas.Left="167" TextWrapping="Wrap" Canvas.Top="5"/>
-            <CheckBox IsChecked="{Binding IsEnabled}" Content="CheckBox" Canvas.Left="272" Canvas.Top="121"/>
+            <Button Command="{Binding GoToFestival}" CommandParameter="GestionFestival" Content="Terminer" Canvas.Left="219" Canvas.Top="165" Width="75"/>
+            <TextBlock Text="{Binding FestivalName}" Canvas.Left="179" TextWrapping="Wrap" Canvas.Top="10" Width="37" RenderTransformOrigin="1.038,0.684"/>
+            <CheckBox IsChecked="{Binding IsEnabled}" Content="CheckBox" Canvas.Left="334" Canvas.Top="167"/>
             <ComboBox SelectedValue="{Binding Programmation.ArtisteId, Mode=TwoWay}" SelectedValuePath="ArtisteId" ItemsSource="{Binding ArtistesList}" DisplayMemberPath="ArtisteName" Canvas.Left="381" Canvas.Top="81" Width="120"/>
             <ComboBox SelectedValue="{Binding Programmation.SceneId}" SelectedValuePath="SceneId" ItemsSource="{Binding ScenesList}" DisplayMemberPath="SceneName" Canvas.Left="381" Canvas.Top="136" Width="120"/>
             <Label Content="Choisir un artiste" Canvas.Left="381" Canvas.Top="50"/>
@@ -40,8 +42,22 @@
                     </TransformGroup>
                 </Label.RenderTransform>
             </Label>
-            
-            <DatePicker HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="151" Canvas.Top="112"/>
+            <wpfTool:DateTimePicker x:Name="timePicker" TimePickerAllowSpin="True" Kind="Local"  Value="{Binding Programmation.Date}" Canvas.Left="151" Canvas.Top="117"/>
+            <Label Content="Durée(min):" Canvas.Top="81"/>
+            <ComboBox Text="{Binding Programmation.Duration}" Canvas.Left="151" Canvas.Top="81" Width="76">
+                <ComboBoxItem >5</ComboBoxItem>
+                <ComboBoxItem >10</ComboBoxItem>
+                <ComboBoxItem >15</ComboBoxItem>
+                <ComboBoxItem >20</ComboBoxItem>
+                <ComboBoxItem >25</ComboBoxItem>
+                <ComboBoxItem >30</ComboBoxItem>
+                <ComboBoxItem >35</ComboBoxItem>
+                <ComboBoxItem >40</ComboBoxItem>
+                <ComboBoxItem >45</ComboBoxItem>
+                <ComboBoxItem >50</ComboBoxItem>
+                <ComboBoxItem >55</ComboBoxItem>
+                <ComboBoxItem >60</ComboBoxItem>
+            </ComboBox>
         </Canvas>
 
 

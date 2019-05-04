@@ -26,6 +26,9 @@ namespace APIFestival.Models.DTO
 
         public int OrganisateurId { get; set; }
 
+        public int NbSeats { get; set; }
+        public float Price { get; set; }
+
         public IEnumerable<ProgrammationDTO> ProgrammationsList { get; set; }
     }
 }

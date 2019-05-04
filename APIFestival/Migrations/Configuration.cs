@@ -75,14 +75,14 @@ namespace APIFestival.Migrations
 
             var Programmations = new List<Programmation>
             {
-                new Programmation{ ProgrammationName="a", FestivalId=1, ArtisteId=1, SceneId=1 },
+                new Programmation{ ProgrammationName="a", FestivalId=1, ArtisteId=1, SceneId=1, Duration=45, Date=DateTime.Parse("2019-06-06")},
                     //Artistes = new List<Artiste>(),   
                     //Scenes = new List<Scene>()
                 
-                new Programmation{ ProgrammationName="b", FestivalId=2, ArtisteId=2, SceneId=2 },
+                new Programmation{ ProgrammationName="b", FestivalId=2, ArtisteId=2, SceneId=2 , Duration=30, Date=DateTime.Parse("2019-06-06")},
                     //Artistes = new List<Artiste>(),
                     //Scenes = new List<Scene>()
-                new Programmation{ ProgrammationName="bbb", FestivalId=2, ArtisteId=1, SceneId=2 }
+                new Programmation{ ProgrammationName="bbb", FestivalId=2, ArtisteId=1, SceneId=2 , Duration= 25, Date = DateTime.Parse("2019-06-06")}
 
             };
             Programmations.ForEach(p => context.Programmations.AddOrUpdate(p1 => p1.ProgrammationName, p));

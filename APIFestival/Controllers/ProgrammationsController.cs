@@ -35,7 +35,9 @@ namespace APIFestival.Controllers
                    ProgrammationId = a.ProgrammationId,
                    ProgrammationName = a.ProgrammationName,
                    FestivalId = a.FestivalId,
-                   SceneId = a.SceneId
+                   SceneId = a.SceneId,
+                   Date =a.Date,
+                   Duration =a.Duration
                });
             return programmmations;
         }
@@ -69,7 +71,9 @@ namespace APIFestival.Controllers
                 FestivalId = a.FestivalId,
                 ProgrammationId = a.ProgrammationId,
                 ProgrammationName = a.ProgrammationName,
-                SceneId = a.SceneId
+                SceneId = a.SceneId,
+                Date = a.Date,
+                Duration = a.Duration
             });
            
             return programmations;
@@ -79,6 +83,7 @@ namespace APIFestival.Controllers
 
         // PUT: api/Programmations/5
         [HttpPut]
+        [Route("{id:int}")]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutProgrammation(int id, Programmation programmation)
         {
@@ -131,10 +136,32 @@ namespace APIFestival.Controllers
                 FestivalId = programmation.FestivalId,
                 ProgrammationName = programmation.ProgrammationName,
                 ArtisteId = programmation.ArtisteId,
-                SceneId = programmation.SceneId
+                SceneId = programmation.SceneId,
+                Date = programmation.Date,
+                Duration = programmation.Duration
             };
 
             return CreatedAtRoute("DefaultApi", new { id = programmation.ProgrammationId }, dto);
+        }
+
+        [HttpPost]
+        // POST: api/Programmations/CheckName?name=XXX
+        [Route("CheckName")]
+        [ResponseType(typeof(int))]
+        public async Task<int> PostCheckProgrammationName(string name)
+        {
+
+            var org = await (from a in db.Programmations
+                             where a.ProgrammationName == name
+                             select new ProgrammationDTO()
+                             {
+                                 ProgrammationName = a.ProgrammationName
+                             }).FirstOrDefaultAsync();
+            if (org == null)
+            {
+                return 1; // nom n'existe pas, on peut créer programme
+            }
+            return 0;  //0 check no ok
         }
 
         // DELETE: api/Programmations/5

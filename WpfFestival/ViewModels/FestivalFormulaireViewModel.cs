@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using WpfFestival.Models;
 using WpfFestival.Events;
-
+using Prism.Interactivity.InteractionRequest;
 
 namespace WpfFestival.ViewModels
 {
@@ -26,6 +26,8 @@ namespace WpfFestival.ViewModels
         #endregion
 
         #region Properties
+        public InteractionRequest<INotification> NotificationRequest { get; set; }
+        public int ResultCheck { get; set; }
         public Festival Festival
         {
             get { return _festival; }
@@ -40,30 +42,77 @@ namespace WpfFestival.ViewModels
         }
         #endregion
 
+        #region Commands
         public DelegateCommand<string> AddFestival { get; private set; }
+        public DelegateCommand<string> GoToGestionFestival { get; private set; }
+        private void ExecutedA(string uri)
+        {
+            ResultCheck = CheckFestivalName($"/api/Festivals/CheckName?name={Festival.Name}");
+            if(ResultCheck==1)
+            {
+                if(Festival.EndDate.CompareTo(Festival.StartDate)<0)
+                {
+                    NotificationRequest.Raise(new Notification { Content = "Erreur de Date , éssayer l'autre date svp !!!", Title = "Notification" });
+
+                }
+                else
+                {
+                    if (PostFestival("/api/Festivals"))
+                    {
+                        NotificationRequest.Raise(new Notification { Content = "Festival est créé, continuer à créer la programmation !!!", Title = "Notification" });
+
+                        _regionManaager.RequestNavigate("ContentRegion", uri);
+                        _eventAggregator.GetEvent<PassFestivalNameEvent>().Publish(Festival.Name);
+                    }
+                    else
+                    {
+                        NotificationRequest.Raise(new Notification { Content = "Erreur !!!", Title = "Notification" });
+
+                    }
+                }
+
+                
+            }
+            else if(ResultCheck==0)
+            {
+                NotificationRequest.Raise(new Notification { Content = "Nom de festival existe, éssayer l'autre nom svp !!!", Title = "Notification" });
+            }
+            else
+            {
+                NotificationRequest.Raise(new Notification { Content = "Erreur de serveur !!!", Title = "Notification" });
+            }
+
+        }
+        private void ExecutedB(string uri)
+        {
+            if (uri != null)
+                _regionManaager.RequestNavigate("ContentRegion", uri);
+        }
+        #endregion
+        
         
         public FestivalFormulaireViewModel(IRegionManager regionManager, IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
             _regionManaager = regionManager;
-            AddFestival = new DelegateCommand<string>(Executed).ObservesCanExecute(() => IsEnabled);
-            
+            AddFestival = new DelegateCommand<string>(ExecutedA).ObservesCanExecute(() => IsEnabled);
+            GoToGestionFestival = new DelegateCommand<string>(ExecutedB);
+            _eventAggregator.GetEvent<PassOrganisateurIdEvent>().Subscribe(Update);
             _festival.EndDate = DateTime.Now;
             _festival.StartDate = DateTime.Now;
-        }
-        
 
-        
-        private void Executed(string uri)
+            NotificationRequest = new InteractionRequest<INotification>();
+        }
+
+        #region Events
+        private void Update(int obj)
         {
-            PostFestival();
-            
-            _regionManaager.RequestNavigate("ContentRegion", uri);
-            _eventAggregator.GetEvent<PassFestivalEvent>().Publish(Festival);
-
+            Festival.OrganisateurId = obj;
         }
+        #endregion
 
-        private void PostFestival()
+        #region Methods
+        private bool PostFestival(string uri)
         {
 
             using (var client = new HttpClient())
@@ -72,22 +121,57 @@ namespace WpfFestival.ViewModels
                 client.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json"));
 
-                Task<HttpResponseMessage> postFestivalTask = client.PostAsJsonAsync<Festival>("/api/festivals", Festival);
+                Task<HttpResponseMessage> postFestivalTask = client.PostAsJsonAsync<Festival>(uri, Festival);
 
                 postFestivalTask.Wait();
 
-                HttpResponseMessage result1 = postFestivalTask.Result;
+                HttpResponseMessage result = postFestivalTask.Result;
 
-                //HttpResponseMessage result = client.PostAsJsonAsync("/api/festivals", obj).Result;
-
-                if (result1.IsSuccessStatusCode)
+                if (result.IsSuccessStatusCode)
                 {
-                    var readTask= result1.Content.ReadAsAsync<Festival>().Result;
-                    
+                    var readTask = result.Content.ReadAsAsync<Festival>().Result;
+                    return true;
                 }
-                
+                return false;
+
             }
 
         }
+        /* 
+        * Vérifier le nom du festival 
+        * return -2 erreur de serveur
+        * return  0 nom déjà existe
+        * return  1 ok!!
+        */
+        public int CheckFestivalName(string uri)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:5575");
+                client.DefaultRequestHeaders.Accept.Add(
+                        new MediaTypeWithQualityHeaderValue("application/json"));
+
+                Task<HttpResponseMessage> postTask = client.PostAsJsonAsync<string>(uri, Festival.Name);
+
+                postTask.Wait();
+
+                HttpResponseMessage result1 = postTask.Result;
+
+                if (result1.IsSuccessStatusCode)
+                {
+                    var readTask = result1.Content.ReadAsAsync<int>().Result;
+                    return readTask;
+                }
+                return -2;
+
+            }
+        }
+
+        #endregion
+
+
+
+
+
     }
 }

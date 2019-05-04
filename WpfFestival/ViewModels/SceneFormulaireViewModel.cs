@@ -20,7 +20,7 @@ namespace WpfFestival.ViewModels
         private readonly IRegionManager _regionManger;
         #endregion
         #region Properties
-       
+        public InteractionRequest<INotification> NotificationRequest { get; set; }
 
         public Scene Scene
         {
@@ -30,13 +30,15 @@ namespace WpfFestival.ViewModels
         #endregion
 
         #region Commands
-        public DelegateCommand CreerScene { get; private set; }
-        public DelegateCommand<string> GoToAcceuil { get; private set; }
-        private void ExecutedA() // Créer Scene
+        public DelegateCommand<string> CreerScene { get; private set; }
+        public DelegateCommand<string> GoToGestionScene { get; private set; }
+        private void ExecutedA(string uri) // Créer Scene
         {
            if( PostScene("/api/Scenes"))
             {
                 NotificationRequest.Raise(new Notification { Content = "Créé !!!", Title = "Notification" });
+                if (uri != null)
+                    _regionManger.RequestNavigate("ContentRegion", uri);
             }
            else
                 NotificationRequest.Raise(new Notification { Content = "Créé ??", Title = "Notification" });
@@ -47,24 +49,18 @@ namespace WpfFestival.ViewModels
                 _regionManger.RequestNavigate("ContentRegion", uri);
         }
         #endregion
-        #region Interaction
-        public InteractionRequest<INotification> NotificationRequest { get; set; }
-        private void RaiseNotification()
-        {
-            NotificationRequest.Raise(new Notification { Content = "Notification Message", Title = "Notification" });
-        }
-        #endregion
+        
 
         #region Constructor
         public SceneFormulaireViewModel(IRegionManager regionManager)
         {
             _regionManger = regionManager;
             NotificationRequest = new InteractionRequest<INotification>();
-            CreerScene = new DelegateCommand(ExecutedA);
-            GoToAcceuil = new DelegateCommand<string>(ExecutedB);
+            CreerScene = new DelegateCommand<string>(ExecutedA);
+            GoToGestionScene = new DelegateCommand<string>(ExecutedB);
 
             Scene = new Scene();
-            Scene.SceneName = "Nouveau nom";
+            Scene.SceneName = "Entrer un nom";
                
 
         }

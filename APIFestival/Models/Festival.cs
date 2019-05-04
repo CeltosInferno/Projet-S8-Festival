@@ -27,7 +27,9 @@ namespace APIFestival.Models
         // relier avec l'organisateur
         [ForeignKey("Organisateur")]
         public int OrganisateurId { get; set; }
-
+        //ajouter nombre de place et coût
+        public int  NbSeats { get; set; }
+        public float Price { get; set; }
 
         public virtual ICollection<Programmation> Programmations { get; set; }
         public virtual Organisateur Organisateur { get; set; }

@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 using WpfFestival.Models;
 using Prism.Mvvm;
 using Prism.Commands;
+using Prism.Regions;
+using Prism.Events;
+using Prism.Interactivity.InteractionRequest;
 using System.Net.Http.Headers;
 using System.Net.Http;
+using WpfFestival.Events;
 
 namespace WpfFestival.ViewModels
 {
@@ -15,22 +19,20 @@ namespace WpfFestival.ViewModels
     {
         #region Members
         private Artiste _artiste;
-        private List<Artiste> _artistesList;
         private bool _isEnabled;
+        private readonly IEventAggregator _eventAggregator;
+        private readonly IRegionManager _regionManager;
         #endregion
 
         #region Properties
+        public InteractionRequest<INotification> NotificationRequest { get; set; }
         public Artiste Artiste
         {
             get { return _artiste; }
             set { SetProperty(ref _artiste, value); }
         }
 
-        public List<Artiste> ArtistesList
-        {
-            get { return _artistesList; }
-            set { SetProperty(ref _artistesList, value); }
-        }
+        
         public bool IsEnabled
         {
             get { return _isEnabled; }
@@ -39,31 +41,49 @@ namespace WpfFestival.ViewModels
         public List<string> StylesList { get; set; }
         public List<string> NationalitiesList { get; set; }
         #endregion
-
-        public ModifierArtisteViewModel()
+        #region Commands
+        public DelegateCommand<string> ModifierArtiste { get; private set; }
+        public DelegateCommand<string> GoToGestionArtiste { get; private set; }
+        private void ExecutedA(string uri) // Modifier artiste
         {
-            
-            ModifierArtiste = new DelegateCommand(Executed).ObservesCanExecute(() => IsEnabled);
-            ArtistesList = new List<Artiste>();
+
+            if (PutArtiste($"api/Artistes/{Artiste.ArtisteId}"))
+            {
+                NotificationRequest.Raise(new Notification { Content = "Modifié !!!", Title = "Notification" });
+                if (uri != null)
+                    _regionManager.RequestNavigate("ContentRegion", uri);
+            }
+            else
+            {
+                NotificationRequest.Raise(new Notification { Content = "Erreur serveur !!!", Title = "Notification" });
+            }
+        }
+        private void ExecutedB(string uri) // GOTOGestionArtiste
+        {
+            if (uri != null)
+                _regionManager.RequestNavigate("ContentRegion", uri);
+        }
+        #endregion
+        public ModifierArtisteViewModel(IEventAggregator eventAggregator, IRegionManager regionManager)
+        {
+            _eventAggregator = eventAggregator;
+            _regionManager = regionManager;
+            NotificationRequest = new InteractionRequest<INotification>();
+            _eventAggregator.GetEvent<PassArtisteEvent>().Subscribe(Update);
+            ModifierArtiste = new DelegateCommand<string>(ExecutedA).ObservesCanExecute(() => IsEnabled);
+            GoToGestionArtiste = new DelegateCommand<string>(ExecutedB);
             Artiste = new Artiste();
-            this.GetArtistesList();
             InitialStyles();
             InitialNationalities();
 
         }
-        #region Commands
-        public DelegateCommand ModifierArtiste { get; private set; }
-        private void Executed()
+
+        #region Events
+        private void Update(Artiste obj)
         {
-           
-            if (PutArtiste($"api/Artistes/{Artiste.ArtisteId}"))
-            {
-                
-            }
-            
+            Artiste = obj;
         }
         #endregion
-
         #region Methods
         public void InitialStyles()
         {
@@ -84,26 +104,7 @@ namespace WpfFestival.ViewModels
             NationalitiesList.Add("German");
         }
 
-        public void GetArtistesList()
-        {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:5575/");
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-
-            HttpResponseMessage response = client.GetAsync("api/Artistes").Result;
-
-            if (response.IsSuccessStatusCode)
-            {
-
-                var readTask = response.Content.ReadAsAsync<List<Artiste>>();
-                readTask.Wait();
-                foreach (Artiste a in readTask.Result)
-                {
-                    this.ArtistesList.Add(a);
-                }
-            }
-        }
+        
         public bool PutArtiste(string uri)
         {
             HttpClient client = new HttpClient();

@@ -13,5 +13,8 @@ namespace WpfFestival.Models
         public int FestivalId { get; set; }
         public int SceneId { get; set; }
         public int ArtisteId { get; set; }
+
+        public DateTime Date { get; set; }
+        public int Duration { get; set; }
     }
 }

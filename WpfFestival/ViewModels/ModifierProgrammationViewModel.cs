@@ -11,17 +11,15 @@ using Prism.Events;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using WpfFestival.Events;
-
+using Prism.Interactivity.InteractionRequest;
 
 namespace WpfFestival.ViewModels
 {
     public class ModifierProgrammationViewModel : BindableBase
     {
         #region Members
-       // private string _festivalName="name";
         private Festival _festival;
         private Programmation _programmation;
-        //private List<Programmation> _programmationsList;
         private List<Artiste> _artistesList;
         private List<Scene> _scenesList;
         private bool _isEnabled;
@@ -31,11 +29,10 @@ namespace WpfFestival.ViewModels
         #endregion
 
         #region Properties
-        //public string FestivalName
-        //{
-        //    get { return _festivalName; }
-        //    set { SetProperty(ref _festivalName, value); }
-        //}
+        public InteractionRequest<INotification> NotificationRequest { get; set; }
+        public int ResultCheck { get; set; }
+        public string OriginalName { get; set; }
+        
         public Festival Festival
         {
             get { return _festival; }
@@ -46,11 +43,7 @@ namespace WpfFestival.ViewModels
             get { return _programmation; }
             set { SetProperty(ref _programmation, value); }
         }
-        //public List<Programmation> ProgrammationsList
-        //{
-        //    get { return _programmationsList; }
-        //    set { SetProperty(ref _programmationsList, value); }
-        //}
+        
 
         public List<Artiste> ArtistesList
         {
@@ -73,13 +66,49 @@ namespace WpfFestival.ViewModels
 
         #endregion
         #region Command
-        public DelegateCommand ModifierProgrammation { get; private set; }
-        private void Executed()
-        {
+        public DelegateCommand<string> ModifierProgrammation { get; private set; }
+        public DelegateCommand<string> GoToGestionFestival { get; private set; }
+        private void ExecutedA(string uri)
+        {   
+            if(Programmation.ProgrammationName.Equals(OriginalName))
+            {
+                ResultCheck = 1;
+            }
+            else
+            {
+                ResultCheck = CheckProgrammationName($"api/Programmations/CheckName?name={Programmation.ProgrammationName}");
 
-            PutProgrammation($"/api/Programmations/{Programmation.ProgrammationId}");
-            //_regionManaager.RequestNavigate("ContentRegion", uri);
+            }
+            if (ResultCheck==1)
+            {
+                if(PutProgrammation($"/api/Programmations/{Programmation.ProgrammationId}"))
+                {
+                    NotificationRequest.Raise(new Notification { Content = "Modifié !!!", Title = "Notification" });
+                    _regionManager.RequestNavigate("ContentRegion", uri);
+                }
+                else
+                {
+                    NotificationRequest.Raise(new Notification { Content = "Erreur !!!", Title = "Notification" });
+
+                }
+
+            }
+            else if (ResultCheck==0)
+            {
+                NotificationRequest.Raise(new Notification { Content = "Nom du programme existe, éssayer l'autre nom svp !!!", Title = "Notification" });
+            }
+            else
+            {
+                NotificationRequest.Raise(new Notification { Content = "Erreur serveur !!!", Title = "Notification" });
+            }
+           
         }
+        private void ExecutedB(string uri)
+        {
+            if (uri != null)
+                _regionManager.RequestNavigate("ContentRegion", uri);
+        }
+
         #endregion
         public ModifierProgrammationViewModel(IEventAggregator eventAggregator, IRegionManager regionManager)
         {
@@ -88,12 +117,14 @@ namespace WpfFestival.ViewModels
             Programmation = new Programmation();
             Festival = new Festival();
             
-            ModifierProgrammation = new DelegateCommand(Executed).ObservesCanExecute(() => IsEnabled);
+            ModifierProgrammation = new DelegateCommand<string>(ExecutedA).ObservesCanExecute(() => IsEnabled);
+            GoToGestionFestival = new DelegateCommand<string>(ExecutedB);
             this.ArtistesList = new List<Artiste>();
             this.ScenesList = new List<Scene>();
             //this.ProgrammationsList = new List<Programmation>();
             this.GetArtistesList();
             this.GetScenesList();
+            NotificationRequest = new InteractionRequest<INotification>();
             //this.GetProgrammationsList();
             //_eventAggregator.GetEvent<PassFestivalEvent>().Subscribe(PassFestival);
             _eventAggregator.GetEvent<PassProgrammationEvent>().Subscribe(PassProgrammation);
@@ -104,6 +135,7 @@ namespace WpfFestival.ViewModels
         private void PassProgrammation (Programmation obj)
         {
             Programmation = obj;
+            OriginalName = obj.ProgrammationName;
             this.GetFestivalName($"api/Festivals/{Programmation.FestivalId}");
         }
 
@@ -198,26 +230,34 @@ namespace WpfFestival.ViewModels
             }
         }
 
-        //public void GetProgrammationsList()
-        //{
-        //    HttpClient client = new HttpClient();
-        //    client.BaseAddress = new Uri("http://localhost:5575/");
-        //    client.DefaultRequestHeaders.Accept.Add(
-        //        new MediaTypeWithQualityHeaderValue("application/json"));
+        /* 
+       * Vérifier le nom du programme 
+       * return -2 erreur de serveur
+       * return  0 nom déjà existe
+       * return  1 ok!!
+       */
+        public int CheckProgrammationName(string uri)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:5575");
+                client.DefaultRequestHeaders.Accept.Add(
+                        new MediaTypeWithQualityHeaderValue("application/json"));
 
-        //    HttpResponseMessage response = client.GetAsync("api/Programmations").Result;
+                Task<HttpResponseMessage> postTask = client.PostAsJsonAsync<string>(uri, Programmation.ProgrammationName);
 
-        //    if (response.IsSuccessStatusCode)
-        //    {
+                postTask.Wait();
 
-        //        var readTask = response.Content.ReadAsAsync<List<Programmation>>();
-        //        readTask.Wait();
-        //        foreach (Programmation p in readTask.Result)
-        //        {
-        //            this.ProgrammationsList.Add(p);
-        //        }
-        //    }
-        //}
+                HttpResponseMessage result1 = postTask.Result;
 
+                if (result1.IsSuccessStatusCode)
+                {
+                    var readTask = result1.Content.ReadAsAsync<int>().Result;
+                    return readTask;
+                }
+                return -2;
+
+            }
+        }
     }
 }

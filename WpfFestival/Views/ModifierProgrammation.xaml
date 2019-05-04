@@ -1,20 +1,29 @@
-﻿<UserControl x:Class="WpfFestival.Views.ModifierProgrammation"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:local="clr-namespace:WpfFestival.Views"
              xmlns:prism ="http://prismlibrary.com/"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="WpfFestival.Views.ModifierProgrammation"
              prism:ViewModelLocator.AutoWireViewModel="True">
+    <i:Interaction.Triggers>
+        <prism:InteractionRequestTrigger SourceObject="{Binding NotificationRequest}">
+            <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True" />
+        </prism:InteractionRequestTrigger>
+        <prism:InteractionRequestTrigger SourceObject="{Binding ConfirmationRequest}">
+            <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True" />
+        </prism:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Canvas HorizontalAlignment="Left" Height="248" Margin="96,16,0,0" VerticalAlignment="Top" Width="501">
-            <Label Content="Créer un programme pour" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label Content="Choisir un programme:" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="39" Canvas.Left="-2"/>
+            <Label Content="Modifier un programme pour" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <Label Content="Horaire:" Canvas.Top="115"/>
-            <Button Command="{Binding ModifierProgrammation}"  Content="Suivant" Canvas.Left="66" Canvas.Top="165" Width="75"/>
+            <Button Command="{Binding ModifierProgrammation}" CommandParameter="GestionFestival" Content="Modifier" Canvas.Left="66" Canvas.Top="165" Width="75"/>
             <Button Content="Terminer" Canvas.Left="219" Canvas.Top="165" Width="75"/>
             <TextBlock Text="{Binding Festival.Name, Mode=TwoWay}" Canvas.Left="167" TextWrapping="Wrap" Canvas.Top="5"/>
-            <CheckBox IsChecked="{Binding IsEnabled}" Content="CheckBox" Canvas.Left="272" Canvas.Top="121"/>
+            <CheckBox IsChecked="{Binding IsEnabled}" Content="CheckBox" Canvas.Left="361" Canvas.Top="169"/>
             <ComboBox SelectedValue="{Binding Programmation.ArtisteId}" SelectedValuePath="ArtisteId" ItemsSource="{Binding ArtistesList}" DisplayMemberPath="ArtisteName" Canvas.Left="381" Canvas.Top="81" Width="120"/>
             <ComboBox SelectedValue="{Binding Programmation.SceneId}" SelectedValuePath="SceneId" ItemsSource="{Binding ScenesList}" DisplayMemberPath="SceneName" Canvas.Left="381" Canvas.Top="136" Width="120"/>
             <Label Content="Choisir un artiste" Canvas.Left="381" Canvas.Top="50"/>
@@ -28,14 +37,26 @@
                     </TransformGroup>
                 </Label.RenderTransform>
             </Label>
-
-            <DatePicker HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="147" Canvas.Top="120"/>
             <!--<ComboBox SelectedValue="{Binding Programmation.ProgrammationId}" SelectedValuePath="ProgrammationId" DisplayMemberPath="ProgrammationName" ItemsSource="{Binding ProgrammationsList}" Canvas.Left="167" Canvas.Top="39" Width="120"/>-->
-            <ContentControl  Canvas.Left="200" Canvas.Top="0">
-                <local:ProgrammationsList   Width="124"  />
-            </ContentControl>
-            <Label Content="Nouveau Nom:" Canvas.Top="81"/>
-            <TextBox Height="23" TextWrapping="Wrap" Text="{Binding Programmation.ProgrammationName}" Width="120" Canvas.Left="131" Canvas.Top="81"/>
+
+            <Label Content="Nouveau Nom:" Canvas.Top="50"/>
+            <TextBox Height="23" TextWrapping="Wrap" Text="{Binding Programmation.ProgrammationName}" Width="120" Canvas.Left="133" Canvas.Top="52"/>
+            <Label Content="Durée(min):" Canvas.Top="80.8"/>
+            <ComboBox Text="{Binding Programmation.Duration}" Canvas.Left="133" Canvas.Top="86" Width="76">
+                <ComboBoxItem Content="5" />
+                <ComboBoxItem Content="10" />
+                <ComboBoxItem Content="15" />
+                <ComboBoxItem Content="20" />
+                <ComboBoxItem Content="25" />
+                <ComboBoxItem Content="30" />
+                <ComboBoxItem Content="35" />
+                <ComboBoxItem Content="40" />
+                <ComboBoxItem Content="45" />
+                <ComboBoxItem Content="50" />
+                <ComboBoxItem Content="55" />
+                <ComboBoxItem Content="60" />
+            </ComboBox>
+            <xctk:DateTimePicker x:Name="timePicker" TimePickerAllowSpin="True" Kind="Local"  Value="{Binding Programmation.Date}" Canvas.Left="133" Canvas.Top="122"/>
         </Canvas>
 
 

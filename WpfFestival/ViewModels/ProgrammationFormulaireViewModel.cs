@@ -13,31 +13,31 @@ using Prism.Commands;
 using Prism.Regions;
 using WpfFestival.Events;
 using Prism.Interactivity.InteractionRequest;
+using WpfFestival.Views;
 
 namespace WpfFestival.ViewModels
 {
     class ProgrammationFormulaireViewModel: BindableBase
     {
-        
         #region Members
-        private Festival _festival;
+        private string _festivalName;
         private Programmation _programmation;
         private List<Artiste> _artistesList;
         private List<Scene> _scenesList;
         private bool _isEnabled;
         private readonly IRegionManager _regionManager;
         private readonly IEventAggregator _eventAggregator;
-
         #endregion
 
         #region Properties
         public InteractionRequest<INotification> NotificationRequest { get; set; }
         public InteractionRequest<IConfirmation> ConfirmationRequest { get; set; }
         public string AddNewProgramme { get; set; }
-        public Festival Festival
+        public int ResultCheck { get; set; }
+        public string FestivalName
         {
-            get { return _festival; }
-            set { SetProperty(ref _festival, value); }
+            get { return _festivalName; }
+            set { SetProperty(ref _festivalName, value); }
         }
         public Programmation Programmation
         {
@@ -69,38 +69,54 @@ namespace WpfFestival.ViewModels
         #endregion
         #region Commands
         public DelegateCommand AddProgrammation { get; private set; }
-        public DelegateCommand<string> GoToAcceuil { get; private set; }
+        public DelegateCommand<string> GoToGestionFestival { get; private set; }
 
         private void ExecutedA() // ajouter un programme
         {
-
-            if(PostProgrammation("/api/Programmations"))
+            
+            ResultCheck = CheckProgrammationName($"api/Programmations/CheckName?name={Programmation.ProgrammationName}");
+            if(ResultCheck==1)
             {
-
-                ConfirmationRequest.Raise(new Confirmation { Title = "Confirmation", Content = "Veuillez créer un autre programme?" }, r => AddNewProgramme = r.Confirmed ?  "ProgrammationFormulaire" : "Acceuil" );
-               
-
-                if (AddNewProgramme.Equals("ProgrammationFormulaire"))
+                if (PostProgrammation("/api/Programmations"))
                 {
-                    //_regionManager.RequestNavigate("ContentRegion", Confirmed);
-                    //_programmation.ProgrammationName = "1";
-                    //IsEnabled = false;
-                    //Programmation.ArtisteId = 0;
-                    _regionManager.RequestNavigate("ContentRegion", AddNewProgramme);
+
+                    ConfirmationRequest.Raise(new Confirmation { Title = "Confirmation", Content = "Veuillez créer un autre programme?" }, r => AddNewProgramme = r.Confirmed ? "ProgrammationFormulaire" : "GestionFestival");
+
+
+                    if (AddNewProgramme.Equals("ProgrammationFormulaire"))
+                    {
+                        //_programmation.ProgrammationName = "1";
+                        //Programmation.ProgrammationName = "25";
+                        IsEnabled = false;
+                        //Programmation.ArtisteId = 0;
+                        _regionManager.RequestNavigate("ContentRegion", AddNewProgramme);
+
+                    }
+                    else if (AddNewProgramme.Equals("GestionFestival"))
+                    {
+                        _regionManager.RequestNavigate("ContentRegion", AddNewProgramme);
+                        _eventAggregator.GetEvent<RefreshEvent>().Publish(true); //Rafrachir la liste
+                    }
 
                 }
-                else if (AddNewProgramme.Equals("Acceuil"))
+                else
                 {
-                    _regionManager.RequestNavigate("ContentRegion", AddNewProgramme);
-                    _eventAggregator.GetEvent<RefreshEvent>().Publish(true); //Rafrachir la liste
+                    NotificationRequest.Raise(new Notification { Content = "Erreur", Title = "Notification" });
+
                 }
+            }
+            else if (ResultCheck==0)
+            {
+                NotificationRequest.Raise(new Notification { Content = "Nom du programme existe, éssayer l'autre nom svp !!!", Title = "Notification" });
 
             }
             else
             {
-                NotificationRequest.Raise(new Notification { Content = "Erreur", Title = "Notification" });
+                NotificationRequest.Raise(new Notification { Content = "Erreur de Serveur !!!", Title = "Notification" });
 
             }
+
+
 
 
         }
@@ -119,11 +135,11 @@ namespace WpfFestival.ViewModels
             _regionManager = regionManager;
             Programmation = new Programmation();
             //Festival = new Festival();
-            _eventAggregator.GetEvent<PassFestivalEvent>().Subscribe(PassFestival);
+            _programmation.Date = DateTime.Now;
             
 
             AddProgrammation = new DelegateCommand(ExecutedA).ObservesCanExecute(() => IsEnabled);
-            GoToAcceuil = new DelegateCommand<string>(ExecutedB);
+            GoToGestionFestival = new DelegateCommand<string>(ExecutedB);
             this.ArtistesList = new List<Artiste>();
             this.ScenesList = new List<Scene>();
 
@@ -131,20 +147,23 @@ namespace WpfFestival.ViewModels
             NotificationRequest = new InteractionRequest<INotification>();
             ArtistesList = GetArtistesList("api/Artistes");
             ScenesList = GetScenesList("api/Scenes");
+            _eventAggregator.GetEvent<PassFestivalNameEvent>().Subscribe(PassFestivalName);
+
 
         }
-       
+
         #region Events
-        private void PassFestival(Festival obj)
+        private void PassFestivalName(string obj)
         {
-            Festival = obj;
-            Programmation.FestivalId = Festival.Id;
-           
+            FestivalName = obj;
+            Programmation.FestivalId = GetFestivalId($"/api/Festivals/FestivalId?name={FestivalName}");
         }
         #endregion
 
         #region Methods
         
+
+
         public bool PostProgrammation(string uri)
         {
             using (var client = new HttpClient())
@@ -159,7 +178,6 @@ namespace WpfFestival.ViewModels
 
                 HttpResponseMessage result1 = postProgrammationTask.Result;
 
-                //HttpResponseMessage result = client.PostAsJsonAsync("/api/festivals", obj).Result;
 
                 if (result1.IsSuccessStatusCode)
                 {
@@ -167,6 +185,30 @@ namespace WpfFestival.ViewModels
                     return true;
                 }
                 return false;
+
+            }
+        }
+
+        public int GetFestivalId(string uri)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:5575");
+                client.DefaultRequestHeaders.Accept.Add(
+                        new MediaTypeWithQualityHeaderValue("application/json"));
+
+                Task<HttpResponseMessage> postTask = client.PostAsJsonAsync<string>(uri, FestivalName);
+
+                postTask.Wait();
+
+                HttpResponseMessage result1 = postTask.Result;
+
+                if (result1.IsSuccessStatusCode)
+                {
+                    var readTask = result1.Content.ReadAsAsync<int>().Result;
+                    return readTask;
+                }
+                return -2;
 
             }
         }
@@ -207,6 +249,35 @@ namespace WpfFestival.ViewModels
                 return readTask.Result;
             }
             return null;
+        }
+        /* 
+        * Vérifier le nom du programme 
+        * return -2 erreur de serveur
+        * return  0 nom déjà existe
+        * return  1 ok!!
+        */
+        public int CheckProgrammationName(string uri)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:5575");
+                client.DefaultRequestHeaders.Accept.Add(
+                        new MediaTypeWithQualityHeaderValue("application/json"));
+
+                Task<HttpResponseMessage> postTask = client.PostAsJsonAsync<string>(uri, Programmation.ProgrammationName);
+
+                postTask.Wait();
+
+                HttpResponseMessage result1 = postTask.Result;
+
+                if (result1.IsSuccessStatusCode)
+                {
+                    var readTask = result1.Content.ReadAsAsync<int>().Result;
+                    return readTask;
+                }
+                return -2;
+
+            }
         }
         #endregion
     }

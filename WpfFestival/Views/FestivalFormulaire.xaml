@@ -4,13 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfFestival.Views"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:prism="http://prismlibrary.com/"
-        prism:ViewModelLocator.AutoWireViewModel="True"
-        >
-   
+        prism:ViewModelLocator.AutoWireViewModel="True" Width="772.8">
+    <i:Interaction.Triggers>
+        <prism:InteractionRequestTrigger SourceObject="{Binding NotificationRequest}">
+            <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True" />
+        </prism:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
     <Grid>
-
-
         <DatePicker Name="DateDebut" SelectedDate="{Binding Festival.StartDate, StringFormat='dd-MM-yyyy'}" DisplayDateStart="2018/01/01"  DisplayDateEnd="2020/01/01" 
                     HorizontalAlignment="Left" Margin="295,112,0,0" VerticalAlignment="Top"/>
 
@@ -18,17 +20,24 @@
         <Label Content="Date Début:" HorizontalAlignment="Left" Margin="170,112,0,0" VerticalAlignment="Top" Width="111"/>
         <Label Content="Date Fin:" HorizontalAlignment="Left" Margin="170,151,0,0" VerticalAlignment="Top" Width="111"/>
         <Label Content="Nom de Festival:" HorizontalAlignment="Left" Margin="170,73,0,0" VerticalAlignment="Top"/>
-        <TextBox Text="{Binding Festival.Name}" HorizontalAlignment="Left" Height="23" Margin="297,77,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
+        <TextBox Text="{Binding Festival.Name}" HorizontalAlignment="Left" Height="23" Margin="297,77,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" />
         <Label Content="Lieu:" HorizontalAlignment="Left" Margin="170,194,0,0" VerticalAlignment="Top"/>
         <TextBox Text="{Binding Festival.LieuName}" HorizontalAlignment="Left" Height="23" Margin="297,198,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
         <Label Content="Description:" HorizontalAlignment="Left" Margin="170,235,0,0" VerticalAlignment="Top"/>
         <Button Command="{Binding AddFestival}"  CommandParameter="ProgrammationFormulaire" Content="Suivant" HorizontalAlignment="Left" Margin="206,367,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Command="{Binding  AddFestival}" CommandParameter="ProgrammationFormulaire" Content="Terminer" HorizontalAlignment="Left" Margin="437,367,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Command="{Binding  GoToGestionFestival}" CommandParameter="GestionFestival" Content="Terminer" HorizontalAlignment="Left" Margin="437,367,0,0" VerticalAlignment="Top" Width="75"/>
         <TextBlock HorizontalAlignment="Left" Margin="170,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="C"/><Run Text="réer un festival "/><LineBreak/><Run/></TextBlock>
         <TextBox Text="{Binding Festival.Description}" HorizontalAlignment="Left" Height="104" Margin="297,247,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="140"/>
         <CheckBox IsChecked="{Binding IsEnabled}" Content="Cochez si vous voulez continuer" HorizontalAlignment="Left" Margin="467,336,0,0" VerticalAlignment="Top"/>
         <TextBox Text ="{Binding Festival.PostalCode}" HorizontalAlignment="Left" Height="23" Margin="541,202,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
         <Label Content="Code Postale:" HorizontalAlignment="Left" Margin="437,200,0,0" VerticalAlignment="Top"/>
+        <Label Content="Tarif:" HorizontalAlignment="Left" Margin="446,160,0,0" VerticalAlignment="Top"/>
+        <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="437,111,23.8,233.4" Height="42" Width="312" >
+            <Label Content="Nombre de places:" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
+            <Slider Value="{Binding Festival.NbSeats}" Name="nbseats" IsSnapToTickEnabled="True" Maximum="500" TickPlacement="BottomRight" TickFrequency="5" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="162" />
+            <TextBox HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding ElementName=nbseats, Path=Value, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Height="24" Width="31"/>
+        </DockPanel>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="551,163,0,0" TextWrapping="Wrap" Text="{Binding Festival.Price}" VerticalAlignment="Top" Width="120"/>
 
     </Grid>
 </UserControl>

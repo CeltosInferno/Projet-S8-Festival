@@ -80,5 +80,19 @@ namespace WpfFestival.Models
             get { return _organisateurId; }
             set { SetProperty(ref _organisateurId, value); }
         }
+
+        private int _nbSeats;
+        public int NbSeats
+        {
+            get { return _nbSeats; }
+            set { SetProperty(ref _nbSeats, value); }
+        }
+
+        private float _price;
+        public float Price
+        {
+            get { return _price; }
+            set { SetProperty(ref _price, value); }
+        }
     }
 }
