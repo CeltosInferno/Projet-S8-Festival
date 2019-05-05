@@ -85,10 +85,7 @@ namespace WpfFestival.ViewModels
 
                     if (AddNewProgramme.Equals("ProgrammationFormulaire"))
                     {
-                        //_programmation.ProgrammationName = "1";
-                        //Programmation.ProgrammationName = "25";
                         IsEnabled = false;
-                        //Programmation.ArtisteId = 0;
                         _regionManager.RequestNavigate("ContentRegion", AddNewProgramme);
 
                     }

@@ -85,6 +85,7 @@ namespace WpfFestival.ViewModels
                 {
                     NotificationRequest.Raise(new Notification { Content = "Modifié !!!", Title = "Notification" });
                     _regionManager.RequestNavigate("ContentRegion", uri);
+                    _eventAggregator.GetEvent<RefreshEvent>().Publish(true); //Rafrachir la liste
                 }
                 else
                 {

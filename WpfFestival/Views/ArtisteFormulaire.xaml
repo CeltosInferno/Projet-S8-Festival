@@ -5,17 +5,18 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:local="clr-namespace:WpfFestival.ViewModels"
-             xmlns:prism="http://prismlibrary.com/"
-             prism:ViewModelLocator.AutoWireViewModel="True" >
+      xmlns:prism="http://prismlibrary.com/"
+      prism:ViewModelLocator.AutoWireViewModel="True" Height="416" Width="465.6" >
     <i:Interaction.Triggers>
         <prism:InteractionRequestTrigger SourceObject="{Binding NotificationRequest}">
             <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True" />
         </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
-    <Grid>
-        <Label Content="Nom de l'artiste:" HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="184,101,0,0" TextWrapping="Wrap" Text="{Binding Artiste.ArtisteName}" VerticalAlignment="Top" Width="120"/>
+    <Grid Background="white" Margin="0,0,-145.4,-10">
+        <Label Content="Nom de l'artiste:" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="184,72,0,0" TextWrapping="Wrap" Text="{Binding Artiste.ArtisteName}" VerticalAlignment="Top" Width="120"/>
         <Label Content="Style:" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top"/>
+
         <!--<ComboBox SelectedValue="{Binding Artiste.Style}" ItemsSource="{Binding StylesList}" />-->
         <ComboBox Text="{Binding Artiste.Style}" HorizontalAlignment="Left" Margin="184,137,0,0" VerticalAlignment="Top" Width="120">
             <ComboBoxItem>Blues</ComboBoxItem>
@@ -101,6 +102,11 @@
         <TextBox HorizontalAlignment="Left" Height="80" Margin="184,206,0,0" TextWrapping="Wrap" Text="{Binding Artiste.Comment}" VerticalAlignment="Top" Width="120"/>
         <Button Command="{Binding CreerArtiste}" CommandParameter="GestionArtiste" Content="Créer" HorizontalAlignment="Left" Margin="93,333,0,0" VerticalAlignment="Top" Width="74"/>
         <Button Content="Terminer" Command="{Binding GoToGestionArtiste}" CommandParameter="GestionArtiste" HorizontalAlignment="Left" Margin="253,333,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Uploader Image" Click="ChooseImage_Click" HorizontalAlignment="Left" Margin="328,76,0,0" VerticalAlignment="Top" Width="113"/>
+        <Image Name="image" Source="{Binding Artiste.Photo, Mode=OneWayToSource}" HorizontalAlignment="Left" Height="185" Margin="328,101,0,0" VerticalAlignment="Top" Width="163"/>
+        <Label Content="Le chanson connu:" HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="184,108,0,0" TextWrapping="Wrap" Text="{Binding Artiste.MusicExtract}" VerticalAlignment="Top" Width="120"/>
+
 
     </Grid>
 

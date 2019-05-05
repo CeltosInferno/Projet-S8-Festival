@@ -27,8 +27,8 @@
             <Label Content="Horaire:" Canvas.Top="115"/>
             <Button Command="{Binding AddProgrammation}"  Content="Suivant" Canvas.Left="66" Canvas.Top="165" Width="75"/>
             <Button Command="{Binding GoToFestival}" CommandParameter="GestionFestival" Content="Terminer" Canvas.Left="219" Canvas.Top="165" Width="75"/>
-            <TextBlock Text="{Binding FestivalName}" Canvas.Left="179" TextWrapping="Wrap" Canvas.Top="10" Width="37" RenderTransformOrigin="1.038,0.684"/>
-            <CheckBox IsChecked="{Binding IsEnabled}" Content="CheckBox" Canvas.Left="334" Canvas.Top="167"/>
+            <TextBlock Text="{Binding FestivalName}" Canvas.Left="179" TextWrapping="Wrap" Canvas.Top="10" Width="92" RenderTransformOrigin="1.038,0.684"/>
+            <CheckBox IsChecked="{Binding IsEnabled}" Content="Cochoez si vous voulez continuer" Canvas.Left="334" Canvas.Top="167"/>
             <ComboBox SelectedValue="{Binding Programmation.ArtisteId, Mode=TwoWay}" SelectedValuePath="ArtisteId" ItemsSource="{Binding ArtistesList}" DisplayMemberPath="ArtisteName" Canvas.Left="381" Canvas.Top="81" Width="120"/>
             <ComboBox SelectedValue="{Binding Programmation.SceneId}" SelectedValuePath="SceneId" ItemsSource="{Binding ScenesList}" DisplayMemberPath="SceneName" Canvas.Left="381" Canvas.Top="136" Width="120"/>
             <Label Content="Choisir un artiste" Canvas.Left="381" Canvas.Top="50"/>

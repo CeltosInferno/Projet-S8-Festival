@@ -19,7 +19,6 @@ namespace WpfFestival.ViewModels
     {
         #region Members
         private Artiste _artiste;
-        private bool _isEnabled;
         private readonly IEventAggregator _eventAggregator;
         private readonly IRegionManager _regionManager;
         #endregion
@@ -33,11 +32,7 @@ namespace WpfFestival.ViewModels
         }
 
         
-        public bool IsEnabled
-        {
-            get { return _isEnabled; }
-            set { SetProperty(ref _isEnabled, value); }
-        }
+       
         public List<string> StylesList { get; set; }
         public List<string> NationalitiesList { get; set; }
         #endregion
@@ -51,18 +46,25 @@ namespace WpfFestival.ViewModels
             {
                 NotificationRequest.Raise(new Notification { Content = "Modifié !!!", Title = "Notification" });
                 if (uri != null)
+                {
                     _regionManager.RequestNavigate("ContentRegion", uri);
+                    _eventAggregator.GetEvent<RefreshEvent>().Publish(true); //Rafrachir la liste
+                }
+                   
+
             }
             else
             {
                 NotificationRequest.Raise(new Notification { Content = "Erreur serveur !!!", Title = "Notification" });
             }
         }
+       
         private void ExecutedB(string uri) // GOTOGestionArtiste
         {
             if (uri != null)
                 _regionManager.RequestNavigate("ContentRegion", uri);
         }
+       
         #endregion
         public ModifierArtisteViewModel(IEventAggregator eventAggregator, IRegionManager regionManager)
         {
@@ -70,7 +72,7 @@ namespace WpfFestival.ViewModels
             _regionManager = regionManager;
             NotificationRequest = new InteractionRequest<INotification>();
             _eventAggregator.GetEvent<PassArtisteEvent>().Subscribe(Update);
-            ModifierArtiste = new DelegateCommand<string>(ExecutedA).ObservesCanExecute(() => IsEnabled);
+            ModifierArtiste = new DelegateCommand<string>(ExecutedA);
             GoToGestionArtiste = new DelegateCommand<string>(ExecutedB);
             Artiste = new Artiste();
             InitialStyles();

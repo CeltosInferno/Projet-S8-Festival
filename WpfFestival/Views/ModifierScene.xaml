@@ -25,7 +25,6 @@
             <Label Content="Nom de scène:" Canvas.Left="71" Canvas.Top="47"/>
             <Label Content="Capacité:" Canvas.Left="71" Canvas.Top="95"/>
             <TextBox Height="23" Canvas.Left="208" TextWrapping="Wrap" Text="{Binding Scene.Capacity, Mode=TwoWay}" Canvas.Top="108" Width="120"/>
-            <CheckBox IsChecked="{Binding IsEnabled}" Content="CheckBox" Canvas.Left="45" Canvas.Top="144"/>
             <ContentControl prism:RegionManager.RegionName="ScenesListRegion"  Height="36" Canvas.Left="136" Canvas.Top="136" Width="139"/>
 
 

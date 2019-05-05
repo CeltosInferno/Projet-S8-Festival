@@ -10,6 +10,8 @@ using WpfFestival.Models;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Prism.Interactivity.InteractionRequest;
+using Prism.Events;
+using WpfFestival.Events;
 
 namespace WpfFestival.ViewModels
 {
@@ -18,6 +20,7 @@ namespace WpfFestival.ViewModels
         #region Members
         private Scene _scene;
         private readonly IRegionManager _regionManger;
+        private readonly IEventAggregator _eventAggregator;
         #endregion
         #region Properties
         public InteractionRequest<INotification> NotificationRequest { get; set; }
@@ -38,7 +41,12 @@ namespace WpfFestival.ViewModels
             {
                 NotificationRequest.Raise(new Notification { Content = "Créé !!!", Title = "Notification" });
                 if (uri != null)
+                {
                     _regionManger.RequestNavigate("ContentRegion", uri);
+
+                    _eventAggregator.GetEvent<RefreshEvent>().Publish(true); //Rafrachir la liste
+
+                }
             }
            else
                 NotificationRequest.Raise(new Notification { Content = "Créé ??", Title = "Notification" });
@@ -52,9 +60,10 @@ namespace WpfFestival.ViewModels
         
 
         #region Constructor
-        public SceneFormulaireViewModel(IRegionManager regionManager)
+        public SceneFormulaireViewModel(IRegionManager regionManager, IEventAggregator eventAggregator)
         {
             _regionManger = regionManager;
+            _eventAggregator = eventAggregator;
             NotificationRequest = new InteractionRequest<INotification>();
             CreerScene = new DelegateCommand<string>(ExecutedA);
             GoToGestionScene = new DelegateCommand<string>(ExecutedB);

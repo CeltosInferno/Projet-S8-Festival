@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,21 @@ namespace WpfFestival.Views
     /// </summary>
     public partial class ModifierArtiste : UserControl
     {
+        private string filePath;
         public ModifierArtiste()
         {
             InitializeComponent();
+        }
+        private void ChooseImage_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "images|*.jpg;*.png;*.jpeg|all|*.*";
+
+            if (ofd.ShowDialog() == true)
+            {
+                filePath = ofd.FileName;
+                image.Source = new BitmapImage(new Uri(filePath));
+            }
         }
     }
 }

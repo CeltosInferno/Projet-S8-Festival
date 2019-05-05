@@ -23,7 +23,7 @@
             <Button Command="{Binding ModifierProgrammation}" CommandParameter="GestionFestival" Content="Modifier" Canvas.Left="66" Canvas.Top="165" Width="75"/>
             <Button Content="Terminer" Canvas.Left="219" Canvas.Top="165" Width="75"/>
             <TextBlock Text="{Binding Festival.Name, Mode=TwoWay}" Canvas.Left="167" TextWrapping="Wrap" Canvas.Top="5"/>
-            <CheckBox IsChecked="{Binding IsEnabled}" Content="CheckBox" Canvas.Left="361" Canvas.Top="169"/>
+            <CheckBox IsChecked="{Binding IsEnabled}" Content="Cochez si vous voulez continuer" Canvas.Left="361" Canvas.Top="169"/>
             <ComboBox SelectedValue="{Binding Programmation.ArtisteId}" SelectedValuePath="ArtisteId" ItemsSource="{Binding ArtistesList}" DisplayMemberPath="ArtisteName" Canvas.Left="381" Canvas.Top="81" Width="120"/>
             <ComboBox SelectedValue="{Binding Programmation.SceneId}" SelectedValuePath="SceneId" ItemsSource="{Binding ScenesList}" DisplayMemberPath="SceneName" Canvas.Left="381" Canvas.Top="136" Width="120"/>
             <Label Content="Choisir un artiste" Canvas.Left="381" Canvas.Top="50"/>

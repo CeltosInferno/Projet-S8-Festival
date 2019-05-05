@@ -4,8 +4,19 @@ using Main;
 
 namespace Main
 {
+
     public class MainWindowViewModel :BindableBase
     {
-        public MainWindowViewModel() { }
+        private string _title;
+        
+        public string Title
+        {
+            get { return _title; }
+            set { SetProperty(ref _title, value); }
+        }
+        public MainWindowViewModel()
+        {
+            _title = "Festival System";
+        }
     }
 }

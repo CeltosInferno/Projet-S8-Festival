@@ -19,7 +19,6 @@ namespace WpfFestival.ViewModels
     {
         #region Members
         private Scene _scene;
-        private bool _isEnabled;
         private readonly IRegionManager _regionManager;
 
         #endregion
@@ -31,13 +30,6 @@ namespace WpfFestival.ViewModels
             get { return _scene; }
             set { SetProperty(ref _scene, value); }
         }
-        
-        public bool IsEnabled
-        {
-            get { return _isEnabled; }
-            set { SetProperty(ref _isEnabled, value); }
-        }
-
 
         #endregion
         #region Command
@@ -49,8 +41,12 @@ namespace WpfFestival.ViewModels
             if (PutScene($"api/Scenes/{Scene.SceneId}"))
             {
                 NotificationRequest.Raise(new Notification { Content = "Modifié", Title = "Notification" });
-                if(uri!=null)
+                if (uri != null)
+                {
                     _regionManager.RequestNavigate("ContentRegion", uri);
+                    _eventAggregator.GetEvent<RefreshEvent>().Publish(true); //Rafrachir la liste
+
+                }
             }
         }
         private void ExecutedB(string uri)
@@ -76,7 +72,7 @@ namespace WpfFestival.ViewModels
             _eventAggregator.GetEvent<PassSceneEvent>().Subscribe(PassScene);
             Scene = new Scene();
             NotificationRequest = new InteractionRequest<INotification>();
-            ModifierScene = new DelegateCommand<string>(ExecutedA).ObservesCanExecute( ()=> IsEnabled);
+            ModifierScene = new DelegateCommand<string>(ExecutedA);
             GoToGestionScene = new DelegateCommand<string>(ExecutedB);
         }
 

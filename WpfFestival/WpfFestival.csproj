@@ -125,9 +125,6 @@
     <Compile Include="Views\ArtisteFormulaire.xaml.cs">
       <DependentUpon>ArtisteFormulaire.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AssocierScene.xaml.cs">
-      <DependentUpon>AssocierScene.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\FestivalFormulaire.xaml.cs">
       <DependentUpon>FestivalFormulaire.xaml</DependentUpon>
     </Compile>
@@ -173,10 +170,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ArtisteFormulaire.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\AssocierScene.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

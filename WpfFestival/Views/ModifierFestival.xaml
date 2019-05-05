@@ -52,7 +52,7 @@
         <TextBlock Text=" Description:" Grid.Column="0" Grid.Row="6"/>
         <TextBox Text="{Binding Festival.Description, Mode=TwoWay}" Grid.Column="1" Grid.Row="6" Grid.RowSpan="3"/>
         <Button Content="Update Festival" Command="{Binding ModifierFestival}" Grid.Column="0" Grid.Row="9"/>
-        <CheckBox Content="checkbox" IsChecked="{Binding IsEnabled}" Grid.Column="1" Grid.Row="9"/>
+        <CheckBox Content="Cochez si vous voulez renouveler Festival" IsChecked="{Binding IsEnabled}" Grid.Row="8" Grid.ColumnSpan="4" Margin="151,0.6,150.8,0.2" Grid.RowSpan="2"/>
         <DataGrid SelectedItem="{Binding Programmation}" ItemsSource="{Binding ProgrammationsList}" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False" Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="3">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id du programme" Binding="{Binding ProgrammationId}" Width="224"/>

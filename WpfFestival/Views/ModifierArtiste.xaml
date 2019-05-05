@@ -15,8 +15,8 @@
         </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
     <Grid>
-        <Label Content="Nom de l'artiste:" HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="184,101,0,0" TextWrapping="Wrap" Text="{Binding Artiste.ArtisteName}" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Nom de l'artiste:" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="184,70,0,0" TextWrapping="Wrap" Text="{Binding Artiste.ArtisteName}" VerticalAlignment="Top" Width="120"/>
         <Label Content="Style:" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top"/>
         <ComboBox Text="{Binding Artiste.Style}" ItemsSource="{Binding StylesList}" HorizontalAlignment="Left" Margin="184,137,0,0" VerticalAlignment="Top" Width="120"/>
         <Label Content="Nationalité:" HorizontalAlignment="Left" Margin="10,163,0,0" VerticalAlignment="Top"/>
@@ -25,7 +25,10 @@
         <TextBox HorizontalAlignment="Left" Height="80" Margin="184,206,0,0" TextWrapping="Wrap" Text="{Binding Artiste.Comment}" VerticalAlignment="Top" Width="120"/>
         <Button Command="{Binding ModifierArtiste}" CommandParameter="GestionArtiste" Content="Modifier" HorizontalAlignment="Left" Margin="93,333,0,0" VerticalAlignment="Top" Width="74"/>
         <Button Content="Terminer" Command="{Binding GoToGestionArtiste}" CommandParameter="GestionArtiste" HorizontalAlignment="Left" Margin="253,333,0,0" VerticalAlignment="Top" Width="75"/>
-        <CheckBox IsChecked="{Binding IsEnabled}" Content="CheckBox" HorizontalAlignment="Left" Margin="365,107,0,0" VerticalAlignment="Top"/>
+        <Image Name="image" Source="{Binding Artiste.Photo, Mode=TwoWay}" HorizontalAlignment="Left" Height="146" Margin="365,173,0,0" VerticalAlignment="Top" Width="189"/>
+        <Button Content="Changer image" Click="ChooseImage_Click" HorizontalAlignment="Left" Margin="366,135,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label Content="Le chanson connu:" HorizontalAlignment="Left" Margin="11,94,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="184,99,0,0" TextWrapping="Wrap" Text="{Binding Artiste.MusicExtract, Mode=TwoWay}" VerticalAlignment="Top" Width="120"/>
 
     </Grid>
 </UserControl>
