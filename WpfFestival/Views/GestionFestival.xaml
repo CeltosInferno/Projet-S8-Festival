@@ -34,8 +34,8 @@
                 <DataGridTextColumn Header=" Date Début" Binding="{Binding StartDate ,StringFormat=d}" IsReadOnly="True"/>
                 <DataGridTextColumn Header=" Date Fin" Binding="{Binding EndDate ,StringFormat=d}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Lieu" Binding="{Binding LieuName}" IsReadOnly="True"/>
-                <DataGridCheckBoxColumn Header="Publication" Binding="{Binding IsPublication }" IsReadOnly="True"/>
-                <DataGridCheckBoxColumn Header="Inscription" Binding="{Binding IsInscription }" IsReadOnly="True"/>
+                <DataGridCheckBoxColumn Header="No Publication?" Binding="{Binding IsPublication }" IsReadOnly="True"/>
+                <DataGridCheckBoxColumn Header="Inscription?" Binding="{Binding IsInscription }" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button Grid.Row="1" Content="Créer" Command="{Binding GoToFestivalFormulaire}" CommandParameter="FestivalFormulaire" />

@@ -29,7 +29,7 @@ namespace WpfFestival.ViewModels
 
         #endregion
         #region Properties
-
+        public bool IsEnabled { get; set; }
         public InteractionRequest<INotification> NotificationRequest { get; set; }
         public ObservableCollection<Festival> FestivalsList
         {
@@ -39,8 +39,7 @@ namespace WpfFestival.ViewModels
         public Festival Festival //SelectedFestival
         {
             get { return _festival; }
-            set { SetProperty(ref _festival, value);
-            }
+            set { SetProperty(ref _festival, value); }
         }
 
         #endregion
@@ -104,7 +103,7 @@ namespace WpfFestival.ViewModels
             _regionManager = regionManager;
             _eventAggregator = eventAggregator;
             Festival = new Festival();
-            GoToModifierFestival = new DelegateCommand<string>(ExecutedA);
+            GoToModifierFestival = new DelegateCommand<string>(ExecutedA).ObservesCanExecute(()=>Festival.IsPublication);
             ModifierFestival = new DelegateCommand(ExecutedB);
             SupprimerFestival = new DelegateCommand(ExecutedC);
             GoToFestivalFormulaire = new DelegateCommand<string>(ExecutedD);
