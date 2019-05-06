@@ -65,7 +65,7 @@ namespace WpfFestival.ViewModels
         {
             try
             {
-                if (Fonctions.Fonctions.DeleteScene($"/api/Artistes/{Artiste.ArtisteId}"))
+                if (Fonctions.Fonctions.DeleteScene($"/api/Artistes/{Artiste.ArtisteID}"))
                 {
                     NotificationRequest.Raise(new Notification { Content = "Supprimé !!!", Title = "Notification" });
                     ArtistesList.Remove(Artiste);

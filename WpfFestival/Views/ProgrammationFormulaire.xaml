@@ -24,13 +24,13 @@
             <Label Content="Créer un programme pour" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <Label Content="Nom du programme:" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="41"/>
             <TextBox Text="{Binding Programmation.ProgrammationName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Canvas.Left="151" Canvas.Top="43"/>
-            <Label Content="Horaire:" Canvas.Top="115"/>
+            <Label Content="Horaire Debut:" Canvas.Top="115"/>
             <Button Command="{Binding AddProgrammation}"  Content="Suivant" Canvas.Left="66" Canvas.Top="165" Width="75"/>
             <Button Command="{Binding GoToFestival}" CommandParameter="GestionFestival" Content="Terminer" Canvas.Left="219" Canvas.Top="165" Width="75"/>
             <TextBlock Text="{Binding FestivalName}" Canvas.Left="179" TextWrapping="Wrap" Canvas.Top="10" Width="92" RenderTransformOrigin="1.038,0.684"/>
             <CheckBox IsChecked="{Binding IsEnabled}" Content="Cochoez si vous voulez continuer" Canvas.Left="334" Canvas.Top="167"/>
-            <ComboBox SelectedValue="{Binding Programmation.ArtisteId, Mode=TwoWay}" SelectedValuePath="ArtisteId" ItemsSource="{Binding ArtistesList}" DisplayMemberPath="ArtisteName" Canvas.Left="381" Canvas.Top="81" Width="120"/>
-            <ComboBox SelectedValue="{Binding Programmation.SceneId}" SelectedValuePath="SceneId" ItemsSource="{Binding ScenesList}" DisplayMemberPath="SceneName" Canvas.Left="381" Canvas.Top="136" Width="120"/>
+            <ComboBox SelectedValue="{Binding Programmation.ArtisteID, Mode=TwoWay}" SelectedValuePath="ArtisteID" ItemsSource="{Binding ArtistesList}" DisplayMemberPath="ArtisteNom" Canvas.Left="381" Canvas.Top="81" Width="120"/>
+            <ComboBox SelectedValue="{Binding Programmation.SceneID, Mode=TwoWay}" SelectedValuePath="Id" ItemsSource="{Binding ScenesList}" DisplayMemberPath="Nom" Canvas.Left="381" Canvas.Top="136" Width="120"/>
             <Label Content="Choisir un artiste" Canvas.Left="381" Canvas.Top="50"/>
             <Label Content="Choisir un scène" Canvas.Left="380" Canvas.Top="106">
                 <Label.RenderTransform>
@@ -42,7 +42,9 @@
                     </TransformGroup>
                 </Label.RenderTransform>
             </Label>
-            <wpfTool:DateTimePicker x:Name="timePicker" TimePickerAllowSpin="True" Kind="Local"  Value="{Binding Programmation.Date}" Canvas.Left="151" Canvas.Top="117"/>
+            <wpfTool:DateTimePicker x:Name="timePicker" TimePickerAllowSpin="True" Kind="Local"  Value="{Binding Programmation.DateDebutConcert}" Canvas.Left="151" Canvas.Top="117"/>
+
+            <wpfTool:DateTimePicker x:Name="timePicker2" TimePickerAllowSpin="True" Kind="Local"  Value="{Binding Programmation.DateFinConcert}" Canvas.Left="151" Canvas.Top="141"/>
             <Label Content="Durée(min):" Canvas.Top="81"/>
             <ComboBox Text="{Binding Programmation.Duration}" Canvas.Left="151" Canvas.Top="81" Width="76">
                 <ComboBoxItem >5</ComboBoxItem>
@@ -58,6 +60,7 @@
                 <ComboBoxItem >55</ComboBoxItem>
                 <ComboBoxItem >60</ComboBoxItem>
             </ComboBox>
+            <Label Content="Horaire Fin:" Canvas.Top="136"/>
         </Canvas>
 
 

@@ -47,10 +47,10 @@ namespace WpfFestival.ViewModels
         public DelegateCommand<string> GoToGestionFestival { get; private set; }
         private void ExecutedA(string uri)
         {
-            ResultCheck = CheckFestivalName($"/api/Festivals/CheckName?name={Festival.Name}");
+            ResultCheck = CheckFestivalName($"/api/Festivals/CheckName?name={Festival.Nom}");
             if(ResultCheck==1)
             {
-                if(Festival.EndDate.CompareTo(Festival.StartDate)<0)
+                if(Festival.DateFin.CompareTo(Festival.DateDebut)<0)
                 {
                     NotificationRequest.Raise(new Notification { Content = "Erreur de Date , éssayer l'autre date svp !!!", Title = "Notification" });
 
@@ -62,7 +62,7 @@ namespace WpfFestival.ViewModels
                         NotificationRequest.Raise(new Notification { Content = "Festival est créé, continuer à créer la programmation !!!", Title = "Notification" });
 
                         _regionManaager.RequestNavigate("ContentRegion", uri);
-                        _eventAggregator.GetEvent<PassFestivalNameEvent>().Publish(Festival.Name);
+                        _eventAggregator.GetEvent<PassFestivalNameEvent>().Publish(Festival.Nom);
                     }
                     else
                     {
@@ -98,8 +98,8 @@ namespace WpfFestival.ViewModels
             AddFestival = new DelegateCommand<string>(ExecutedA).ObservesCanExecute(() => IsEnabled);
             GoToGestionFestival = new DelegateCommand<string>(ExecutedB);
             //_eventAggregator.GetEvent<PassOrganisateurIdEvent>().Subscribe(Update);
-            _festival.EndDate = DateTime.Now;
-            _festival.StartDate = DateTime.Now;
+            _festival.DateFin = DateTime.Now;
+            _festival.DateDebut = DateTime.Now;
 
             NotificationRequest = new InteractionRequest<INotification>();
             Festival.OrganisateurId = IdentificationViewModel.OrganisateurId;
@@ -152,7 +152,7 @@ namespace WpfFestival.ViewModels
                 client.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json"));
 
-                Task<HttpResponseMessage> postTask = client.PostAsJsonAsync<string>(uri, Festival.Name);
+                Task<HttpResponseMessage> postTask = client.PostAsJsonAsync<string>(uri, Festival.Nom);
 
                 postTask.Wait();
 

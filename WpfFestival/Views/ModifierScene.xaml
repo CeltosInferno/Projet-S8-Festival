@@ -19,13 +19,14 @@
     </i:Interaction.Triggers>
     <Grid>
         <Canvas HorizontalAlignment="Left" Height="318" Margin="169,96,0,0" VerticalAlignment="Top" Width="452">
-            <Button Command="{Binding ModifierScene}" CommandParameter="GestionScene" Content="Modifier" Canvas.Left="93" Canvas.Top="173" Width="75"/>
-            <Button Content="Terminer" Command="{Binding GoToGestionScene}" CommandParameter="GestionScene" Canvas.Left="253" Canvas.Top="173" Width="75"/>
-            <TextBox Height="23" Canvas.Left="208" TextWrapping="Wrap" Text="{Binding Scene.SceneName}" Canvas.Top="50" Width="120"/>
+            <Button Command="{Binding ModifierScene}" CommandParameter="GestionScene" Content="Modifier" Canvas.Left="92" Canvas.Top="266" Width="75"/>
+            <Button Content="Terminer" Command="{Binding GoToGestionScene}" CommandParameter="GestionScene" Canvas.Left="253" Canvas.Top="266" Width="75"/>
+            <TextBox Height="23" Canvas.Left="208" TextWrapping="Wrap" Text="{Binding Scene.Nom}" Canvas.Top="50" Width="120"/>
             <Label Content="Nom de scène:" Canvas.Left="71" Canvas.Top="47"/>
             <Label Content="Capacité:" Canvas.Left="71" Canvas.Top="95"/>
-            <TextBox Height="23" Canvas.Left="208" TextWrapping="Wrap" Text="{Binding Scene.Capacity, Mode=TwoWay}" Canvas.Top="108" Width="120"/>
-            <ContentControl prism:RegionManager.RegionName="ScenesListRegion"  Height="36" Canvas.Left="136" Canvas.Top="136" Width="139"/>
+            <TextBox Height="23" Canvas.Left="208" TextWrapping="Wrap" Text="{Binding Scene.Capacite, Mode=TwoWay}" Canvas.Top="108" Width="120"/>
+            <Label Content="Accessibilité:" Canvas.Left="71" Canvas.Top="167"/>
+            <TextBox Height="73" Canvas.Left="208" TextWrapping="Wrap" Text="{Binding Scene.Accessibilite, Mode=TwoWay}" Canvas.Top="167" Width="120"/>
 
 
         </Canvas>

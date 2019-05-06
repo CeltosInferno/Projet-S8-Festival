@@ -10,11 +10,13 @@ namespace WpfFestival.Models
     {
         public int ProgrammationId { get; set; }
         public string ProgrammationName { get; set; }
-        public int FestivalId { get; set; }
-        public int SceneId { get; set; }
-        public int ArtisteId { get; set; }
+        public int FestivalID { get; set; }
+        public int SceneID { get; set; }
+        public int ArtisteID { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime DateFinConcert { get; set; }
+        public DateTime DateDebutConcert { get; set; }
         public int Duration { get; set; }
+        public int OrganisateurID { get; set; }
     }
 }

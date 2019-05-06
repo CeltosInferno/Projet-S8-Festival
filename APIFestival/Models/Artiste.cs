@@ -14,8 +14,8 @@ namespace APIFestival.Models
         }
 
         [Key]
-        public int ArtisteId { get; set; }
-        public string ArtisteName { get; set; }
+        public int ArtisteID { get; set; }
+        public string ArtisteNom { get; set; }
         public string Photo { get; set; }
         public string Style { get; set; }
         public string Comment { get; set; }

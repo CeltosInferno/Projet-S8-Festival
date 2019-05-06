@@ -12,21 +12,21 @@ namespace WpfFestival.Models
             set { SetProperty(ref _id, value); }
         }
         private string _festivalNom;
-        public string Name
+        public string Nom
         {
             get { return _festivalNom; }
             set { SetProperty(ref _festivalNom, value); }
         }
 
         private DateTime _dateDebut;
-        public DateTime StartDate
+        public DateTime DateDebut
         {
             get { return _dateDebut; }
             set { SetProperty(ref _dateDebut, value); }
         }
 
         private DateTime _dateFin;
-        public DateTime EndDate
+        public DateTime DateFin
         {
             get { return _dateFin; }
             set { SetProperty(ref _dateFin, value); }
@@ -40,14 +40,14 @@ namespace WpfFestival.Models
         }
 
         private string _lieuName;
-        public string LieuName
+        public string Lieu
         {
             get { return _lieuName; }
             set { SetProperty(ref _lieuName, value); }
         }
 
         private int _postalCode;
-        public int PostalCode
+        public int CodePostal
         {
             get { return _postalCode; }
             set { SetProperty(ref _postalCode, value); }
@@ -89,7 +89,7 @@ namespace WpfFestival.Models
         }
 
         private float _price;
-        public float Price
+        public float Prix
         {
             get { return _price; }
             set { SetProperty(ref _price, value); }

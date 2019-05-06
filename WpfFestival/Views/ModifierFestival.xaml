@@ -38,17 +38,17 @@
 
         </Grid.ColumnDefinitions>
         <TextBlock Text=" Modifier" Grid.Column="0" Grid.Row="0"/>
-        <TextBlock Text="{Binding Festival.Name}" Grid.Column="1" Grid.Row="0"/>
+        <TextBlock Text="{Binding Festival.Nom}" Grid.Column="1" Grid.Row="0"/>
         <TextBlock Text=" Nouveau Nom:" Grid.Column="0" Grid.Row="1"/>
-        <TextBox Text="{Binding Festival.Name, Mode=TwoWay}" Grid.Column="1" Grid.Row="1"/>
+        <TextBox Text="{Binding Festival.Nom, Mode=TwoWay}" Grid.Column="1" Grid.Row="1"/>
         <TextBlock Text=" Date Début:" Grid.Column="0" Grid.Row="2"/>
-        <DatePicker SelectedDate="{Binding Festival.StartDate, Mode=TwoWay}" Grid.Column="1" Grid.Row="2"/>
+        <DatePicker SelectedDate="{Binding Festival.DateDebut, Mode=TwoWay}" Grid.Column="1" Grid.Row="2"/>
         <TextBlock Text=" Date Fin:" Grid.Column="0" Grid.Row="3"/>
-        <DatePicker SelectedDate="{Binding Festival.EndDate, Mode=TwoWay}" Grid.Column="1" Grid.Row="3"/>
+        <DatePicker SelectedDate="{Binding Festival.DateFin, Mode=TwoWay}" Grid.Column="1" Grid.Row="3"/>
         <TextBlock Text=" Lieu:" Grid.Column="0" Grid.Row="4"/>
-        <TextBox Text="{Binding Festival.LieuName, Mode=TwoWay}" Grid.Column="1" Grid.Row="4"/>
+        <TextBox Text="{Binding Festival.Lieu, Mode=TwoWay}" Grid.Column="1" Grid.Row="4"/>
         <TextBlock Text=" Code Postal:" Grid.Column="0" Grid.Row="5"/>
-        <TextBox Text="{Binding Festival.PostalCode, Mode=TwoWay}" Grid.Column="1" Grid.Row="5"/>
+        <TextBox Text="{Binding Festival.CodePostal, Mode=TwoWay}" Grid.Column="1" Grid.Row="5"/>
         <TextBlock Text=" Description:" Grid.Column="0" Grid.Row="6"/>
         <TextBox Text="{Binding Festival.Description, Mode=TwoWay}" Grid.Column="1" Grid.Row="6" Grid.RowSpan="3"/>
         <Button Content="Update Festival" Command="{Binding ModifierFestival}" Grid.Column="0" Grid.Row="9"/>

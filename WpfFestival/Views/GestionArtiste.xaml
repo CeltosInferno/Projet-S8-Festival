@@ -27,7 +27,7 @@
         </Grid.RowDefinitions>
         <DataGrid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" CanUserResizeColumns="False" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" SelectedItem="{Binding Artiste}" ItemsSource="{Binding ArtistesList, Mode=TwoWay}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Nom d'artiste" Binding="{Binding ArtisteName}" Width="120" />
+                <DataGridTextColumn Header="Nom d'artiste" Binding="{Binding ArtisteNom}" Width="120" />
                 <DataGridTextColumn Header="Style" Binding="{Binding Style}" Width="120"/>
                 <DataGridTextColumn Header="Nationalité" Binding="{Binding Nationality}" Width="120"/>
             </DataGrid.Columns>

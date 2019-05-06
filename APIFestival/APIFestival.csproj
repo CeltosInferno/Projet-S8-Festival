@@ -174,6 +174,7 @@
     <Compile Include="Controllers\FestivaliersController.cs" />
     <Compile Include="Controllers\FestivalsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InteretsController.cs" />
     <Compile Include="Controllers\OrganisateursController.cs" />
     <Compile Include="Controllers\ProgrammationsController.cs" />
     <Compile Include="Controllers\ScenesController.cs" />
@@ -181,9 +182,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201905061252139_initial.cs" />
-    <Compile Include="Migrations\201905061252139_initial.Designer.cs">
-      <DependentUpon>201905061252139_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201905061458079_initial.cs" />
+    <Compile Include="Migrations\201905061458079_initial.Designer.cs">
+      <DependentUpon>201905061458079_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905061743116_initial1.cs" />
+    <Compile Include="Migrations\201905061743116_initial1.Designer.cs">
+      <DependentUpon>201905061743116_initial1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\APIFestivalContext.cs" />
@@ -191,17 +196,28 @@
     <Compile Include="Models\DTO\ArtisteDTO.cs" />
     <Compile Include="Models\DTO\FestivalDTO.cs" />
     <Compile Include="Models\DTO\FestivalIdDTO.cs" />
+    <Compile Include="Models\DTO\FestivalierDTO.cs" />
+    <Compile Include="Models\WEB\ArtisteWEB.cs" />
+    <Compile Include="Models\WEB\FestivalierWEB.cs" />
+    <Compile Include="Models\WEB\FestivalWEB.cs" />
+    <Compile Include="Models\WEB\InteretWEB.cs" />
     <Compile Include="Models\DTO\OrganisateurDTO.cs" />
     <Compile Include="Models\DTO\OrganisateurNameDTO.cs" />
     <Compile Include="Models\DTO\ProgrammationDTO.cs" />
     <Compile Include="Models\DTO\SceneDTO.cs" />
+    <Compile Include="Models\DTO\SelectionDTO.cs" />
     <Compile Include="Models\Festival.cs" />
     <Compile Include="Models\Festivalier.cs" />
+    <Compile Include="Models\Interet.cs" />
     <Compile Include="Models\Organisateur.cs" />
     <Compile Include="Models\Personne.cs" />
     <Compile Include="Models\Programmation.cs" />
     <Compile Include="Models\Scene.cs" />
     <Compile Include="Models\Selection.cs" />
+    <Compile Include="Models\WEB\OrganisateurWEB.cs" />
+    <Compile Include="Models\WEB\ProgrammationWEB.cs" />
+    <Compile Include="Models\WEB\SceneWEB.cs" />
+    <Compile Include="Models\WEB\SelectionWEB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -292,8 +308,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201905061252139_initial.resx">
-      <DependentUpon>201905061252139_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905061458079_initial.resx">
+      <DependentUpon>201905061458079_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905061743116_initial1.resx">
+      <DependentUpon>201905061743116_initial1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

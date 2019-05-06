@@ -11,43 +11,58 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using APIFestival.Models;
 using APIFestival.Models.DTO;
+using APIFestival.Models.WEB;
 
 namespace APIFestival.Controllers
 {
+    [RoutePrefix("api/Scenes")]
     public class ScenesController : ApiController
     {
         private APIFestivalContext db = new APIFestivalContext();
 
         // GET: api/Scenes
+        [HttpGet]
         public IQueryable<SceneDTO> GetScenes()
         {
             var scenes = db.Scenes.Select(a => new SceneDTO()
             {
-                SceneId = a.SceneId,
-                Capacity = a.Capacity,
-                SceneName = a.SceneName,
-                //Programmations = a.Programmations.Select(b => new ProgrammationDTO()
-                // {
-                //     ArtisteId = b.ArtisteId,
-                //     ProgrammationId = b.ProgrammationId,
-                //     ProgrammationName = b.ProgrammationName
-                // })
+                Id = a.Id,
+                Capacite = a.Capacite,
+                Nom = a.Nom,
+                Accessibilite=a.Accessibilite
+               
+            });
+            return scenes;
+        }
+        [HttpGet]
+        [Route("org")]
+        // GET: api/Scenes
+        public IQueryable<SceneWEB> GetScenes2()
+        {
+            var scenes = db.Scenes.Select(a => new SceneWEB()
+            {
+                Id = a.Id,
+                Capacite = a.Capacite,
+                Nom = a.Nom,
+                Accessibilite = a.Accessibilite
             });
             return scenes;
         }
 
         // GET: api/Scenes/5
+        [HttpGet]
         [ResponseType(typeof(Scene))]
         public async Task<IHttpActionResult> GetScene(int id)
         {
             //Scene scene = await db.Scenes.FindAsync(id);
             var scene = await (from a in db.Scenes
-                               where a.SceneId == id
+                               where a.Id == id
                                select new SceneDTO()
                                {
-                                   Capacity = a.Capacity,
-                                   SceneId = a.SceneId,
-                                   SceneName = a.SceneName,
+                                   Capacite = a.Capacite,
+                                   Id = a.Id,
+                                   Nom = a.Nom,
+                                   Accessibilite =a.Accessibilite
                                    //Programmations = a.Programmations.Select(b => new ProgrammationDTO()
                                    //{
                                    //    ArtisteId = b.ArtisteId,
@@ -65,6 +80,7 @@ namespace APIFestival.Controllers
         }
 
         // PUT: api/Scenes/5
+        [HttpPut]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutScene(int id, Scene scene)
         {
@@ -73,7 +89,7 @@ namespace APIFestival.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != scene.SceneId)
+            if (id != scene.Id)
             {
                 return BadRequest();
             }
@@ -100,6 +116,7 @@ namespace APIFestival.Controllers
         }
 
         // POST: api/Scenes
+        [HttpPost]
         [ResponseType(typeof(SceneDTO))]
         public async Task<IHttpActionResult> PostScene(Scene scene)
         {
@@ -112,13 +129,15 @@ namespace APIFestival.Controllers
             await db.SaveChangesAsync();
             var dto = new SceneDTO()
             {
-                Capacity = scene.Capacity,
-                SceneName = scene.SceneName
+                Capacite = scene.Capacite,
+                Nom = scene.Nom,
+                Accessibilite =scene.Accessibilite
             };
-            return CreatedAtRoute("DefaultApi", new { id = scene.SceneId }, dto);
+            return CreatedAtRoute("DefaultApi", new { id = scene.Id }, dto);
         }
 
         // DELETE: api/Scenes/5
+        [HttpDelete]
         [ResponseType(typeof(Scene))]
         public async Task<IHttpActionResult> DeleteScene(int id)
         {
@@ -145,7 +164,7 @@ namespace APIFestival.Controllers
 
         private bool SceneExists(int id)
         {
-            return db.Scenes.Count(e => e.SceneId == id) > 0;
+            return db.Scenes.Count(e => e.Id == id) > 0;
         }
     }
 }

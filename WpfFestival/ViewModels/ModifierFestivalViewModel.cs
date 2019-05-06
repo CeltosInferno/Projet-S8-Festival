@@ -63,17 +63,17 @@ namespace WpfFestival.ViewModels
 
         private void ExecutedA() // ModifierFestival
         {   
-            if(Festival.Name.Equals(OriginalName))
+            if(Festival.Nom.Equals(OriginalName))
             {
                 ResultCheck = 1;
             }
             else
             {
-                ResultCheck = CheckFestivalName($"/api/Festivals/CheckName?name={Festival.Name}");
+                ResultCheck = CheckFestivalName($"/api/Festivals/CheckName?name={Festival.Nom}");
             }
             if(ResultCheck==1) // vérifier nom
             {
-                if(Festival.EndDate.CompareTo(Festival.StartDate)<0) //vérifier date
+                if(Festival.DateFin.CompareTo(Festival.DateDebut)<0) //vérifier date
                 {
                     NotificationRequest.Raise(new Notification { Content = "Check date !!", Title = "Notification" });
                 }
@@ -131,7 +131,7 @@ namespace WpfFestival.ViewModels
                 
                 
                 _regionManager.RequestNavigate("ContentRegion", uri);
-                _eventAggregator.GetEvent<PassFestivalNameEvent>().Publish(Festival.Name);
+                _eventAggregator.GetEvent<PassFestivalNameEvent>().Publish(Festival.Nom);
             }
               
         }
@@ -163,7 +163,7 @@ namespace WpfFestival.ViewModels
         private void PassFestival(Festival obj)
         {
             Festival = obj;
-            OriginalName = obj.Name;
+            OriginalName = obj.Nom;
             
         }
         private void Update(bool obj)
@@ -233,7 +233,7 @@ namespace WpfFestival.ViewModels
                 client.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json"));
 
-                Task<HttpResponseMessage> postTask = client.PostAsJsonAsync<string>(uri, Festival.Name);
+                Task<HttpResponseMessage> postTask = client.PostAsJsonAsync<string>(uri, Festival.Nom);
 
                 postTask.Wait();
 

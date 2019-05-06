@@ -52,7 +52,7 @@ namespace WpfFestival.ViewModels
                 }
                 else if (ResultCheckPassword == 1)
                 {
-                    Organisateur.Id = GetOrganisateurId($"/api/Organisateurs/{Organisateur.Email}").Id;
+                    Organisateur.Id = GetOrganisateurId($"/api/Organisateurs/{Organisateur.Login}").Id;
                     OrganisateurId = Organisateur.Id;
                     NotificationRequest.Raise(new Notification { Content = "Bienvenue !!!", Title = "Notification" });
                     _regionManager.RequestNavigate("MainContentRegion", uri);

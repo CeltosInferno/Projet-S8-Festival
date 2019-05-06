@@ -35,6 +35,8 @@ namespace APIFestival.Models
 
         public System.Data.Entity.DbSet<APIFestival.Models.Selection> Selections { get; set; }
 
+        public System.Data.Entity.DbSet<APIFestival.Models.Interet> Interets { get; set; }
+
         //protected override void OnModelCreating(DbModelBuilder modelBuilder)
         //{
         //    base.OnModelCreating(modelBuilder);

@@ -42,7 +42,7 @@ namespace WpfFestival.ViewModels
         private void ExecutedA(string uri) // Modifier artiste
         {
 
-            if (PutArtiste($"api/Artistes/{Artiste.ArtisteId}"))
+            if (PutArtiste($"api/Artistes/{Artiste.ArtisteID}"))
             {
                 NotificationRequest.Raise(new Notification { Content = "Modifié !!!", Title = "Notification" });
                 if (uri != null)

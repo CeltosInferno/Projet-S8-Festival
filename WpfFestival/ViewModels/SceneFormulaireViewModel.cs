@@ -69,7 +69,7 @@ namespace WpfFestival.ViewModels
             GoToGestionScene = new DelegateCommand<string>(ExecutedB);
 
             Scene = new Scene();
-            Scene.SceneName = "Entrer un nom";
+            Scene.Nom = "Entrer un nom";
                
 
         }

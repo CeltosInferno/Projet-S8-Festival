@@ -25,21 +25,21 @@ namespace APIFestival.Migrations
             //base.Seed(context);
             var Organisateurs = new List<Organisateur>
             {
-                new Organisateur{ Email="111@111.com" , Password="111"},
-                new Organisateur{ Email = "222@222.com", Password="222"}
+                new Organisateur{ Login="111@111.com" , Mdp="111"},
+                new Organisateur{ Login = "222@222.com", Mdp="222"}
             };
 
-            Organisateurs.ForEach(o => context.Organisateurs.AddOrUpdate(o1 => o1.Email, o));
+            Organisateurs.ForEach(o => context.Organisateurs.AddOrUpdate(o1 => o1.Login, o));
             context.SaveChanges();
 
             var Festivals = new List<Festival>
             {
-                new Festival{ Name="armada", Description="boat festival", StartDate=DateTime.Parse("2019-06-06"), EndDate=DateTime.Parse("2019-06-16"), LieuName= "Rouen", PostalCode=76100  , IsInscription=true, IsPublication= false, OrganisateurId=1},
-                new Festival{ Name="spring", Description="SPRING, festival des nouvelles formes de cirque en Normandie est " +
+                new Festival{ Nom="armada", Description="boat festival", DateDebut=DateTime.Parse("2019-06-06"), DateFin=DateTime.Parse("2019-06-16"), Lieu= "Rouen", CodePostal=76100  , IsInscription=true, IsPublication= false, OrganisateurId=1},
+                new Festival{ Nom="spring", Description="SPRING, festival des nouvelles formes de cirque en Normandie est " +
                 "coordonné par la Plateforme 2 Pôles Cirque en Normandie / La Brèche à Cherbourg – Cirque-Théâtre d’Elbeuf " +
                 "avec 60 partenaires sur tout le territoire normand.",
-                    StartDate =DateTime.Parse("2019-03-01"), EndDate=DateTime.Parse("2019-04-05"), LieuName= "Rouen", PostalCode=76100, IsInscription = true , IsPublication= true , OrganisateurId=1, },
-                new Festival{ Name="musee", Description="UNE ANNEE AU MUSEE", StartDate=DateTime.Parse("2019-04-10"), EndDate=DateTime.Parse("2019-04-17"), LieuName= "Rouen", PostalCode=76100, IsInscription=false, IsPublication= false, OrganisateurId=1}
+                    DateDebut =DateTime.Parse("2019-03-01"), DateFin=DateTime.Parse("2019-04-05"), Lieu= "Rouen", CodePostal=76100, IsInscription = true , IsPublication= true , OrganisateurId=1, },
+                new Festival{ Nom="musee", Description="UNE ANNEE AU MUSEE", DateDebut=DateTime.Parse("2019-04-10"), DateFin=DateTime.Parse("2019-04-17"), Lieu= "Rouen", CodePostal=76100, IsInscription=false, IsPublication= false, OrganisateurId=1}
             };
 
             Festivals.ForEach(f => context.Festivals.AddOrUpdate(f1 => f1.Id, f));
@@ -51,21 +51,21 @@ namespace APIFestival.Migrations
 
             var Artistes = new List<Artiste>
             {
-                new Artiste{ ArtisteName="Michael Jackson", Nationality="American",
+                new Artiste{ ArtisteNom="Michael Jackson", Nationality="American",
                     Style ="Rock", MusicExtract="Heal the world", Photo="None"},
-                new Artiste{ ArtisteName="Julien Doré", Nationality="French",
+                new Artiste{ ArtisteNom="Julien Doré", Nationality="French",
                     Style ="Pop", MusicExtract="Coco Câline", Photo="None"}
             };
-            Artistes.ForEach(a => context.Artistes.AddOrUpdate(a1 => a1.ArtisteName, a));
+            Artistes.ForEach(a => context.Artistes.AddOrUpdate(a1 => a1.ArtisteNom, a));
             context.SaveChanges();
 
 
             var Scenes = new List<Scene>
             {
-                new Scene { SceneName="D1269", Capacity=40},
-                new Scene { SceneName="B1213", Capacity=50}
+                new Scene { Nom="D1269", Capacite=40},
+                new Scene { Nom="B1213", Capacite=50}
             };
-            Scenes.ForEach(s => context.Scenes.AddOrUpdate(s1 => s1.SceneName, s));
+            Scenes.ForEach(s => context.Scenes.AddOrUpdate(s1 => s1.Nom, s));
             context.SaveChanges();
             //AddOrUpdateArtiste(context, 1,1);
             //AddOrUpdateArtiste(context, 1,2);
@@ -75,14 +75,14 @@ namespace APIFestival.Migrations
 
             var Programmations = new List<Programmation>
             {
-                new Programmation{ ProgrammationName="a", FestivalId=1, ArtisteId=1, SceneId=1, Duration=45, Date=DateTime.Parse("2019-06-06")},
+                new Programmation{ ProgrammationName="a", FestivalID=1, ArtisteID=1, SceneID=1, Duration=45, DateDebutConcert=DateTime.Parse("2019-06-06"),OrganisateurID=1, DateFinConcert=DateTime.Parse("2019-06-06")},
                     //Artistes = new List<Artiste>(),   
                     //Scenes = new List<Scene>()
                 
-                new Programmation{ ProgrammationName="b", FestivalId=2, ArtisteId=2, SceneId=2 , Duration=30, Date=DateTime.Parse("2019-06-06")},
+                new Programmation{ ProgrammationName="b", FestivalID=2, ArtisteID=2, SceneID=2 , Duration=30, DateDebutConcert=DateTime.Parse("2019-06-06"), OrganisateurID=1, DateFinConcert=DateTime.Parse("2019-06-06")},
                     //Artistes = new List<Artiste>(),
                     //Scenes = new List<Scene>()
-                new Programmation{ ProgrammationName="bbb", FestivalId=2, ArtisteId=1, SceneId=2 , Duration= 25, Date = DateTime.Parse("2019-06-06")}
+                new Programmation{ ProgrammationName="bbb", FestivalID=2, ArtisteID=1, SceneID=2 , Duration= 25, DateDebutConcert = DateTime.Parse("2019-06-06"), OrganisateurID=1, DateFinConcert=DateTime.Parse("2019-06-06")}
 
             };
             Programmations.ForEach(p => context.Programmations.AddOrUpdate(p1 => p1.ProgrammationName, p));

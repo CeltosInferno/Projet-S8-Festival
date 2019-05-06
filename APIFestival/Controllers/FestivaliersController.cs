@@ -10,17 +10,51 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using APIFestival.Models;
+using APIFestival.Models.DTO;
+using APIFestival.Models.WEB;
 
 namespace APIFestival.Controllers
 {
+    [RoutePrefix("api/Festivaliers")]
     public class FestivaliersController : ApiController
     {
         private APIFestivalContext db = new APIFestivalContext();
 
-        // GET: api/Festivaliers
-        public IQueryable<Festivalier> GetFestivaliers()
+        // GET: api/Festivaliers/org
+        [HttpGet]
+        [Route("org")]
+        public IQueryable<FestivalierWEB> GetFestivaliers()
         {
-            return db.Festivaliers;
+
+            var f = db.Festivaliers.Select(a => new FestivalierWEB()
+            {
+                ID = a.ID,
+                Nom = a.Nom,
+                Prenom = a.Prenom,
+                Naissance = a.Naissance,
+                Email = a.Email,
+                Mdp = a.Mdp,
+                Genre = a.Genre,
+                Telephone = a.Telephone,
+                CodePostal = a.CodePostal,
+                Ville = a.Ville,
+                Rue = a.Rue,
+                Pays = a.Pays,
+                FestivalId = a.FestivalId,
+                Festival = new FestivalWEB()
+                {
+                    Id = a.Festival.Id,
+                    Nom = a.Festival.Nom,
+                    CodePostal = a.Festival.CodePostal,
+                    Lieu = a.Festival.Lieu,
+                    Description = a.Festival.Description,
+                    DateDebut = a.Festival.DateDebut,
+                    DateFin = a.Festival.DateFin,
+                    Prix = a.Festival.Prix,
+                    UserId = a.Festival.UserId
+                }
+            });
+            return f;
         }
 
         // GET: api/Festivaliers/5
@@ -45,7 +79,7 @@ namespace APIFestival.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != festivalier.Id)
+            if (id != festivalier.ID)
             {
                 return BadRequest();
             }
@@ -71,19 +105,37 @@ namespace APIFestival.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        
         // POST: api/Festivaliers
-        [ResponseType(typeof(Festivalier))]
-        public async Task<IHttpActionResult> PostFestivalier(Festivalier festivalier)
+        [ResponseType(typeof(FestivalierDTO))]
+        public async Task<IHttpActionResult> PostArtiste(Festivalier festival)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Festivaliers.Add(festivalier);
+            db.Festivaliers.Add(festival);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = festivalier.Id }, festivalier);
+            var dto = new FestivalierDTO()
+            {
+                ID = festival.ID,
+                Nom = festival.Nom,
+                Prenom = festival.Prenom,
+                Naissance = festival.Naissance,
+                Email = festival.Email,
+                Mdp = festival.Mdp,
+                Genre = festival.Genre,
+                Telephone = festival.Telephone,
+                CodePostal = festival.CodePostal,
+                Ville = festival.Ville,
+                Rue = festival.Rue,
+                Pays = festival.Pays,
+                FestivalId = festival.FestivalId,
+            };
+
+            return CreatedAtRoute("DefaultApi", new { id = festival.ID }, dto);
         }
 
         // DELETE: api/Festivaliers/5
@@ -113,7 +165,7 @@ namespace APIFestival.Controllers
 
         private bool FestivalierExists(int id)
         {
-            return db.Festivaliers.Count(e => e.Id == id) > 0;
+            return db.Festivaliers.Count(e => e.ID == id) > 0;
         }
     }
 }

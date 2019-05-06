@@ -11,6 +11,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using APIFestival.Models;
 using APIFestival.Models.DTO;
+using APIFestival.Models.WEB;
 
 namespace APIFestival.Controllers
 {
@@ -26,25 +27,50 @@ namespace APIFestival.Controllers
             var festivals = db.Festivals.Select(a => new FestivalDTO()
             {
                 Description = a.Description,
-                Name = a.Name,
-                EndDate = a.EndDate,
-                StartDate = a.StartDate,
+                Nom = a.Nom,
+                DateFin = a.DateFin,
+                DateDebut = a.DateDebut,
                 Id = a.Id,
-                LieuName = a.LieuName,
-                PostalCode = a.PostalCode,
+                Lieu = a.Lieu,
+                CodePostal = a.CodePostal,
                 IsInscription = a.IsInscription,
                 IsPublication = a.IsPublication,
                 OrganisateurId = a.OrganisateurId,
-                NbSeats = a.NbSeats,
-                Price = a.Price,
+                UserId = a.UserId,
+                Prix = a.Prix,
                 ProgrammationsList = a.Programmations.Select(b => new ProgrammationDTO()
                 {
-                    ArtisteId = b.ArtisteId,
+                    ArtisteID = b.ArtisteID,
                     ProgrammationId = b.ProgrammationId,
                     ProgrammationName = b.ProgrammationName,
-                    FestivalId = b.FestivalId,
-                    SceneId = b.SceneId
+                    FestivalID = b.FestivalID,
+                    SceneID = b.SceneID
                 })
+
+            });
+            return festivals;
+        }
+
+        // GET: api/Festivals/org
+        [HttpGet]
+        [Route("org")]
+        public IQueryable<FestivalWEB> GetFestivals2()
+        {
+            var festivals = db.Festivals.Select(a => new FestivalWEB()
+            {
+                Description = a.Description,
+                Nom = a.Nom,
+                DateFin = a.DateFin,
+                DateDebut = a.DateDebut,
+                Id = a.Id,
+                Lieu = a.Lieu,
+                CodePostal = a.CodePostal,
+                //IsInscription = a.IsInscription,
+                //IsPublication = a.IsPublication,
+                //OrganisateurId = a.OrganisateurId,
+                UserId = a.UserId,
+                Prix = a.Prix,
+                
 
             });
             return festivals;
@@ -58,24 +84,24 @@ namespace APIFestival.Controllers
             var festivals = db.Festivals.Where( a => a.OrganisateurId == organisateurId).Select(a => new FestivalDTO()
             {
                 Description = a.Description,
-                Name = a.Name,
-                EndDate = a.EndDate,
-                StartDate = a.StartDate,
+                Nom = a.Nom,
+                DateFin = a.DateFin,
+                DateDebut = a.DateDebut,
                 Id = a.Id,
-                LieuName = a.LieuName,
-                PostalCode = a.PostalCode,
+                Lieu = a.Lieu,
+                CodePostal = a.CodePostal,
                 IsInscription = a.IsInscription,
                 IsPublication = a.IsPublication,
                 OrganisateurId = a.OrganisateurId,
-                NbSeats = a.NbSeats,
-                Price = a.Price,
+                UserId = a.UserId,
+                Prix = a.Prix,
                 ProgrammationsList = a.Programmations.Select(b => new ProgrammationDTO()
                 {
-                    ArtisteId = b.ArtisteId,
+                    ArtisteID = b.ArtisteID,
                     ProgrammationId = b.ProgrammationId,
                     ProgrammationName = b.ProgrammationName,
-                    FestivalId = b.FestivalId,
-                    SceneId = b.SceneId
+                    FestivalID = b.FestivalID,
+                    SceneID = b.SceneID
                 })
 
             });
@@ -93,14 +119,14 @@ namespace APIFestival.Controllers
                                   select new FestivalDTO()
                                   {
                                       Description = a.Description,
-                                      Name = a.Name,
-                                      EndDate = a.EndDate,
-                                      StartDate = a.StartDate,
+                                      Nom = a.Nom,
+                                      DateFin = a.DateFin,
+                                      DateDebut = a.DateDebut,
                                       Id = a.Id,
-                                      LieuName = a.LieuName,
-                                      PostalCode = a.PostalCode,
-                                      NbSeats = a.NbSeats,
-                                      Price = a.Price,
+                                      Lieu = a.Lieu,
+                                      CodePostal = a.CodePostal,
+                                      UserId = a.UserId,
+                                      Prix = a.Prix,
                                       IsInscription = a.IsInscription,
                                       IsPublication = a.IsPublication
                                   }).FirstOrDefaultAsync();
@@ -119,18 +145,18 @@ namespace APIFestival.Controllers
         public async Task<IHttpActionResult> GetFestivalByName(string name)
         {
             var festival = await (from a in db.Festivals
-                                  where a.Name == name
+                                  where a.Nom == name
                                   select new FestivalDTO()
                                   {
                                       Description = a.Description,
-                                      Name = a.Name,
-                                      EndDate = a.EndDate,
-                                      StartDate = a.StartDate,
+                                      Nom = a.Nom,
+                                      DateFin = a.DateFin,
+                                      DateDebut = a.DateDebut,
                                       Id = a.Id,
-                                      LieuName = a.LieuName,
-                                      PostalCode = a.PostalCode,
-                                      NbSeats = a.NbSeats,
-                                      Price = a.Price,
+                                      Lieu = a.Lieu,
+                                      CodePostal = a.CodePostal,
+                                      UserId = a.UserId,
+                                      Prix = a.Prix,
                                       IsInscription = a.IsInscription,
                                       IsPublication = a.IsPublication
                                   }).FirstOrDefaultAsync();
@@ -197,13 +223,13 @@ namespace APIFestival.Controllers
             {
                 Id = festival.Id,
                 Description = festival.Description,
-                EndDate = festival.EndDate,
-                Name = festival.Name,
-                StartDate = festival.StartDate,
-                LieuName = festival.LieuName,
-                PostalCode = festival.PostalCode,
-                NbSeats = festival.NbSeats,
-                Price = festival.Price,
+                DateFin = festival.DateFin,
+                Nom = festival.Nom,
+                DateDebut = festival.DateDebut,
+                Lieu = festival.Lieu,
+                CodePostal = festival.CodePostal,
+                UserId = festival.UserId,
+                Prix = festival.Prix,
                 IsInscription = festival.IsInscription,
                 IsPublication = festival.IsPublication
             };
@@ -219,10 +245,10 @@ namespace APIFestival.Controllers
         {
 
             var org = await (from a in db.Festivals
-                             where a.Name == name
+                             where a.Nom == name
                              select new FestivalDTO()
                              {
-                                  Name=a.Name
+                                  Nom=a.Nom
                              }).FirstOrDefaultAsync();
             if (org == null)
             {
@@ -239,10 +265,10 @@ namespace APIFestival.Controllers
         {
 
             var org = await (from a in db.Festivals
-                             where a.Name == name
+                             where a.Nom == name
                              select new FestivalDTO()
                              {
-                                 Name = a.Name,
+                                 Nom = a.Nom,
                                  OrganisateurId=a.OrganisateurId,
                                  Id=a.Id
                                  

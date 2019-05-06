@@ -11,6 +11,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using APIFestival.Models;
 using APIFestival.Models.DTO;
+using APIFestival.Models.WEB;
 
 namespace APIFestival.Controllers
 {
@@ -20,24 +21,74 @@ namespace APIFestival.Controllers
         private APIFestivalContext db = new APIFestivalContext();
 
         //// GET: api/Programmations
-        //public IQueryable<Programmation> GetProgrammations()
-        //{
-        //    return db.Programmations;
-        //}
-
-       
         [HttpGet]
         public IQueryable<ProgrammationDTO> GetProgrammations() {
             var programmmations = db.Programmations.Select(a =>
                new ProgrammationDTO()
                {
-                   ArtisteId = a.ArtisteId,
+                   ArtisteID = a.ArtisteID,
                    ProgrammationId = a.ProgrammationId,
                    ProgrammationName = a.ProgrammationName,
-                   FestivalId = a.FestivalId,
-                   SceneId = a.SceneId,
-                   Date =a.Date,
+                   FestivalID = a.FestivalID,
+                   SceneID = a.SceneID,
+                   DateDebutConcert =a.DateDebutConcert,
                    Duration =a.Duration
+               });
+            return programmmations;
+        }
+
+        //// GET: api/Programmations/org
+        [HttpGet]
+        [Route("org")]
+        public IQueryable<ProgrammationWEB> GetProgrammations2()
+        {
+            var programmmations = db.Programmations.Select(a =>
+               new ProgrammationWEB()
+               {
+                   ArtisteID = a.ArtisteID,
+                   ProgrammationId = a.ProgrammationId,
+                   FestivalID = a.FestivalID,
+                   SceneID = a.SceneID,
+                   DateDebutConcert = a.DateDebutConcert,
+                   DateFinConcert = a.DateFinConcert,
+                   OrganisateurID = a.OrganisateurID,
+                   Festival = new FestivalWEB()
+                   {
+                       Id = a.Festival.Id,
+                       Nom = a.Festival.Nom,
+                       CodePostal = a.Festival.CodePostal,
+                       Lieu = a.Festival.Lieu,
+                       Description = a.Festival.Description,
+                       DateDebut = a.Festival.DateDebut,
+                       DateFin = a.Festival.DateFin,
+                       Prix = a.Festival.Prix,
+                       UserId = a.Festival.UserId
+                   },
+                   Artiste = new ArtisteWEB()
+                   {
+                       ArtisteID = a.Artiste.ArtisteID,
+                       ArtisteNom = a.Artiste.ArtisteNom,
+                       Comment = a.Artiste.Comment,
+                       MusicExtract = a.Artiste.MusicExtract,
+                       Nationality = a.Artiste.Nationality,
+                       Photo = a.Artiste.Photo,
+                       Style = a.Artiste.Style
+                   },
+                   Organisateur = new OrganisateurWEB()
+                   {
+                       Id = a.Organisateur.Id,
+                       Login = a.Organisateur.Login,
+                       Mdp = a.Organisateur.Mdp,
+                       Nom = a.Organisateur.Nom,
+                       Prenom = a.Organisateur.Prenom
+                   },
+                   Scene = new SceneWEB()
+                   {
+                       Nom = a.Scene.Nom,
+                       Id = a.Scene.Id,
+                       Accessibilite = a.Scene.Accessibilite,
+                       Capacite = a.Scene.Capacite
+                   }
                });
             return programmmations;
         }
@@ -65,14 +116,14 @@ namespace APIFestival.Controllers
         {
 
             
-            var programmations =  db.Programmations.Where(a => a.FestivalId == festivalId).Select(a => new ProgrammationDTO()
+            var programmations =  db.Programmations.Where(a => a.FestivalID == festivalId).Select(a => new ProgrammationDTO()
             {
-                ArtisteId = a.ArtisteId,
-                FestivalId = a.FestivalId,
+                ArtisteID = a.ArtisteID,
+                FestivalID = a.FestivalID,
                 ProgrammationId = a.ProgrammationId,
                 ProgrammationName = a.ProgrammationName,
-                SceneId = a.SceneId,
-                Date = a.Date,
+                SceneID = a.SceneID,
+                DateDebutConcert = a.DateDebutConcert,
                 Duration = a.Duration
             });
            
@@ -133,11 +184,11 @@ namespace APIFestival.Controllers
             var dto = new ProgrammationDTO()
             {
                 ProgrammationId = programmation.ProgrammationId,
-                FestivalId = programmation.FestivalId,
+                FestivalID = programmation.FestivalID,
                 ProgrammationName = programmation.ProgrammationName,
-                ArtisteId = programmation.ArtisteId,
-                SceneId = programmation.SceneId,
-                Date = programmation.Date,
+                ArtisteID = programmation.ArtisteID,
+                SceneID = programmation.SceneID,
+                DateDebutConcert = programmation.DateDebutConcert,
                 Duration = programmation.Duration
             };
 

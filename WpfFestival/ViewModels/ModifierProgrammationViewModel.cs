@@ -137,7 +137,7 @@ namespace WpfFestival.ViewModels
         {
             Programmation = obj;
             OriginalName = obj.ProgrammationName;
-            this.GetFestivalName($"api/Festivals/{Programmation.FestivalId}");
+            this.GetFestivalName($"api/Festivals/{Programmation.FestivalID}");
         }
 
 

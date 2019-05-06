@@ -11,6 +11,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using APIFestival.Models;
 using APIFestival.Models.DTO;
+using APIFestival.Models.WEB;
 
 namespace APIFestival.Controllers
 {
@@ -21,10 +22,37 @@ namespace APIFestival.Controllers
 
         // GET: api/Organisateurs
         [HttpGet]
-        public IQueryable<Organisateur> GetOrganisateurs()
+        public IQueryable<OrganisateurDTO> GetOrganisateurs()
         {
-            return db.Organisateurs;
+
+            var organisateurs = db.Organisateurs.Select(a => new OrganisateurDTO()
+            {
+                Id = a.Id,
+                Login = a.Login,
+                Mdp = a.Mdp,
+                Nom = a.Nom,
+                Prenom = a.Prenom
+            });
+            return organisateurs;
         }
+
+        // GET: api/Organisateurs/org
+        [HttpGet]
+        [Route("org")]
+        public IQueryable<OrganisateurWEB> GetOrganisateurs2()
+        {
+
+            var organisateurs = db.Organisateurs.Select(a => new OrganisateurWEB()
+            {
+                Id = a.Id,
+                Login = a.Login,
+                Mdp = a.Mdp,
+                Nom = a.Nom,
+                Prenom = a.Prenom
+            });
+            return organisateurs;
+        }
+
 
         //GET: api/Organisateurs/email
         [HttpGet]
@@ -33,7 +61,7 @@ namespace APIFestival.Controllers
         public async Task<IHttpActionResult> GetOrganisateur(string email)
         {
             var id = await (from a in db.Organisateurs
-                             where a.Email == email
+                             where a.Login == email
                              select new OrganisateurNameDTO()
                              {
                                  Id = a.Id
@@ -117,18 +145,18 @@ namespace APIFestival.Controllers
         {
 
             var org = await (from a in db.Organisateurs
-                             where a.Email == organisateur.Email
+                             where a.Login == organisateur.Login
                              select new OrganisateurDTO()
                              {
-                                 Email = a.Email,
+                                 Login = a.Login,
                                  Id = a.Id,
-                                 Password = a.Password
+                                 Mdp = a.Mdp
                              }).FirstOrDefaultAsync();
             if (org == null)
             {
                 return 0; // 0 email n'existe pas
             }
-            else if(org.Password.Equals(organisateur.Password))
+            else if(org.Mdp.Equals(organisateur.Mdp))
             {
                 return 1; //1  check ok
             }

@@ -14,7 +14,7 @@
     </i:Interaction.Triggers>
     <Grid Background="white" Margin="0,0,-145.4,-10">
         <Label Content="Nom de l'artiste:" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="184,72,0,0" TextWrapping="Wrap" Text="{Binding Artiste.ArtisteName}" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="184,72,0,0" TextWrapping="Wrap" Text="{Binding Artiste.ArtisteNom}" VerticalAlignment="Top" Width="120"/>
         <Label Content="Style:" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top"/>
 
         <!--<ComboBox SelectedValue="{Binding Artiste.Style}" ItemsSource="{Binding StylesList}" />-->

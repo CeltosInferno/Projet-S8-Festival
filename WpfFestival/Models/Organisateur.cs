@@ -17,14 +17,14 @@ namespace WpfFestival.Models
         }
 
         private string _email;
-        public string Email
+        public string Login
         {
             get { return _email; }
             set { SetProperty(ref _email, value); }
         }
 
         private string _password;
-        public string Password
+        public string Mdp
         {
             get { return _password; }
             set { SetProperty(ref _password, value); }

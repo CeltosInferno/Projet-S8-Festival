@@ -132,8 +132,9 @@ namespace WpfFestival.ViewModels
             _regionManager = regionManager;
             Programmation = new Programmation();
             //Festival = new Festival();
-            _programmation.Date = DateTime.Now;
-            
+            _programmation.DateFinConcert = DateTime.Now;
+            _programmation.DateDebutConcert = DateTime.Now;
+
 
             AddProgrammation = new DelegateCommand(ExecutedA).ObservesCanExecute(() => IsEnabled);
             GoToGestionFestival = new DelegateCommand<string>(ExecutedB);
@@ -153,7 +154,8 @@ namespace WpfFestival.ViewModels
         private void PassFestivalName(string obj)
         {
             FestivalName = obj;
-            Programmation.FestivalId = GetFestivalId($"/api/Festivals/FestivalId?name={FestivalName}");
+            Programmation.FestivalID = GetFestivalId($"/api/Festivals/FestivalId?name={FestivalName}");
+            Programmation.OrganisateurID = IdentificationViewModel.OrganisateurId;
 
         }
         #endregion

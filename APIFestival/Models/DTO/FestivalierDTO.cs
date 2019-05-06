@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace APIFestival.Models
+namespace APIFestival.Models.DTO
 {
-    public class Festivalier:Personne
-    {
+    public class FestivalierDTO
+    {   
+        public int ID { get; set; }
+        public string Nom { get; set; }
+        public string Prenom { get; set; }
         public string Genre { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Naissance { get; set; }
         public string Telephone { get; set; }
         public string Email { get; set; }
@@ -21,8 +20,6 @@ namespace APIFestival.Models
         public string Rue { get; set; }
         public string Pays { get; set; }
 
-        [ForeignKey("Festival")]
         public int FestivalId { get; set; }
-        public virtual Festival Festival { get; set; }
     }
 }

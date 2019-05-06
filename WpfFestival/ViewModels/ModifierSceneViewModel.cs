@@ -38,7 +38,7 @@ namespace WpfFestival.ViewModels
 
         private void ExecutedA(string uri)
         {
-            if (PutScene($"api/Scenes/{Scene.SceneId}"))
+            if (PutScene($"api/Scenes/{Scene.Id}"))
             {
                 NotificationRequest.Raise(new Notification { Content = "Modifié", Title = "Notification" });
                 if (uri != null)

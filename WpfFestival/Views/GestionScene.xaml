@@ -27,8 +27,8 @@
         </Grid.RowDefinitions>
         <DataGrid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" CanUserResizeColumns="False" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" SelectedItem="{Binding Scene}" ItemsSource="{Binding ScenesList, Mode=TwoWay}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Nom de scène" Binding="{Binding SceneName}" Width="172" />
-                <DataGridTextColumn Header=" Capacity" Binding="{Binding Capacity}"  Width="180"/>
+                <DataGridTextColumn Header="Nom de scène" Binding="{Binding Nom}" Width="172" />
+                <DataGridTextColumn Header=" Capacity" Binding="{Binding Capacite}"  Width="180"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button Grid.Column="0" Grid.Row="1" Content="Créer" Command="{Binding CreerScene}" CommandParameter="SceneFormulaire" />

@@ -7,10 +7,10 @@ namespace APIFestival.Models
 {
     public class Scene
     {
-        public int SceneId { get; set; }
-        public string SceneName { get; set; }
-        public int Capacity { get; set; }
-        public string Accessibility { get; set; }
+        public int Id { get; set; }
+        public string Nom { get; set; }
+        public int Capacite { get; set; }
+        public string Accessibilite { get; set; }
         
         
         public virtual ICollection<Programmation> Programmations { get; set; }
