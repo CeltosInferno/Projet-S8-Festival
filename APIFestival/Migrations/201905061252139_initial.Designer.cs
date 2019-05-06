@@ -13,7 +13,7 @@ namespace APIFestival.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201904041853138_initial"; }
+            get { return "201905061252139_initial"; }
         }
         
         string IMigrationMetadata.Source

@@ -93,7 +93,7 @@ namespace WpfFestival.ViewModels
             if (uri != null)
             {
                 _regionManager.RequestNavigate("ContentRegion", uri);
-                _eventAggregator.GetEvent<PassOrganisateurIdEvent>().Publish(Festival.OrganisateurId);
+                //_eventAggregator.GetEvent<PassOrganisateurIdEvent>().Publish(Festival.OrganisateurId);
             }
 
         }
@@ -103,14 +103,17 @@ namespace WpfFestival.ViewModels
             _regionManager = regionManager;
             _eventAggregator = eventAggregator;
             Festival = new Festival();
-            GoToModifierFestival = new DelegateCommand<string>(ExecutedA).ObservesCanExecute(()=>Festival.IsPublication);
+            GoToModifierFestival = new DelegateCommand<string>(ExecutedA);
             ModifierFestival = new DelegateCommand(ExecutedB);
             SupprimerFestival = new DelegateCommand(ExecutedC);
             GoToFestivalFormulaire = new DelegateCommand<string>(ExecutedD);
             NotificationRequest = new InteractionRequest<INotification>();
-            _eventAggregator.GetEvent<PassOrganisateurIdEvent>().Subscribe(GetOrganisateurId);
 
             FestivalsList = new ObservableCollection<Festival>();
+
+            //_eventAggregator.GetEvent<PassOrganisateurIdEvent>().Subscribe(GetOrganisateurId);
+            _eventAggregator.GetEvent<RefreshEvent>().Subscribe(Update);
+           
             
         }
         
@@ -125,7 +128,8 @@ namespace WpfFestival.ViewModels
         {
             if (obj)
             {
-                FestivalsList = GetFestivalsList($"api/Festivals/org/{Festival.OrganisateurId}");
+                
+                FestivalsList = GetFestivalsList($"api/Festivals/org/{IdentificationViewModel.OrganisateurId}");
                 obj = false;
             }
         }

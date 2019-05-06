@@ -25,7 +25,7 @@ namespace WpfFestival.ViewModels
             GoToGestionFestival = new DelegateCommand<string>(NavigateAndRefreshAndPassId);
             GoToGestionScene = new DelegateCommand<string>(NavigateAndRefresh);
             GoToGestionArtiste = new DelegateCommand<string>(NavigateAndRefresh);
-            _eventAggregator.GetEvent<PassOrganisateurIdEvent>().Subscribe(GetOrganisateurId);
+            //_eventAggregator.GetEvent<PassOrganisateurIdEvent>().Subscribe(GetOrganisateurId);
 
         }
 
@@ -52,7 +52,7 @@ namespace WpfFestival.ViewModels
             if (uri != null)
             {
                 _regionManger.RequestNavigate("ContentRegion", uri);
-                _eventAggregator.GetEvent<PassOrganisateurIdEvent>().Publish(OrganisateurId);
+               // _eventAggregator.GetEvent<PassOrganisateurIdEvent>().Publish(OrganisateurId);
             }
         }
         private void NavigateAndRefreshAndPassId(string uri)
@@ -61,7 +61,7 @@ namespace WpfFestival.ViewModels
             {
                 _regionManger.RequestNavigate("ContentRegion", uri);
                 _eventAggregator.GetEvent<RefreshEvent>().Publish(true); //Rafrachir la liste
-                _eventAggregator.GetEvent<PassOrganisateurIdEvent>().Publish(OrganisateurId);
+               // _eventAggregator.GetEvent<PassOrganisateurIdEvent>().Publish(OrganisateurId);
             }
         }
 

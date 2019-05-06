@@ -154,6 +154,7 @@ namespace WpfFestival.ViewModels
         {
             FestivalName = obj;
             Programmation.FestivalId = GetFestivalId($"/api/Festivals/FestivalId?name={FestivalName}");
+
         }
         #endregion
 

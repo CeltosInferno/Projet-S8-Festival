@@ -181,49 +181,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904041853138_initial.cs" />
-    <Compile Include="Migrations\201904041853138_initial.Designer.cs">
-      <DependentUpon>201904041853138_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904101404354_initial1.cs" />
-    <Compile Include="Migrations\201904101404354_initial1.Designer.cs">
-      <DependentUpon>201904101404354_initial1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904111602174_initial2.cs" />
-    <Compile Include="Migrations\201904111602174_initial2.Designer.cs">
-      <DependentUpon>201904111602174_initial2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904111606433_initial3.cs" />
-    <Compile Include="Migrations\201904111606433_initial3.Designer.cs">
-      <DependentUpon>201904111606433_initial3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904221201464_initial4.cs" />
-    <Compile Include="Migrations\201904221201464_initial4.Designer.cs">
-      <DependentUpon>201904221201464_initial4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904251145252_initial5.cs" />
-    <Compile Include="Migrations\201904251145252_initial5.Designer.cs">
-      <DependentUpon>201904251145252_initial5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905011358476_organisateur.cs" />
-    <Compile Include="Migrations\201905011358476_organisateur.Designer.cs">
-      <DependentUpon>201905011358476_organisateur.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905041101152_selection.cs" />
-    <Compile Include="Migrations\201905041101152_selection.Designer.cs">
-      <DependentUpon>201905041101152_selection.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905041102426_accessibility.cs" />
-    <Compile Include="Migrations\201905041102426_accessibility.Designer.cs">
-      <DependentUpon>201905041102426_accessibility.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905041112580_festival.cs" />
-    <Compile Include="Migrations\201905041112580_festival.Designer.cs">
-      <DependentUpon>201905041112580_festival.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905041950177_dateProgrammation.cs" />
-    <Compile Include="Migrations\201905041950177_dateProgrammation.Designer.cs">
-      <DependentUpon>201905041950177_dateProgrammation.cs</DependentUpon>
+    <Compile Include="Migrations\201905061252139_initial.cs" />
+    <Compile Include="Migrations\201905061252139_initial.Designer.cs">
+      <DependentUpon>201905061252139_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\APIFestivalContext.cs" />
@@ -332,38 +292,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201904041853138_initial.resx">
-      <DependentUpon>201904041853138_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904101404354_initial1.resx">
-      <DependentUpon>201904101404354_initial1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904111602174_initial2.resx">
-      <DependentUpon>201904111602174_initial2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904111606433_initial3.resx">
-      <DependentUpon>201904111606433_initial3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904221201464_initial4.resx">
-      <DependentUpon>201904221201464_initial4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904251145252_initial5.resx">
-      <DependentUpon>201904251145252_initial5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905011358476_organisateur.resx">
-      <DependentUpon>201905011358476_organisateur.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905041101152_selection.resx">
-      <DependentUpon>201905041101152_selection.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905041102426_accessibility.resx">
-      <DependentUpon>201905041102426_accessibility.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905041112580_festival.resx">
-      <DependentUpon>201905041112580_festival.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905041950177_dateProgrammation.resx">
-      <DependentUpon>201905041950177_dateProgrammation.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905061252139_initial.resx">
+      <DependentUpon>201905061252139_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

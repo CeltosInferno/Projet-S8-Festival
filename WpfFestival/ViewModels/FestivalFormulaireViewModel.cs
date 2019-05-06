@@ -97,11 +97,12 @@ namespace WpfFestival.ViewModels
             _regionManaager = regionManager;
             AddFestival = new DelegateCommand<string>(ExecutedA).ObservesCanExecute(() => IsEnabled);
             GoToGestionFestival = new DelegateCommand<string>(ExecutedB);
-            _eventAggregator.GetEvent<PassOrganisateurIdEvent>().Subscribe(Update);
+            //_eventAggregator.GetEvent<PassOrganisateurIdEvent>().Subscribe(Update);
             _festival.EndDate = DateTime.Now;
             _festival.StartDate = DateTime.Now;
 
             NotificationRequest = new InteractionRequest<INotification>();
+            Festival.OrganisateurId = IdentificationViewModel.OrganisateurId;
         }
 
         #region Events

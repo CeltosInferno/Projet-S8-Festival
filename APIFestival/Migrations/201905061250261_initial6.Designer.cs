@@ -7,13 +7,13 @@ namespace APIFestival.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class dateProgrammation : IMigrationMetadata
+    public sealed partial class initial6 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(dateProgrammation));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initial6));
         
         string IMigrationMetadata.Id
         {
-            get { return "201905041950177_dateProgrammation"; }
+            get { return "201905061250261_initial6"; }
         }
         
         string IMigrationMetadata.Source

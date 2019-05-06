@@ -17,6 +17,7 @@ namespace WpfFestival.ViewModels
     public class IdentificationViewModel : BindableBase
     {
         #region Members
+        public static int OrganisateurId;
         private Organisateur _organisateur;
         private readonly IEventAggregator _eventAggregator;
         private readonly IRegionManager _regionManager;
@@ -52,9 +53,11 @@ namespace WpfFestival.ViewModels
                 else if (ResultCheckPassword == 1)
                 {
                     Organisateur.Id = GetOrganisateurId($"/api/Organisateurs/{Organisateur.Email}").Id;
+                    OrganisateurId = Organisateur.Id;
                     NotificationRequest.Raise(new Notification { Content = "Bienvenue !!!", Title = "Notification" });
                     _regionManager.RequestNavigate("MainContentRegion", uri);
-                    _eventAggregator.GetEvent<PassOrganisateurIdEvent>().Publish(Organisateur.Id);
+                    //_eventAggregator.GetEvent<PassOrganisateurIdEvent>().Publish(Organisateur.Id);
+                    
                 }
                 else if (ResultCheckPassword == -2)
                 {

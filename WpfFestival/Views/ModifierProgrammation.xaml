@@ -57,6 +57,7 @@
                 <ComboBoxItem Content="60" />
             </ComboBox>
             <xctk:DateTimePicker x:Name="timePicker" TimePickerAllowSpin="True" Kind="Local"  Value="{Binding Programmation.Date}" Canvas.Left="133" Canvas.Top="122"/>
+            <Button Click="Bouton_Click" Content="Envoyer Email" Canvas.Left="133" Canvas.Top="201" Width="102"/>
         </Canvas>
 
 
