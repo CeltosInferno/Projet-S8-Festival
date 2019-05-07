@@ -16,7 +16,7 @@ namespace APIFestival.Models.DTO
         public DateTime DateDebutConcert { get; set; }
         //public int Hour { get; set; }
         //public int Minute { get; set; }
-        public int Duration { get; set; }
+       // public int Duration { get; set; }
         public DateTime DateFinConcert { get; set; }
         public int OrganisateurID { get; set; }
        

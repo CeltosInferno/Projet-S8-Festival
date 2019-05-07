@@ -16,14 +16,14 @@
     </i:Interaction.Triggers>
     <Grid Background="LightGray">
         <Image Source="C:\Users\zlj\Desktop\watermark.png" Height="450"  Width="800" />
-        <Button Command="{Binding Verifier}" CommandParameter="Acceuil" Content="Login" HorizontalAlignment="Left" Margin="610,332,0,0" VerticalAlignment="Top" Width="75" />
-        <TextBox Text="{Binding Organisateur.Mdp}" HorizontalAlignment="Left" Margin="343,238,0,0" VerticalAlignment="Top" Height="26" Width="200"/>
+        <Button Click="lien" Command="{Binding Verifier}" CommandParameter="Acceuil" Content="Login" HorizontalAlignment="Left" Margin="610,332,0,0" VerticalAlignment="Top" Width="75" />
+        <PasswordBox x:Name="Mdp" HorizontalAlignment="Left" Margin="343,238,0,0" VerticalAlignment="Top" Height="26" Width="200"/>
 
-        <TextBox x:Name="TextBox1" Text="{Binding Organisateur.Login}" HorizontalAlignment="Left" Height="23" Margin="343,189,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="200"/>
+        <TextBox  x:Name="TextBox1" Text="{Binding Organisateur.Login}" HorizontalAlignment="Left" Height="23" Margin="343,189,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="200"/>
         <Label Content="Identifiant :" HorizontalAlignment="Left" Margin="236,189,0,0" VerticalAlignment="Top"/>
         <Label Content="Mot de passe :" HorizontalAlignment="Left" Margin="236,238,0,0" VerticalAlignment="Top"/>
         <TextBlock Margin="343,269,328.6,134">
-            <Hyperlink NavigateUri="https://www.microsoft.com">
+            <Hyperlink NavigateUri="https://www.microsoft.com" Click="lien">
                 Mot de passe oublié?
             </Hyperlink>
         </TextBlock>

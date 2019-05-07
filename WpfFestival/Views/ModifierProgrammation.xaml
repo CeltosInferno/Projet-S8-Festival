@@ -22,10 +22,10 @@
             <Label Content="Horaire Debut:" Canvas.Top="115"/>
             <Button Command="{Binding ModifierProgrammation}" CommandParameter="GestionFestival" Content="Modifier" Canvas.Left="66" Canvas.Top="165" Width="75"/>
             <Button Content="Terminer" Canvas.Left="219" Canvas.Top="165" Width="75"/>
-            <TextBlock Text="{Binding Festival.Nom, Mode=TwoWay}" Canvas.Left="167" TextWrapping="Wrap" Canvas.Top="5"/>
+            <TextBlock Text="{Binding Festival.Nom, Mode=TwoWay}" Canvas.Left="184" TextWrapping="Wrap" Canvas.Top="10" Width="84"/>
             <CheckBox IsChecked="{Binding IsEnabled}" Content="Cochez si vous voulez continuer" Canvas.Left="361" Canvas.Top="169"/>
             <ComboBox SelectedValue="{Binding Programmation.ArtisteID}" SelectedValuePath="ArtisteID" ItemsSource="{Binding ArtistesList}" DisplayMemberPath="ArtisteNom" Canvas.Left="381" Canvas.Top="81" Width="120"/>
-            <ComboBox SelectedValue="{Binding Programmation.SceneID}" SelectedValuePath="SceneID" ItemsSource="{Binding ScenesList}" DisplayMemberPath="Nom" Canvas.Left="381" Canvas.Top="136" Width="120"/>
+            <ComboBox SelectedValue="{Binding Programmation.SceneID}" SelectedValuePath="Id" ItemsSource="{Binding ScenesList}" DisplayMemberPath="Nom" Canvas.Left="381" Canvas.Top="136" Width="120"/>
             <Label Content="Choisir un artiste" Canvas.Left="381" Canvas.Top="50"/>
             <Label Content="Choisir un scène" Canvas.Left="380" Canvas.Top="106">
                 <Label.RenderTransform>

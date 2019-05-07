@@ -19,11 +19,19 @@ namespace WpfFestival.Views
     /// </summary>
     public partial class Identification : UserControl
     {
+        public static string password { get; set; }
+
         public Identification()
         {
             InitializeComponent();
+           
         }
 
-        
+        private void lien(object sender, RoutedEventArgs e)
+        {
+            password = Mdp.Password;
+        }
+
+       
     }
 }

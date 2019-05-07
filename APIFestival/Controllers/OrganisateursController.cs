@@ -123,21 +123,29 @@ namespace APIFestival.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
-        //[HttpPost]
-        //// POST: api/Organisateurs
-        //[ResponseType(typeof(Organisateur))]
-        //public async Task<IHttpActionResult> PostOrganisateur(Organisateur organisateur)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        [ResponseType(typeof(Organisateur))]
+        [Route("api/Organisateurs/Verification")]
+        [HttpPost]
+        public async Task<IHttpActionResult> Verification(Organisateur user1)
+        {
+            Organisateur user = await db.Organisateurs.Where(u => u.Login == user1.Login).FirstOrDefaultAsync();
+            Console.WriteLine("Dans la ligne 26");
+            if (user == null)
+            {
+                Console.WriteLine("Dans la ligne 29");
+                return NotFound();
+            }
 
-        //    db.Organisateurs.Add(organisateur);
-        //    await db.SaveChangesAsync();
+            if (!user1.Mdp.Equals(user.Mdp))
+            {
+                Console.WriteLine("Dans la ligne 35");
+                return BadRequest();
+            }
+            Console.WriteLine("Dans la ligne 38");
 
-        //    return CreatedAtRoute("DefaultApi", new { id = organisateur.Id }, organisateur);
-        //}
+            user.Mdp = null;
+            return Ok(user);
+        }
         [HttpPost]
         // POST: api/Organisateurs
         [ResponseType(typeof(int))]

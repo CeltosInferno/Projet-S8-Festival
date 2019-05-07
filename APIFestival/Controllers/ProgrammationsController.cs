@@ -31,8 +31,8 @@ namespace APIFestival.Controllers
                    ProgrammationName = a.ProgrammationName,
                    FestivalID = a.FestivalID,
                    SceneID = a.SceneID,
-                   DateDebutConcert =a.DateDebutConcert,
-                   Duration =a.Duration
+                   DateDebutConcert =a.DateDebutConcert, DateFinConcert=a.DateFinConcert, OrganisateurID=a.OrganisateurID
+                   //Duration =a.Duration
                });
             return programmmations;
         }
@@ -123,8 +123,8 @@ namespace APIFestival.Controllers
                 ProgrammationId = a.ProgrammationId,
                 ProgrammationName = a.ProgrammationName,
                 SceneID = a.SceneID,
-                DateDebutConcert = a.DateDebutConcert,
-                Duration = a.Duration
+                DateDebutConcert = a.DateDebutConcert, DateFinConcert=a.DateFinConcert, OrganisateurID=a.OrganisateurID
+                //Duration = a.Duration
             });
            
             return programmations;
@@ -188,8 +188,8 @@ namespace APIFestival.Controllers
                 ProgrammationName = programmation.ProgrammationName,
                 ArtisteID = programmation.ArtisteID,
                 SceneID = programmation.SceneID,
-                DateDebutConcert = programmation.DateDebutConcert,
-                Duration = programmation.Duration
+                DateDebutConcert = programmation.DateDebutConcert, DateFinConcert=programmation.DateFinConcert, OrganisateurID=programmation.OrganisateurID
+               // Duration = programmation.Duration
             };
 
             return CreatedAtRoute("DefaultApi", new { id = programmation.ProgrammationId }, dto);

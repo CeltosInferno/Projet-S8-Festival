@@ -16,7 +16,7 @@ namespace WpfFestival.Models
 
         public DateTime DateFinConcert { get; set; }
         public DateTime DateDebutConcert { get; set; }
-        public int Duration { get; set; }
+       // public int Duration { get; set; }
         public int OrganisateurID { get; set; }
     }
 }

@@ -130,6 +130,7 @@ namespace WpfFestival.ViewModels
             //_eventAggregator.GetEvent<PassFestivalEvent>().Subscribe(PassFestival);
             _eventAggregator.GetEvent<PassProgrammationEvent>().Subscribe(PassProgrammation);
             
+           
         }
 
        
@@ -138,6 +139,7 @@ namespace WpfFestival.ViewModels
             Programmation = obj;
             OriginalName = obj.ProgrammationName;
             this.GetFestivalName($"api/Festivals/{Programmation.FestivalID}");
+            Programmation.OrganisateurID = IdentificationViewModel.OrganisateurId;
         }
 
 

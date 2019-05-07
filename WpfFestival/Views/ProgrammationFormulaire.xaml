@@ -45,7 +45,7 @@
             <wpfTool:DateTimePicker x:Name="timePicker" TimePickerAllowSpin="True" Kind="Local"  Value="{Binding Programmation.DateDebutConcert}" Canvas.Left="151" Canvas.Top="117"/>
 
             <wpfTool:DateTimePicker x:Name="timePicker2" TimePickerAllowSpin="True" Kind="Local"  Value="{Binding Programmation.DateFinConcert}" Canvas.Left="151" Canvas.Top="141"/>
-            <Label Content="Durée(min):" Canvas.Top="81"/>
+            <!--<Label Content="Durée(min):" Canvas.Top="81"/>
             <ComboBox Text="{Binding Programmation.Duration}" Canvas.Left="151" Canvas.Top="81" Width="76">
                 <ComboBoxItem >5</ComboBoxItem>
                 <ComboBoxItem >10</ComboBoxItem>
@@ -59,7 +59,7 @@
                 <ComboBoxItem >50</ComboBoxItem>
                 <ComboBoxItem >55</ComboBoxItem>
                 <ComboBoxItem >60</ComboBoxItem>
-            </ComboBox>
+            </ComboBox>-->
             <Label Content="Horaire Fin:" Canvas.Top="136"/>
         </Canvas>
 
